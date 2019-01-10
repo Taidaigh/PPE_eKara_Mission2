@@ -9,6 +9,6 @@ namespace WindowsFormsApp1
 {
     class Passerelle
     {
-       TG
+       
     }
 }
