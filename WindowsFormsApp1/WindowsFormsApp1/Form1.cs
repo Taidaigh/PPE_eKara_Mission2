@@ -15,6 +15,11 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
+            //Connexion bdd
+            //Affichage des Offres
+            //Bouton pour ajouter un critere
+            //Mettre dans la bdd le critere (bdd critere et associer)
+            //Afficher les criteres d'une offre selectionné
         }
     }
 }
