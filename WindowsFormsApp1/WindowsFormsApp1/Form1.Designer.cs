@@ -32,7 +32,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.lstCrit = new System.Windows.Forms.ListBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Critères = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Coef = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // lstOffre
@@ -78,28 +81,45 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Critères de l\'offre sélectionnée :";
             // 
-            // lstCrit
+            // dataGridView1
             // 
-            this.lstCrit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstCrit.FormattingEnabled = true;
-            this.lstCrit.ItemHeight = 15;
-            this.lstCrit.Location = new System.Drawing.Point(299, 67);
-            this.lstCrit.Name = "lstCrit";
-            this.lstCrit.Size = new System.Drawing.Size(473, 214);
-            this.lstCrit.TabIndex = 6;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Critères,
+            this.Coef});
+            this.dataGridView1.Location = new System.Drawing.Point(299, 58);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(426, 217);
+            this.dataGridView1.TabIndex = 8;
+            // 
+            // Critères
+            // 
+            this.Critères.HeaderText = "Critères";
+            this.Critères.Name = "Critères";
+            this.Critères.ReadOnly = true;
+            this.Critères.Width = 300;
+            // 
+            // Coef
+            // 
+            this.Coef.HeaderText = "Coef";
+            this.Coef.Name = "Coef";
+            this.Coef.ReadOnly = true;
+            this.Coef.Width = 83;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.lstCrit);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lstOffre);
             this.Name = "Form1";
             this.Text = "EKara - AppEVAL";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -111,7 +131,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListBox lstCrit;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Critères;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Coef;
     }
 }
 
