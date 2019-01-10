@@ -31,8 +31,8 @@
             this.lstOffre = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.lstCrit = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // lstOffre
@@ -60,21 +60,12 @@
             // 
             this.button1.Enabled = false;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(444, 320);
+            this.button1.Location = new System.Drawing.Point(438, 328);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(170, 64);
             this.button1.TabIndex = 2;
             this.button1.Text = "Ajouter un critère";
             this.button1.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(299, 71);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(459, 193);
-            this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = "";
             // 
             // label2
             // 
@@ -86,13 +77,23 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Critères de l\'offre sélectionnée :";
             // 
+            // lstCrit
+            // 
+            this.lstCrit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstCrit.FormattingEnabled = true;
+            this.lstCrit.ItemHeight = 15;
+            this.lstCrit.Location = new System.Drawing.Point(299, 67);
+            this.lstCrit.Name = "lstCrit";
+            this.lstCrit.Size = new System.Drawing.Size(473, 214);
+            this.lstCrit.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lstCrit);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lstOffre);
@@ -108,8 +109,8 @@
         private System.Windows.Forms.ListBox lstOffre;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox lstCrit;
     }
 }
 
