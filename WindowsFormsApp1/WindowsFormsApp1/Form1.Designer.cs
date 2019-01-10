@@ -28,23 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lstOffre = new System.Windows.Forms.ListBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnAddCrit = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.lstViewCrit = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
-            // lstOffre
+            // listBox1
             // 
-            this.lstOffre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstOffre.FormattingEnabled = true;
-            this.lstOffre.ItemHeight = 15;
-            this.lstOffre.Location = new System.Drawing.Point(12, 38);
-            this.lstOffre.Name = "lstOffre";
-            this.lstOffre.Size = new System.Drawing.Size(245, 394);
-            this.lstOffre.TabIndex = 0;
-            this.lstOffre.SelectedIndexChanged += new System.EventHandler(this.lstOffre_SelectedIndexChanged);
+            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 15;
+            this.listBox1.Location = new System.Drawing.Point(12, 38);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(245, 394);
+            this.listBox1.TabIndex = 0;
             // 
             // label1
             // 
@@ -88,7 +87,7 @@
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.lstOffre);
+            this.Controls.Add(this.listBox1);
             this.Name = "Form1";
             this.Text = "EKara - AppEVAL";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -99,7 +98,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox lstOffre;
+        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RichTextBox richTextBox1;
