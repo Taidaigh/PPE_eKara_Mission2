@@ -67,8 +67,6 @@
             this.button1.Text = "Ajouter un critère";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // richTextBox1
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
