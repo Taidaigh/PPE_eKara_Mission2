@@ -30,9 +30,9 @@
         {
             this.lstOffre = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.btnAddCrit = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.lstViewCrit = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // lstOffre
@@ -56,25 +56,17 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Liste des offres :";
             // 
-            // button1
+            // btnAddCrit
             // 
-            this.button1.Enabled = false;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(444, 320);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(170, 64);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Ajouter un critère";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(299, 71);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(459, 193);
-            this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = "";
+            this.btnAddCrit.Enabled = false;
+            this.btnAddCrit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddCrit.Location = new System.Drawing.Point(444, 320);
+            this.btnAddCrit.Name = "btnAddCrit";
+            this.btnAddCrit.Size = new System.Drawing.Size(170, 64);
+            this.btnAddCrit.TabIndex = 2;
+            this.btnAddCrit.Text = "Ajouter un critère";
+            this.btnAddCrit.UseVisualStyleBackColor = true;
+            this.btnAddCrit.Click += new System.EventHandler(this.btnAddCrit_Click);
             // 
             // label2
             // 
@@ -86,14 +78,23 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Critères de l\'offre sélectionnée :";
             // 
+            // lstViewCrit
+            // 
+            this.lstViewCrit.Enabled = false;
+            this.lstViewCrit.Location = new System.Drawing.Point(299, 71);
+            this.lstViewCrit.Name = "lstViewCrit";
+            this.lstViewCrit.Size = new System.Drawing.Size(452, 192);
+            this.lstViewCrit.TabIndex = 6;
+            this.lstViewCrit.UseCompatibleStateImageBehavior = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lstViewCrit);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnAddCrit);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lstOffre);
             this.Name = "Form1";
@@ -107,9 +108,9 @@
 
         private System.Windows.Forms.ListBox lstOffre;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button btnAddCrit;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListView lstViewCrit;
     }
 }
 
