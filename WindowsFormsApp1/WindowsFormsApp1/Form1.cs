@@ -21,5 +21,10 @@ namespace WindowsFormsApp1
             //Mettre dans la bdd le critere (bdd critere et associer)
             //Afficher les criteres d'une offre selectionné
         }
+
+        private void lstOffre_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
