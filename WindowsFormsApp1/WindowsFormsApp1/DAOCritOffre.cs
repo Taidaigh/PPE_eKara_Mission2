@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    class Critere
+    public class DAOCritOffre
     {
     }
 }

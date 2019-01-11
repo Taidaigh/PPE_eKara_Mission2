@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace WindowsFormsApp1
 {
-    class OffreEmplois
+    public class DAOOffre
     {
         /// <summary>
         /// Methode qui permet d'acceder à la base de donnée et de recuperer toutes les offres d'emplois
