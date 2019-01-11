@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    class CritOffre
+    public class CritOffre
     {
+        int id_crit;
+        int id_offre;
+        string coef;
+
+        public CritOffre(int unIdCrit, int unIdOffre, string unCoef)
+        {
+            this.id_crit = unIdCrit;
+            this.id_offre = unIdOffre;
+            this.coef = unCoef;
+        }
     }
 }
