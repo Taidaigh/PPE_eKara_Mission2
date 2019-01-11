@@ -10,25 +10,26 @@ namespace WindowsFormsApp1
     public class DAOCritere
     {
         /// <summary>
-        /// Methode qui permet de recuperer les criteres de l'offre mise en parametre
+        /// Methode qui permet de recuperer les criteres
         /// </summary>
         /// <param name="offre"></param>
         /// <returns></returns>
-        public static Dictionary<int, string> GetCritereOffre(int offre)
+        public static List<Critere> GetCritere(int offre)
         {
-            Dictionary<int, string> resul = new Dictionary<int, string>();
+            List<Critere> resul = new List<Critere>();
 
             var connString = "Host=localhost;Port=8484;Username=openpg;Password=;Database=AppEval";
             using (var conn = new NpgsqlConnection(connString))
             {
                 conn.Open();
 
-                using (var cmd = new NpgsqlCommand("SELECT CRITERE.libelle_critere, ASSOCIER.coef FROM CRITERE INNER JOIN ASSOCIER ON ASSOCIER.id_critere = CRITERE.id_critere WHERE ASSOCIER.id_offre_emplois=" + offre + ";", conn))
+                using (var cmd = new NpgsqlCommand("SELECT CRITERE.id_critere CRITERE.libelle_critere FROM CRITERE ;", conn))
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        resul.Add(int.Parse(reader.GetString(0)), reader.GetString(1));
+                        Critere c = new Critere(int.Parse(reader.GetString(0)), reader.GetString(1));
+                        resul.Add(c);
                     }
                 }
             }

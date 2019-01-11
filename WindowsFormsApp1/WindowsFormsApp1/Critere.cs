@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    class Critere
+    public class Critere
     {
+        int id;
+        string libelle;
+
+        public Critere(int unId, string unLibelle)
+        {
+            this.id = unId;
+            this.libelle = unLibelle;
+        }
     }
 }
