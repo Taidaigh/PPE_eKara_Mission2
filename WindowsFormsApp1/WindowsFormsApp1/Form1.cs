@@ -43,7 +43,7 @@ namespace WindowsFormsApp1
             foreach (string o in Passerelle.AfficheCritereOffre(1).Values)
             {
                 ListViewItem lvi = new ListViewItem(o);
-                lstViewCrit.Items.Add(lvi); // tu ajoute ton item à la liste des items de la listView 
+                lstViewCrit.Items.Add(lvi); // tu ajoute ton item a la liste des items de la listView 
             }
             btnAddCrit.Enabled = true;
         }
