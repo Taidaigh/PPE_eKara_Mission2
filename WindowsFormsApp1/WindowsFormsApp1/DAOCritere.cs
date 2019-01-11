@@ -51,7 +51,7 @@ namespace WindowsFormsApp1
             {
                 conn.Open();
 
-                using (var cmd = new NpgsqlCommand("SELECT CRITERE.id_critere, CRITERE.libelle_critere ASSOCIER.coef FROM CRITERE INNER JOIN ASSOCIER ON ASSOCIER.id_crietre = CRITERE.id_crietre WHERE ASSOCIER.id_offre_emplois =" + offre + ";", conn))
+                using (var cmd = new NpgsqlCommand("SELECT CRITERE.id_critere, CRITERE.libelle_critere, ASSOCIER.coef FROM CRITERE INNER JOIN ASSOCIER ON ASSOCIER.id_critere = CRITERE.id_critere WHERE ASSOCIER.id_offre_emplois = " + offre + ";", conn))
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())

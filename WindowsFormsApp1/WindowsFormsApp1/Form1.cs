@@ -30,21 +30,11 @@ namespace WindowsFormsApp1
 
         private void lstOffre_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lstViewCrit.Refresh();
-            lstViewCrit.View = View.Details; // pour avoir l'affichage en mode détail (une ligne à la fois)
-            lstViewCrit.Columns.Add("Critère", lstViewCrit.Width / 2); // on ajoute une première colonne
-            foreach (int o in DAOCritere.GetCritereCoefByOffre(1).Keys)
+            GridViewCrit.Refresh();
+            foreach (KeyValuePair<int, Critere> o in DAOCritere.GetCritereCoefByOffre(1))
             {
-                ListViewItem lvi = new ListViewItem(o.ToString());
-                lstViewCrit.Items.Add(lvi); // tu ajoute ton item à la liste des items de la listView 
-            }
-
-            lstViewCrit.Columns.Add("Coef", lstViewCrit.Width / 2); // on ajoute une deuxième colonne
-
-            foreach (Critere o in DAOCritere.GetCritereCoefByOffre(1).Values)
-            {
-                ListViewItem lvi = new ListViewItem(o.Libelle);
-                lstViewCrit.Items.Add(lvi); // tu ajoute ton item a la liste des items de la listView 
+                string[] row = new string[] { o.Key.ToString(), o.Value.Libelle};
+                GridViewCrit.Rows.Add(row);
             }
             btnAddCrit.Enabled = true;
         }
