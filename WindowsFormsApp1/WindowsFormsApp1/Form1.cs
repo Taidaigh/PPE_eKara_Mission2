@@ -16,7 +16,7 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             //Connexion bdd
-            foreach(string o in Passerelle.AfficheOffre())
+            foreach(string o in OffreEmplois.GetOffre())
             {
                 lstOffre.Items.Add(o);
             }
@@ -32,7 +32,7 @@ namespace WindowsFormsApp1
             lstViewCrit.Refresh();
             lstViewCrit.View = View.Details; // pour avoir l'affichage en mode détail (une ligne à la fois)
             lstViewCrit.Columns.Add("Critère", lstViewCrit.Width / 2); // on ajoute une première colonne
-            foreach (int o in Passerelle.AfficheCritereOffre(1).Keys)
+            foreach (int o in Critere.GetCritereOffre(1).Keys)
             {
                 ListViewItem lvi = new ListViewItem(o.ToString());
                 lstViewCrit.Items.Add(lvi); // tu ajoute ton item à la liste des items de la listView 
@@ -40,7 +40,7 @@ namespace WindowsFormsApp1
 
             lstViewCrit.Columns.Add("Coef", lstViewCrit.Width / 2); // on ajoute une deuxième colonne
 
-            foreach (string o in Passerelle.AfficheCritereOffre(1).Values)
+            foreach (string o in Critere.GetCritereOffre(1).Values)
             {
                 ListViewItem lvi = new ListViewItem(o);
                 lstViewCrit.Items.Add(lvi); // tu ajoute ton item a la liste des items de la listView 
