@@ -24,7 +24,7 @@ namespace WindowsFormsApp1
         public static List<string> AfficheOffre()
         {
             List<string> resul = new List<string>();
-            var connString = "Host=localhost;Port=8484;Username=openpg;Password=;Database=AppEval";
+            var connString = "Host=localhost;Port=5432;Username=postgres;Password=test;Database=AppEval";
             using (var conn = new NpgsqlConnection(connString))
             {
                 conn.Open();
