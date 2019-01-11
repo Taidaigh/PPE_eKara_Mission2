@@ -22,5 +22,11 @@ namespace WindowsFormsApp1
             this.salaire = unSalaire;
             this.dateLimite = uneDateLimite;
         }
+
+        public int Id { get => id; set => id = value; }
+        public string Intitule { get => intitule; set => intitule = value; }
+        public string Lieux { get => lieux; set => lieux = value; }
+        public double Salaire { get => salaire; set => salaire = value; }
+        public DateTime DateLimite { get => dateLimite; set => dateLimite = value; }
     }
 }

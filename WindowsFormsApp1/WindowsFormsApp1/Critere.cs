@@ -16,5 +16,8 @@ namespace WindowsFormsApp1
             this.id = unId;
             this.libelle = unLibelle;
         }
+
+        public int Id { get => id; set => id = value; }
+        public string Libelle { get => libelle; set => libelle = value; }
     }
 }

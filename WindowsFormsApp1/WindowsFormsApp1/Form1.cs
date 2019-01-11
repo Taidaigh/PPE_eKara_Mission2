@@ -16,9 +16,9 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             
-            foreach(string o in DAOOffre.GetOffre())
+            foreach(Offre o in DAOOffre.GetOffre())
             {
-                lstOffre.Items.Add(o);
+                lstOffre.Items.Add(o.Intitule);
             }
             //Connexion bdd
             //Affichage des Offres
@@ -33,7 +33,7 @@ namespace WindowsFormsApp1
             lstViewCrit.Refresh();
             lstViewCrit.View = View.Details; // pour avoir l'affichage en mode détail (une ligne à la fois)
             lstViewCrit.Columns.Add("Critère", lstViewCrit.Width / 2); // on ajoute une première colonne
-            foreach (int o in DAOCritere.GetCritereOffre(1).Keys)
+            foreach (int o in DAOCritere.GetCritereCoefByOffre(1).Keys)
             {
                 ListViewItem lvi = new ListViewItem(o.ToString());
                 lstViewCrit.Items.Add(lvi); // tu ajoute ton item à la liste des items de la listView 
@@ -41,9 +41,9 @@ namespace WindowsFormsApp1
 
             lstViewCrit.Columns.Add("Coef", lstViewCrit.Width / 2); // on ajoute une deuxième colonne
 
-            foreach (string o in DAOCritere.GetCritereOffre(1).Values)
+            foreach (Critere o in DAOCritere.GetCritereCoefByOffre(1).Values)
             {
-                ListViewItem lvi = new ListViewItem(o);
+                ListViewItem lvi = new ListViewItem(o.Libelle);
                 lstViewCrit.Items.Add(lvi); // tu ajoute ton item a la liste des items de la listView 
             }
             btnAddCrit.Enabled = true;
