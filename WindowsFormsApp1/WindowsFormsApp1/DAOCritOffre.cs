@@ -29,7 +29,7 @@ namespace WindowsFormsApp1
                 {
                     while (reader.Read())
                     {
-                        CritOffre c = new CritOffre(int.Parse(reader.GetString(0)), int.Parse(reader.GetString(1)), reader.GetString(2));
+                        CritOffre c = new CritOffre(int.Parse(reader.GetString(0)), int.Parse(reader.GetString(1)), int.Parse(reader.GetString(2)));
                         resul.Add(c);
                     }
                 }

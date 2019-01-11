@@ -10,9 +10,9 @@ namespace WindowsFormsApp1
     {
         int id_crit;
         int id_offre;
-        string coef;
+        int coef;
 
-        public CritOffre(int unIdCrit, int unIdOffre, string unCoef)
+        public CritOffre(int unIdCrit, int unIdOffre, int unCoef)
         {
             this.id_crit = unIdCrit;
             this.id_offre = unIdOffre;
