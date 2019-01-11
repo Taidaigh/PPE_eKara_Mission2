@@ -30,24 +30,24 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.txtCritAjout = new System.Windows.Forms.TextBox();
+            this.btnValAjout = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numUpCoefAj = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numUpCoefMod = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.btnModif = new System.Windows.Forms.Button();
+            this.txtCritmodif = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.critere = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Coef = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpCoefAj)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpCoefMod)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,30 +71,30 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Critère :";
             // 
-            // textBox1
+            // txtCritAjout
             // 
-            this.textBox1.Location = new System.Drawing.Point(23, 92);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(164, 23);
-            this.textBox1.TabIndex = 3;
+            this.txtCritAjout.Location = new System.Drawing.Point(23, 92);
+            this.txtCritAjout.Name = "txtCritAjout";
+            this.txtCritAjout.Size = new System.Drawing.Size(164, 23);
+            this.txtCritAjout.TabIndex = 3;
             // 
-            // button1
+            // btnValAjout
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(287, 135);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(87, 37);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Valider";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnValAjout.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnValAjout.Location = new System.Drawing.Point(287, 135);
+            this.btnValAjout.Name = "btnValAjout";
+            this.btnValAjout.Size = new System.Drawing.Size(87, 37);
+            this.btnValAjout.TabIndex = 4;
+            this.btnValAjout.Text = "Valider";
+            this.btnValAjout.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.numericUpDown1);
+            this.groupBox1.Controls.Add(this.numUpCoefAj);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.btnValAjout);
+            this.groupBox1.Controls.Add(this.txtCritAjout);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(265, 12);
             this.groupBox1.Name = "groupBox1";
@@ -102,6 +102,13 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ajouter un critère";
+            // 
+            // numUpCoefAj
+            // 
+            this.numUpCoefAj.Location = new System.Drawing.Point(231, 93);
+            this.numUpCoefAj.Name = "numUpCoefAj";
+            this.numUpCoefAj.Size = new System.Drawing.Size(143, 23);
+            this.numUpCoefAj.TabIndex = 7;
             // 
             // label3
             // 
@@ -113,20 +120,13 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Coefficient du critère :";
             // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(231, 93);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(143, 23);
-            this.numericUpDown1.TabIndex = 7;
-            // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.numericUpDown2);
+            this.groupBox2.Controls.Add(this.numUpCoefMod);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.btnModif);
+            this.groupBox2.Controls.Add(this.txtCritmodif);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(265, 235);
             this.groupBox2.Name = "groupBox2";
@@ -135,12 +135,12 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Modification du critère sélectionné";
             // 
-            // numericUpDown2
+            // numUpCoefMod
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(231, 93);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(143, 23);
-            this.numericUpDown2.TabIndex = 7;
+            this.numUpCoefMod.Location = new System.Drawing.Point(231, 93);
+            this.numUpCoefMod.Name = "numUpCoefMod";
+            this.numUpCoefMod.Size = new System.Drawing.Size(143, 23);
+            this.numUpCoefMod.TabIndex = 7;
             // 
             // label4
             // 
@@ -162,22 +162,22 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "Critère :";
             // 
-            // button2
+            // btnModif
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(287, 135);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(87, 37);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Modifier";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnModif.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnModif.Location = new System.Drawing.Point(287, 135);
+            this.btnModif.Name = "btnModif";
+            this.btnModif.Size = new System.Drawing.Size(87, 37);
+            this.btnModif.TabIndex = 4;
+            this.btnModif.Text = "Modifier";
+            this.btnModif.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // txtCritmodif
             // 
-            this.textBox2.Location = new System.Drawing.Point(23, 92);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(164, 23);
-            this.textBox2.TabIndex = 3;
+            this.txtCritmodif.Location = new System.Drawing.Point(23, 92);
+            this.txtCritmodif.Name = "txtCritmodif";
+            this.txtCritmodif.Size = new System.Drawing.Size(164, 23);
+            this.txtCritmodif.TabIndex = 3;
             // 
             // dataGridView1
             // 
@@ -218,10 +218,10 @@
             this.Text = "Form2";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpCoefAj)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpCoefMod)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -231,17 +231,17 @@
         #endregion
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtCritAjout;
+        private System.Windows.Forms.Button btnValAjout;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numUpCoefAj;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown numUpCoefMod;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button btnModif;
+        private System.Windows.Forms.TextBox txtCritmodif;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn critere;
         private System.Windows.Forms.DataGridViewTextBoxColumn Coef;

@@ -64,5 +64,28 @@ namespace WindowsFormsApp1
 
             return resul;
         }
+
+        /// <summary>
+        /// Methode qui permet d'ajouter des critères
+        /// </summary>
+        /// <returns></returns>
+        public static void AjoutCrit(string libelle, int coef, int id_offre)
+        {
+            var connString = "Host=localhost;Port=8484;Username=openpg;Password=;Database=AppEval";
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                conn.Open();
+
+                using (var cmd = new NpgsqlCommand("INSERT INTO CRITERE VALUES(," + libelle +" );", conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Critere c = new Critere(int.Parse(reader.GetString(0)), reader.GetString(1));
+                        resul.Add(c);
+                    }
+                }
+            }
+        }
     }
 }
