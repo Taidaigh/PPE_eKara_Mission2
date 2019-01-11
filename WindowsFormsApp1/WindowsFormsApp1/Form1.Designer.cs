@@ -76,12 +76,13 @@
             // 
             // btnAddCrit
             // 
-            this.btnAddCrit.Location = new System.Drawing.Point(386, 306);
+            this.btnAddCrit.Location = new System.Drawing.Point(386, 302);
             this.btnAddCrit.Name = "btnAddCrit";
             this.btnAddCrit.Size = new System.Drawing.Size(227, 109);
             this.btnAddCrit.TabIndex = 7;
             this.btnAddCrit.Text = "Ajouter un critère";
             this.btnAddCrit.UseVisualStyleBackColor = true;
+            this.btnAddCrit.Click += new System.EventHandler(this.btnAddCrit_Click);
             // 
             // Form1
             // 
@@ -103,8 +104,6 @@
 
         private System.Windows.Forms.ListBox lstOffre;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListView lstViewCrit;
         private System.Windows.Forms.Button btnAddCrit;

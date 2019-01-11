@@ -51,8 +51,9 @@ namespace WindowsFormsApp1
 
         private void btnAddCrit_Click(object sender, EventArgs e)
         {
-            Form2 Form2 = new Form2();
-            Form2.Show();
+            Form2 f2 = new Form2();
+            f2.Show();
         }
+
     }
 }
