@@ -21,7 +21,7 @@ namespace WindowsFormsApp1
             {
                 conn.Open();
 
-                using (var cmd = new NpgsqlCommand("SELECT OFFRE_EMPLOIS.id_offre_emplois, OFFRE_EMPLOIS.intitule_offre_emplois, OFFRE_EMPLOIS.lieux_offre_emplois, OFFRE_EMPLOIS.date_limite_offre FROM OFFRE_EMPLOIS", conn))
+                using (var cmd = new NpgsqlCommand("SELECT OFFRE_EMPLOIS.id_offre_emplois, OFFRE_EMPLOIS.intitule_offre_emplois, OFFRE_EMPLOIS.lieux_offre_emplois,OFFRE_EMPLOIS.salaire_offre_emplois, OFFRE_EMPLOIS.date_limite_offre_emplois FROM OFFRE_EMPLOIS", conn))
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
