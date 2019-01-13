@@ -47,6 +47,7 @@
             this.lstOffre.Name = "lstOffre";
             this.lstOffre.Size = new System.Drawing.Size(245, 394);
             this.lstOffre.TabIndex = 0;
+            this.lstOffre.SelectedIndexChanged += new System.EventHandler(this.lstOffre_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -84,6 +85,7 @@
             this.GridViewCrit.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ClmCritere,
             this.ClmCoef});
+            this.GridViewCrit.Enabled = false;
             this.GridViewCrit.Location = new System.Drawing.Point(299, 83);
             this.GridViewCrit.Name = "GridViewCrit";
             this.GridViewCrit.Size = new System.Drawing.Size(243, 150);
@@ -93,13 +95,11 @@
             // 
             this.ClmCritere.HeaderText = "Critere";
             this.ClmCritere.Name = "ClmCritere";
-            this.ClmCritere.ReadOnly = true;
             // 
             // ClmCoef
             // 
             this.ClmCoef.HeaderText = "Coef";
             this.ClmCoef.Name = "ClmCoef";
-            this.ClmCoef.ReadOnly = true;
             // 
             // Form1
             // 

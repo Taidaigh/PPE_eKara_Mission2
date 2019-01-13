@@ -42,26 +42,19 @@ namespace WindowsFormsApp1
         /// </summary>
         /// <param name="offre"></param>
         /// <returns></returns>
-        public static Dictionary<int,Critere> GetCritereCoefByOffre(int offre)
+        public static Dictionary<double,Critere> GetCritereCoefByOffre(NpgsqlConnection conn,int offre)
         {
-            Dictionary<int,Critere> resul = new Dictionary<int, Critere>();
-
-            var connString = "Host=localhost;Port=8484;Username=openpg;Password=;Database=AppEval";
-            using (var conn = new NpgsqlConnection(connString))
+            Dictionary<double,Critere> resul = new Dictionary<double, Critere>();
+            using (var cmd = new NpgsqlCommand("SELECT CRITERE.id_critere, CRITERE.libelle_critere, ASSOCIER.coef FROM CRITERE INNER JOIN ASSOCIER ON ASSOCIER.id_critere = CRITERE.id_critere WHERE ASSOCIER.id_offre_emplois = " + offre + ";", conn))
+            using (var reader = cmd.ExecuteReader())
             {
-                conn.Open();
-
-                using (var cmd = new NpgsqlCommand("SELECT CRITERE.id_critere, CRITERE.libelle_critere, ASSOCIER.coef FROM CRITERE INNER JOIN ASSOCIER ON ASSOCIER.id_critere = CRITERE.id_critere WHERE ASSOCIER.id_offre_emplois = " + offre + ";", conn))
-                using (var reader = cmd.ExecuteReader())
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        Critere c = new Critere(int.Parse(reader.GetString(0)), reader.GetString(1));
-                        resul.Add(reader.GetInt32(3),c);
-                    }
+                    Critere c = new Critere(int.Parse(reader.GetInt32(0).ToString()), reader.GetString(1));
+                    resul.Add(reader.GetDouble(2),c);
                 }
             }
-
+            
             return resul;
         }
 
@@ -75,14 +68,16 @@ namespace WindowsFormsApp1
             using (var conn = new NpgsqlConnection(connString))
             {
                 conn.Open();
+                
 
-                using (var cmd = new NpgsqlCommand("INSERT INTO CRITERE VALUES(," + libelle +" );", conn))
+                using (var cmd = new NpgsqlCommand("INSERT INTO CRITERE VALUES(," + libelle + " );", conn))
+                //Recupere un serial fonction curval
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         Critere c = new Critere(int.Parse(reader.GetString(0)), reader.GetString(1));
-                        resul.Add(c);
+                        //resul.Add(c);
                     }
                 }
             }

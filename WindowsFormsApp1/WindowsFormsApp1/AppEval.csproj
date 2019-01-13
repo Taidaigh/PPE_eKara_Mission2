@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connexion.cs" />
     <Compile Include="Critere.cs" />
     <Compile Include="CritOffre.cs" />
     <Compile Include="DAOCritOffre.cs" />
