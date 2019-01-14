@@ -35,9 +35,9 @@ namespace WindowsFormsApp1
         private void lstOffre_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewCrit.Rows.Clear();
-            foreach (KeyValuePair<double, Critere> o in DAOCritere.GetCritereCoefByOffre(conn,lstOffre.SelectedIndex))
+            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn,lstOffre.SelectedIndex+1))
             {
-                string[] row = { o.Key.ToString(), o.Value.Libelle };
+                string[] row = { o.Key.Libelle, o.Value.ToString() };
                 GridViewCrit.Rows.Add(row);
             }
             btnAddCrit.Enabled = true;
@@ -45,7 +45,7 @@ namespace WindowsFormsApp1
 
         private void btnAddCrit_Click(object sender, EventArgs e)
         {
-            Form2 f2 = new Form2(conn, lstOffre.SelectedIndex);
+            Form2 f2 = new Form2(conn, lstOffre.SelectedIndex+1);
             f2.Show();
         }
 

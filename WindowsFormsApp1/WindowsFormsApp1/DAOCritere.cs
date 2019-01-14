@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
+using NpgsqlTypes;
 
 namespace WindowsFormsApp1
 {
@@ -17,7 +18,7 @@ namespace WindowsFormsApp1
         {
             List<Critere> resul = new List<Critere>();
 
-            using (var cmd = new NpgsqlCommand("SELECT CRITERE.id_critere, CRITERE.libelle_critere FROM CRITERE ;", conn))
+            using (var cmd = new NpgsqlCommand("SELECT CRITERE.id_critere, CRITERE.libelle_critere FROM CRITERE ORDER BY CRITERE.id_critere;", conn))
             using (var reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
@@ -35,16 +36,16 @@ namespace WindowsFormsApp1
         /// </summary>
         /// <param name="offre"></param>
         /// <returns></returns>
-        public static Dictionary<double,Critere> GetCritereCoefByOffre(NpgsqlConnection conn,int offre)
+        public static Dictionary<Critere,double> GetCritereCoefByOffre(NpgsqlConnection conn,int offre)
         {
-            Dictionary<double,Critere> resul = new Dictionary<double, Critere>();
-            using (var cmd = new NpgsqlCommand("SELECT CRITERE.id_critere, CRITERE.libelle_critere, ASSOCIER.coef FROM CRITERE INNER JOIN ASSOCIER ON ASSOCIER.id_critere = CRITERE.id_critere WHERE ASSOCIER.id_offre_emplois = " + offre + ";", conn))
+            Dictionary<Critere,double> resul = new Dictionary<Critere,double>();
+            using (var cmd = new NpgsqlCommand("SELECT CRITERE.id_critere, CRITERE.libelle_critere, ASSOCIER.coef FROM CRITERE INNER JOIN ASSOCIER ON ASSOCIER.id_critere = CRITERE.id_critere WHERE ASSOCIER.id_offre_emplois = " + offre + "ORDER BY CRITERE.id_critere;", conn))
             using (var reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
                 {
                     Critere c = new Critere(int.Parse(reader.GetInt32(0).ToString()), reader.GetString(1));
-                    resul.Add(reader.GetDouble(2),c);
+                    resul.Add(c,reader.GetDouble(2));
                 }
             }
             
@@ -55,37 +56,39 @@ namespace WindowsFormsApp1
         /// Methode qui permet d'ajouter des critères
         /// </summary>
         /// <returns></returns>
-        public static void AddCrit(NpgsqlConnection conn,string libelle, int coef, int id_offre)
+        public static void AddCrit(NpgsqlConnection conn,string libelle, double coef, int id_offre)
         {
-            using (var cmd = new NpgsqlCommand("INSERT INTO CRITERE VALUES(," + libelle + " );", conn))
-            //Recupere un serial fonction curval
-            using (var reader = cmd.ExecuteReader())
+            Boolean verif = true;
+            foreach (Critere c in DAOCritere.GetCritere(conn))
             {
-                while (reader.Read())
+                if(c.Libelle == libelle)
                 {
-                    Critere c = new Critere(int.Parse(reader.GetString(0)), reader.GetString(1));
-                    //resul.Add(c);
+                    verif = false;
                 }
             }
+            if(verif == true)
+            {
+                //Créer un Critère
+                NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO CRITERE(libelle_critere) VALUES('" + libelle + "' );", conn);
+                cmd.ExecuteNonQuery();
+            }
             
+            //Recupere un serial fonction curval
+            NpgsqlCommand cmd2 = new NpgsqlCommand("INSERT INTO ASSOCIER(coef, id_critere,id_offre_emplois) VALUES("+coef+ ",(SELECT currval('CRITERE_id_critere_seq')),"+id_offre+");", conn);
+            cmd2.ExecuteNonQuery();
+
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="conn"></param>
-        public static void ModifCrit(NpgsqlConnection conn)
+        public static void ModifCrit(NpgsqlConnection conn, double coef, int id_critere, int id_offre)
         {
-            using (var cmd = new NpgsqlCommand("", conn))
-            //Recupere un serial fonction curval
-            using (var reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    Critere c = new Critere(int.Parse(reader.GetString(0)), reader.GetString(1));
-                    //resul.Add(c);
-                }
-            }
+            NpgsqlCommand cmd = new NpgsqlCommand("UPDATE ASSOCIER SET coef = " + coef + " WHERE id_critere = " + id_critere + " AND id_offre_emplois = " + id_offre + "", conn);
+            cmd.ExecuteNonQuery();
+
+
         }
     }
 }

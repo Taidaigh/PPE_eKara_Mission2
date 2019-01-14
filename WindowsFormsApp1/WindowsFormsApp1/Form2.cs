@@ -23,12 +23,12 @@ namespace WindowsFormsApp1
             this.conn = uneConn;
             this.offre = loffre;
             GridViewCrit.Rows.Clear();
-            foreach (KeyValuePair<double, Critere> o in DAOCritere.GetCritereCoefByOffre(conn, offre))
+            foreach (KeyValuePair<Critere,double> o in DAOCritere.GetCritereCoefByOffre(this.conn, this.offre))
             {
-                string[] row = { o.Key.ToString(), o.Value.Libelle };
+                string[] row = { o.Key.Libelle, o.Value.ToString() };
                 GridViewCrit.Rows.Add(row);
             }
-            foreach (Critere c in DAOCritere.GetCritere(conn))
+            foreach (Critere c in DAOCritere.GetCritere(this.conn))
             {
                 ComboBoxCritAdd.Items.Add(c.Libelle);
             }
@@ -37,13 +37,13 @@ namespace WindowsFormsApp1
         private void btnCritAdd_Click(object sender, EventArgs e)
         {
             //Ajoute un Critere
-            DAOCritere.AddCrit(conn,ComboBoxCritAdd.Text, int.Parse(numUpCoefAdd.Value.ToString()), offre);
+            DAOCritere.AddCrit(conn,ComboBoxCritAdd.Text, double.Parse(numUpCoefAdd.Value.ToString()), this.offre);
 
-            //Actualise le DataGridView 
+            //Actualise le DataGridView
             GridViewCrit.Rows.Clear();
-            foreach (KeyValuePair<double, Critere> o in DAOCritere.GetCritereCoefByOffre(conn, offre))
+            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(this.conn, this.offre))
             {
-                string[] row = { o.Key.ToString(), o.Value.Libelle };
+                string[] row = { o.Key.Libelle, o.Value.ToString() };
                 GridViewCrit.Rows.Add(row);
             }
         }
@@ -51,12 +51,21 @@ namespace WindowsFormsApp1
         private void btnCritMod_Click(object sender, EventArgs e)
         {
             //GridViewCrit.CurrentCell.RowIndex;
-            
+            int crit = GridViewCrit.CurrentCell.RowIndex;
+            int compt = 0;
+            foreach(Critere c in DAOCritere.GetCritereCoefByOffre(this.conn,this.offre).Keys)
+            {
+                if(crit == compt)
+                {
+                    DAOCritere.ModifCrit(this.conn, double.Parse(numUpCoefMod.Value.ToString()), c.Id, this.offre);
+                }
+                compt++;
+            }
 
             GridViewCrit.Rows.Clear();
-            foreach (KeyValuePair<double, Critere> o in DAOCritere.GetCritereCoefByOffre(conn, offre))
+            foreach (KeyValuePair<Critere,double> o in DAOCritere.GetCritereCoefByOffre(this.conn, this.offre))
             {
-                string[] row = { o.Key.ToString(), o.Value.Libelle };
+                string[] row = { o.Key.Libelle, o.Value.ToString() };
                 GridViewCrit.Rows.Add(row);
             }
         }
@@ -65,6 +74,18 @@ namespace WindowsFormsApp1
         {
             numUpCoefMod.Enabled = true;
             btnCritMod.Enabled = true;
+        }
+
+        private void ComboBoxCritAdd_TextChanged(object sender, EventArgs e)
+        {
+            if(double.Parse(ComboBoxCritAdd.Text)>0)
+            {
+                btnCritAdd.Enabled = true;
+            }
+            else
+            {
+                btnCritAdd.Enabled = false;
+            }
         }
     }
 }

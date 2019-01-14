@@ -32,6 +32,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnCritAdd = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ComboBoxCritAdd = new System.Windows.Forms.ComboBox();
             this.numUpCoefAdd = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -43,7 +44,6 @@
             this.GridViewCrit = new System.Windows.Forms.DataGridView();
             this.critere = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Coef = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ComboBoxCritAdd = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpCoefAdd)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -73,6 +73,7 @@
             // 
             // btnCritAdd
             // 
+            this.btnCritAdd.Enabled = false;
             this.btnCritAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCritAdd.Location = new System.Drawing.Point(287, 135);
             this.btnCritAdd.Name = "btnCritAdd";
@@ -96,6 +97,14 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ajouter un critère";
+            // 
+            // ComboBoxCritAdd
+            // 
+            this.ComboBoxCritAdd.FormattingEnabled = true;
+            this.ComboBoxCritAdd.Location = new System.Drawing.Point(23, 93);
+            this.ComboBoxCritAdd.Name = "ComboBoxCritAdd";
+            this.ComboBoxCritAdd.Size = new System.Drawing.Size(164, 24);
+            this.ComboBoxCritAdd.TabIndex = 8;
             // 
             // numUpCoefAdd
             // 
@@ -203,14 +212,6 @@
             this.Coef.Name = "Coef";
             this.Coef.ReadOnly = true;
             this.Coef.Width = 47;
-            // 
-            // ComboBoxCritAdd
-            // 
-            this.ComboBoxCritAdd.FormattingEnabled = true;
-            this.ComboBoxCritAdd.Location = new System.Drawing.Point(23, 93);
-            this.ComboBoxCritAdd.Name = "ComboBoxCritAdd";
-            this.ComboBoxCritAdd.Size = new System.Drawing.Size(164, 24);
-            this.ComboBoxCritAdd.TabIndex = 8;
             // 
             // Form2
             // 
