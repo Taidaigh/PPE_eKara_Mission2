@@ -12,25 +12,18 @@ namespace WindowsFormsApp1
         /// <summary>
         /// Methode qui permet de recuperer les criteres
         /// </summary>
-        /// <param name="offre"></param>
         /// <returns></returns>
-        public static List<Critere> GetCritere(int offre)
+        public static List<Critere> GetCritere(NpgsqlConnection conn)
         {
             List<Critere> resul = new List<Critere>();
 
-            var connString = "Host=localhost;Port=8484;Username=openpg;Password=;Database=AppEval";
-            using (var conn = new NpgsqlConnection(connString))
+            using (var cmd = new NpgsqlCommand("SELECT CRITERE.id_critere, CRITERE.libelle_critere FROM CRITERE ;", conn))
+            using (var reader = cmd.ExecuteReader())
             {
-                conn.Open();
-
-                using (var cmd = new NpgsqlCommand("SELECT CRITERE.id_critere, CRITERE.libelle_critere FROM CRITERE ;", conn))
-                using (var reader = cmd.ExecuteReader())
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        Critere c = new Critere(int.Parse(reader.GetString(0)), reader.GetString(1));
-                        resul.Add(c);
-                    }
+                    Critere c = new Critere(reader.GetInt32(0), reader.GetString(1));
+                    resul.Add(c);
                 }
             }
 
@@ -62,23 +55,35 @@ namespace WindowsFormsApp1
         /// Methode qui permet d'ajouter des critères
         /// </summary>
         /// <returns></returns>
-        public static void AjoutCrit(string libelle, int coef, int id_offre)
+        public static void AddCrit(NpgsqlConnection conn,string libelle, int coef, int id_offre)
         {
-            var connString = "Host=localhost;Port=8484;Username=openpg;Password=;Database=AppEval";
-            using (var conn = new NpgsqlConnection(connString))
+            using (var cmd = new NpgsqlCommand("INSERT INTO CRITERE VALUES(," + libelle + " );", conn))
+            //Recupere un serial fonction curval
+            using (var reader = cmd.ExecuteReader())
             {
-                conn.Open();
-                
-
-                using (var cmd = new NpgsqlCommand("INSERT INTO CRITERE VALUES(," + libelle + " );", conn))
-                //Recupere un serial fonction curval
-                using (var reader = cmd.ExecuteReader())
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        Critere c = new Critere(int.Parse(reader.GetString(0)), reader.GetString(1));
-                        //resul.Add(c);
-                    }
+                    Critere c = new Critere(int.Parse(reader.GetString(0)), reader.GetString(1));
+                    //resul.Add(c);
+                }
+            }
+            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="conn"></param>
+        public static void ModifCrit(NpgsqlConnection conn)
+        {
+            using (var cmd = new NpgsqlCommand("", conn))
+            //Recupere un serial fonction curval
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Critere c = new Critere(int.Parse(reader.GetString(0)), reader.GetString(1));
+                    //resul.Add(c);
                 }
             }
         }

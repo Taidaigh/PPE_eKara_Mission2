@@ -15,23 +15,17 @@ namespace WindowsFormsApp1
         /// </summary>
         /// <param name="offre"></param>
         /// <returns></returns>
-        public static List<CritOffre> GetCritOffre(int offre)
+        public static List<CritOffre> GetCritOffre(NpgsqlConnection conn,int offre)
         {
             List<CritOffre> resul = new List<CritOffre>();
 
-            var connString = "Host=localhost;Port=8484;Username=openpg;Password=;Database=AppEval";
-            using (var conn = new NpgsqlConnection(connString))
+            using (var cmd = new NpgsqlCommand("SELECT ASSOCIER.coef FROM ASSOCIER WHERE id_offre_emplois = "+ offre +";", conn))
+            using (var reader = cmd.ExecuteReader())
             {
-                conn.Open();
-
-                using (var cmd = new NpgsqlCommand("SELECT ASSOCIER.coef FROM ASSOCIER WHERE id_offre_emplois = "+ offre +";", conn))
-                using (var reader = cmd.ExecuteReader())
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        CritOffre c = new CritOffre(int.Parse(reader.GetString(0)), int.Parse(reader.GetString(1)), int.Parse(reader.GetString(2)));
-                        resul.Add(c);
-                    }
+                    CritOffre c = new CritOffre(int.Parse(reader.GetString(0)), int.Parse(reader.GetString(1)), int.Parse(reader.GetString(2)));
+                    resul.Add(c);
                 }
             }
 
