@@ -60,12 +60,46 @@ namespace WindowsFormsApp1
 
         private void btnAddCrit_Click(object sender, EventArgs e)
         {
-            DAOCritere.AddCrit(conn, comboBoxCritAdd.Text, double.Parse(txtBoxCritCoefAdd.Text), lstOffre.SelectedIndex);
+            DAOCritere.AddCrit(conn, comboBoxCritAdd.Text, double.Parse(txtBoxCritCoefAdd.Text), lstOffre.SelectedIndex+1);
+
+            //Reinitialise la liste des criteres
+            lstCrit.Items.Clear();
+            //Ajout des criteres de l'offre dans la liste de critère
+            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
+            {
+                lstCrit.Items.Add(o.Key.Libelle);
+            }
+            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
+
+            AddDate.Visible = true;
+            AddCrit.Visible = true;
+            gpBoxMod.Visible = false;
+            gpBoxAdd.Visible = false;
+            gpBoxDateLimite.Visible = false;
+            AddDate.Enabled = true;
+            AddCrit.Enabled = true;
         }
 
         private void btnModCrit_Click(object sender, EventArgs e)
         {
             DAOCritere.ModifCrit(conn, txtBoxCritMod.Text, double.Parse(txtBoxCritCoefMod.Text), lstOffre.SelectedIndex);
+
+            //Reinitialise la liste des criteres
+            lstCrit.Items.Clear();
+            //Ajout des criteres de l'offre dans la liste de critère
+            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
+            {
+                lstCrit.Items.Add(o.Key.Libelle);
+            }
+            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
+
+            AddDate.Visible = true;
+            AddCrit.Visible = true;
+            gpBoxMod.Visible = false;
+            gpBoxAdd.Visible = false;
+            gpBoxDateLimite.Visible = false;
+            AddDate.Enabled = true;
+            AddCrit.Enabled = true;
         }
 
         private void listCrit_SelectedIndexChanged(object sender, EventArgs e)

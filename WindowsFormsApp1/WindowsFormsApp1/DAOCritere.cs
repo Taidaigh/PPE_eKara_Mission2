@@ -66,20 +66,26 @@ namespace WindowsFormsApp1
                     verif = false;
                 }
             }
-            if(verif == true)
+            if (verif == true)
             {
                 //Créer un Critère
-                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO CRITERE(libelle_critere) VALUES('" + libelle + "' );", conn))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO CRITERE(libelle_critere) VALUES('" + libelle + "' ); INSERT INTO ASSOCIER(coef, id_critere,id_offre_emplois) VALUES(" + coef + ",(SELECT currval('CRITERE_id_critere_seq'))," + id_offre + ");", conn))
                 {
                     cmd.ExecuteNonQuery();
                 }
             }
+            else
+            {
+                using (NpgsqlCommand cmd2 = new NpgsqlCommand("INSERT INTO ASSOCIER(coef, id_critere,id_offre_emplois) VALUES(" + coef + ",(SELECT CRITERE.id_critere FROM CRITERE WHERE libelle_critere='" + libelle + "')," + id_offre + ");", conn))
+                {
+                    cmd2.ExecuteNonQuery();
+                }
+
+            }
+
 
             //Recupere un serial fonction curval
-            using (NpgsqlCommand cmd2 = new NpgsqlCommand("INSERT INTO ASSOCIER(coef, id_critere,id_offre_emplois) VALUES(" + coef + ",(SELECT currval('CRITERE_id_critere_seq'))," + id_offre + ");", conn))
-            {
-                cmd2.ExecuteNonQuery();
-            }
+
 
         }
 
