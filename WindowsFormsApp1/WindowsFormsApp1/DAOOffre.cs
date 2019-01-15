@@ -29,6 +29,28 @@ namespace WindowsFormsApp1
             return resul;
         }
 
+        public static Offre GetOffreById(NpgsqlConnection conn, int id_offre)
+        {
+            Offre resul = null;
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT OFFRE_EMPLOIS.id_offre_emplois, OFFRE_EMPLOIS.intitule_offre_emplois, OFFRE_EMPLOIS.lieux_offre_emplois,OFFRE_EMPLOIS.salaire_offre_emplois, OFFRE_EMPLOIS.date_limite_offre_emplois FROM OFFRE_EMPLOIS WHERE OFFRE_EMPLOIS.id_offre_emplois = " + id_offre + " ORDER BY  OFFRE_EMPLOIS.id_offre_emplois ;", conn))
+            using (NpgsqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    resul = new Offre(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetDouble(3), reader.GetDateTime(4));
+                }
+            }
+            return resul;
+        }
+
+        public static void SetDateLimite(NpgsqlConnection conn, int id_offre, DateTime dateLimite)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE OFFRE_EMPLOIS SET date_limite_offre_emplois = '" + dateLimite + "' WHERE id_offre_emplois = " + id_offre + " ", conn))
+            {
+                cmd.ExecuteNonQuery();
+            }
+        }
 
 
     }

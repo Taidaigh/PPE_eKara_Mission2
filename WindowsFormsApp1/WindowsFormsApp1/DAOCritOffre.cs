@@ -19,8 +19,8 @@ namespace WindowsFormsApp1
         {
             List<CritOffre> resul = new List<CritOffre>();
 
-            using (var cmd = new NpgsqlCommand("SELECT ASSOCIER.coef FROM ASSOCIER WHERE id_offre_emplois = "+ offre +";", conn))
-            using (var reader = cmd.ExecuteReader())
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT ASSOCIER.coef FROM ASSOCIER WHERE id_offre_emplois = "+ offre +";", conn))
+            using (NpgsqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
                 {
