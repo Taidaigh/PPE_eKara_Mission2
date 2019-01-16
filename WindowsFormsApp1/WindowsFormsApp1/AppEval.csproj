@@ -58,11 +58,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Candidature.cs" />
     <Compile Include="Connexion.cs" />
     <Compile Include="Critere.cs" />
     <Compile Include="CritOffre.cs" />
+    <Compile Include="DAOCandidature.cs" />
+    <Compile Include="DAOCritEval.cs" />
     <Compile Include="DAOCritOffre.cs" />
     <Compile Include="DAOCritere.cs" />
+    <Compile Include="DAOEvaluation.cs" />
+    <Compile Include="Evaluation.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

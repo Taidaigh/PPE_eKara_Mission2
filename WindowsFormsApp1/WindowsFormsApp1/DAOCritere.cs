@@ -96,7 +96,7 @@ namespace WindowsFormsApp1
         public static void ModifCrit(NpgsqlConnection conn, string libelle, double coef, int id_offre)
         {
             int id_critere = -1;
-            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT CRITERE.id_critere FROM CRITERE WHERE CRITERE.libelle_critere = "+ libelle +";", conn))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT CRITERE.id_critere FROM CRITERE WHERE CRITERE.libelle_critere = '"+ libelle +"';", conn))
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
@@ -105,7 +105,7 @@ namespace WindowsFormsApp1
                 }
             }
 
-            NpgsqlCommand cmd2 = new NpgsqlCommand("UPDATE ASSOCIER SET coef = " + coef + " WHERE id_critere = " + id_critere + " AND id_offre_emplois = " + id_offre + "", conn);
+            NpgsqlCommand cmd2 = new NpgsqlCommand("UPDATE ASSOCIER SET coef = " + coef + " WHERE id_critere = " + id_critere + " AND id_offre_emplois = " + id_offre + ";", conn);
             cmd2.ExecuteNonQuery();
         }
 
@@ -114,7 +114,7 @@ namespace WindowsFormsApp1
         {
             int id_critere = -1;
             //On recupere l'id du critere à supprimer
-            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT CRITERE.id_critere FROM CRITERE WHERE CRITERE.libelle_critere = " + libelle + ";", conn))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT CRITERE.id_critere FROM CRITERE WHERE CRITERE.libelle_critere = '" + libelle + "';", conn))
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
@@ -125,7 +125,7 @@ namespace WindowsFormsApp1
 
             int association = 0;
             //On verifie si il y a une ou plusieurs Offre associer à ce critere
-            using (NpgsqlCommand cmd2 = new NpgsqlCommand("SELECT COUNT(ASSOCIER.coef) FROM ASSOCIER WHERE CRITERE.id_critere = " + id_critere + ";", conn))
+            using (NpgsqlCommand cmd2 = new NpgsqlCommand("SELECT COUNT(ASSOCIER.coef) FROM ASSOCIER WHERE ASSOCIER.id_critere = " + id_critere + ";", conn))
             using (NpgsqlDataReader reader2 = cmd2.ExecuteReader())
             {
                 while (reader2.Read())
@@ -135,7 +135,7 @@ namespace WindowsFormsApp1
             }
 
             //Suppression de l'association
-            NpgsqlCommand cmd3 = new NpgsqlCommand("DELETE FROM ASSOCIER WHERE CRITERE.id_critere = " + id_critere + " AND OFFRE.id_offre_emplois = " + id_offre + ";", conn);
+            NpgsqlCommand cmd3 = new NpgsqlCommand("DELETE FROM ASSOCIER WHERE ASSOCIER.id_critere = " + id_critere + " AND ASSOCIER.id_offre_emplois = " + id_offre + ";", conn);
             cmd3.ExecuteNonQuery();
 
             //Si il y avait plus que cette association on supprime le critère

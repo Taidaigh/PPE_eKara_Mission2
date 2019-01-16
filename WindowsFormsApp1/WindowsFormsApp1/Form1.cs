@@ -28,6 +28,8 @@ namespace WindowsFormsApp1
                 lstOffre.Items.Add(o.Intitule);
             }
 
+            
+
             //Met la postition des groupBox
             gpBoxAdd.Location = new Point(299, 281);
             gpBoxMod.Location = new Point(299, 281);
@@ -82,7 +84,7 @@ namespace WindowsFormsApp1
 
         private void btnModCrit_Click(object sender, EventArgs e)
         {
-            DAOCritere.ModifCrit(conn, txtBoxCritMod.Text, double.Parse(txtBoxCritCoefMod.Text), lstOffre.SelectedIndex);
+            DAOCritere.ModifCrit(conn, txtBoxCritMod.Text, double.Parse(txtBoxCritCoefMod.Text), lstOffre.SelectedIndex+1);
 
             //Reinitialise la liste des criteres
             lstCrit.Items.Clear();
@@ -181,13 +183,45 @@ namespace WindowsFormsApp1
         private void btnSuppCrit_Click(object sender, EventArgs e)
         {
             DAOCritere.DelCrit(conn, txtBoxCritMod.Text, lstOffre.SelectedIndex + 1);
-            lstOffre.SelectedIndex = lstOffre.SelectedIndex;
+
+            //Reinitialise la liste des criteres
+            lstCrit.Items.Clear();
+            //Ajout des criteres de l'offre dans la liste de critère
+            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
+            {
+                lstCrit.Items.Add(o.Key.Libelle);
+            }
+            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
+
+            AddDate.Visible = true;
+            AddCrit.Visible = true;
+            gpBoxMod.Visible = false;
+            gpBoxAdd.Visible = false;
+            gpBoxDateLimite.Visible = false;
+            AddDate.Enabled = true;
+            AddCrit.Enabled = true;
         }
 
         private void btnDateLimite_Click(object sender, EventArgs e)
         {
             DAOOffre.SetDateLimite(conn, lstOffre.SelectedIndex+1, dateTimePicker.Value);
-            lstOffre.SelectedIndex = lstOffre.SelectedIndex;
+
+            //Reinitialise la liste des criteres
+            lstCrit.Items.Clear();
+            //Ajout des criteres de l'offre dans la liste de critère
+            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
+            {
+                lstCrit.Items.Add(o.Key.Libelle);
+            }
+            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
+
+            AddDate.Visible = true;
+            AddCrit.Visible = true;
+            gpBoxMod.Visible = false;
+            gpBoxAdd.Visible = false;
+            gpBoxDateLimite.Visible = false;
+            AddDate.Enabled = true;
+            AddCrit.Enabled = true;
         }
 
         private void AddDate_Click(object sender, EventArgs e)

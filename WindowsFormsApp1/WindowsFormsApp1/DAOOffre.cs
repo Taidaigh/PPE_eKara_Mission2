@@ -46,7 +46,7 @@ namespace WindowsFormsApp1
 
         public static void SetDateLimite(NpgsqlConnection conn, int id_offre, DateTime dateLimite)
         {
-            using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE OFFRE_EMPLOIS SET date_limite_offre_emplois = '" + dateLimite + "' WHERE id_offre_emplois = " + id_offre + " ", conn))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE OFFRE_EMPLOIS SET date_limite_offre_emplois = '" + dateLimite + "' WHERE id_offre_emplois = " + id_offre + ";", conn))
             {
                 cmd.ExecuteNonQuery();
             }
