@@ -27,7 +27,6 @@ namespace WindowsFormsApp1
             {
                 lstOffre.Items.Add(o.Intitule);
             }
-
             
 
             //Met la postition des groupBox
@@ -47,7 +46,13 @@ namespace WindowsFormsApp1
             foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn,lstOffre.SelectedIndex+1))
             {
                 lstCrit.Items.Add(o.Key.Libelle);
+
             }
+            foreach (Candidature c in DAOCandidature.GetCandidatureByOffre(conn, lstOffre.SelectedIndex + 1))
+            {
+                lstCandid.Items.Add(c.Nom + "  " + c.Prenom);
+            }
+
             dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
 
             AddDate.Visible = true;
