@@ -240,7 +240,7 @@ namespace WindowsFormsApp1
             gpBoxDateLimite.Visible = true;
         }
 
-        private void radBtnNote5_CheckedChanged(object sender, EventArgs e)
+        private void lstCandid_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

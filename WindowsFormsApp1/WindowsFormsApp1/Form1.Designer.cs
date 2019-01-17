@@ -408,6 +408,7 @@
             this.lstCandid.Name = "lstCandid";
             this.lstCandid.Size = new System.Drawing.Size(205, 147);
             this.lstCandid.TabIndex = 0;
+            this.lstCandid.SelectedIndexChanged += new System.EventHandler(this.lstCandid_SelectedIndexChanged);
             // 
             // button1
             // 
