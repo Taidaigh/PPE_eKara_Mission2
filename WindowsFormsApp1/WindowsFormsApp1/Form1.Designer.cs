@@ -51,7 +51,17 @@
             this.btnDateLimite = new System.Windows.Forms.Button();
             this.AddDate = new System.Windows.Forms.Button();
             this.gpNote = new System.Windows.Forms.GroupBox();
+            this.radBtnNote5 = new System.Windows.Forms.RadioButton();
+            this.radBtnNote4 = new System.Windows.Forms.RadioButton();
+            this.radBtnNote3 = new System.Windows.Forms.RadioButton();
+            this.radBtnNote2 = new System.Windows.Forms.RadioButton();
+            this.radBtnNote1 = new System.Windows.Forms.RadioButton();
+            this.radBtnNote0 = new System.Windows.Forms.RadioButton();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.lstCandid = new System.Windows.Forms.ListBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.gpBoxMod.SuspendLayout();
             this.gpBoxAdd.SuspendLayout();
             this.gpBoxDateLimite.SuspendLayout();
@@ -282,27 +292,138 @@
             // 
             // gpNote
             // 
-            this.gpNote.Controls.Add(this.lstCandid);
-            this.gpNote.Location = new System.Drawing.Point(802, 95);
+            this.gpNote.Controls.Add(this.button1);
+            this.gpNote.Controls.Add(this.radBtnNote5);
+            this.gpNote.Controls.Add(this.radBtnNote4);
+            this.gpNote.Controls.Add(this.radBtnNote3);
+            this.gpNote.Controls.Add(this.radBtnNote2);
+            this.gpNote.Controls.Add(this.radBtnNote1);
+            this.gpNote.Controls.Add(this.radBtnNote0);
+            this.gpNote.Controls.Add(this.label8);
+            this.gpNote.Controls.Add(this.label7);
+            this.gpNote.Controls.Add(this.textBox1);
+            this.gpNote.Location = new System.Drawing.Point(778, 145);
             this.gpNote.Name = "gpNote";
-            this.gpNote.Size = new System.Drawing.Size(205, 321);
+            this.gpNote.Size = new System.Drawing.Size(205, 168);
             this.gpNote.TabIndex = 104;
             this.gpNote.TabStop = false;
             this.gpNote.Text = "Noter";
             // 
+            // radBtnNote5
+            // 
+            this.radBtnNote5.AutoSize = true;
+            this.radBtnNote5.Location = new System.Drawing.Point(124, 102);
+            this.radBtnNote5.Name = "radBtnNote5";
+            this.radBtnNote5.Size = new System.Drawing.Size(31, 17);
+            this.radBtnNote5.TabIndex = 109;
+            this.radBtnNote5.TabStop = true;
+            this.radBtnNote5.Text = "5";
+            this.radBtnNote5.UseVisualStyleBackColor = true;
+            // 
+            // radBtnNote4
+            // 
+            this.radBtnNote4.AutoSize = true;
+            this.radBtnNote4.Location = new System.Drawing.Point(87, 102);
+            this.radBtnNote4.Name = "radBtnNote4";
+            this.radBtnNote4.Size = new System.Drawing.Size(31, 17);
+            this.radBtnNote4.TabIndex = 108;
+            this.radBtnNote4.TabStop = true;
+            this.radBtnNote4.Text = "4";
+            this.radBtnNote4.UseVisualStyleBackColor = true;
+            // 
+            // radBtnNote3
+            // 
+            this.radBtnNote3.AutoSize = true;
+            this.radBtnNote3.Location = new System.Drawing.Point(50, 102);
+            this.radBtnNote3.Name = "radBtnNote3";
+            this.radBtnNote3.Size = new System.Drawing.Size(31, 17);
+            this.radBtnNote3.TabIndex = 107;
+            this.radBtnNote3.TabStop = true;
+            this.radBtnNote3.Text = "3";
+            this.radBtnNote3.UseVisualStyleBackColor = true;
+            // 
+            // radBtnNote2
+            // 
+            this.radBtnNote2.AutoSize = true;
+            this.radBtnNote2.Location = new System.Drawing.Point(124, 83);
+            this.radBtnNote2.Name = "radBtnNote2";
+            this.radBtnNote2.Size = new System.Drawing.Size(31, 17);
+            this.radBtnNote2.TabIndex = 106;
+            this.radBtnNote2.TabStop = true;
+            this.radBtnNote2.Text = "2";
+            this.radBtnNote2.UseVisualStyleBackColor = true;
+            // 
+            // radBtnNote1
+            // 
+            this.radBtnNote1.AutoSize = true;
+            this.radBtnNote1.Location = new System.Drawing.Point(87, 80);
+            this.radBtnNote1.Name = "radBtnNote1";
+            this.radBtnNote1.Size = new System.Drawing.Size(31, 17);
+            this.radBtnNote1.TabIndex = 105;
+            this.radBtnNote1.TabStop = true;
+            this.radBtnNote1.Text = "1";
+            this.radBtnNote1.UseVisualStyleBackColor = true;
+            // 
+            // radBtnNote0
+            // 
+            this.radBtnNote0.AutoSize = true;
+            this.radBtnNote0.Location = new System.Drawing.Point(50, 80);
+            this.radBtnNote0.Name = "radBtnNote0";
+            this.radBtnNote0.Size = new System.Drawing.Size(31, 17);
+            this.radBtnNote0.TabIndex = 104;
+            this.radBtnNote0.TabStop = true;
+            this.radBtnNote0.Text = "0";
+            this.radBtnNote0.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(17, 67);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(36, 13);
+            this.label8.TabIndex = 103;
+            this.label8.Text = "Note :";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(17, 28);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(43, 13);
+            this.label7.TabIndex = 101;
+            this.label7.Text = "Critère :";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(17, 44);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 102;
+            // 
             // lstCandid
             // 
             this.lstCandid.FormattingEnabled = true;
-            this.lstCandid.Location = new System.Drawing.Point(7, 20);
+            this.lstCandid.Location = new System.Drawing.Point(535, -8);
             this.lstCandid.Name = "lstCandid";
-            this.lstCandid.Size = new System.Drawing.Size(120, 95);
+            this.lstCandid.Size = new System.Drawing.Size(205, 147);
             this.lstCandid.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(67, 125);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(71, 30);
+            this.button1.TabIndex = 110;
+            this.button1.Text = "Modifier";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1072, 460);
+            this.Controls.Add(this.lstCandid);
             this.Controls.Add(this.gpNote);
             this.Controls.Add(this.AddDate);
             this.Controls.Add(this.gpBoxDateLimite);
@@ -320,6 +441,7 @@
             this.gpBoxAdd.PerformLayout();
             this.gpBoxDateLimite.ResumeLayout(false);
             this.gpNote.ResumeLayout(false);
+            this.gpNote.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -351,6 +473,16 @@
         private System.Windows.Forms.Button AddDate;
         private System.Windows.Forms.GroupBox gpNote;
         private System.Windows.Forms.ListBox lstCandid;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.RadioButton radBtnNote5;
+        private System.Windows.Forms.RadioButton radBtnNote4;
+        private System.Windows.Forms.RadioButton radBtnNote3;
+        private System.Windows.Forms.RadioButton radBtnNote2;
+        private System.Windows.Forms.RadioButton radBtnNote1;
+        private System.Windows.Forms.RadioButton radBtnNote0;
+        private System.Windows.Forms.Button button1;
     }
 }
 

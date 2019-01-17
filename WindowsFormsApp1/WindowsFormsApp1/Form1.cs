@@ -33,6 +33,8 @@ namespace WindowsFormsApp1
             gpBoxAdd.Location = new Point(299, 281);
             gpBoxMod.Location = new Point(299, 281);
             gpBoxDateLimite.Location = new Point(299, 281);
+            lstCandid.Location = new Point(299, 281);
+            gpNote.Location = new Point(535, 72);
         }
 
 
@@ -236,6 +238,11 @@ namespace WindowsFormsApp1
             gpBoxMod.Visible = false;
             gpBoxAdd.Visible = false;
             gpBoxDateLimite.Visible = true;
+        }
+
+        private void radBtnNote5_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
