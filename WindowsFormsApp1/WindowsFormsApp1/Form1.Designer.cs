@@ -51,12 +51,11 @@
             this.btnDateLimite = new System.Windows.Forms.Button();
             this.AddDate = new System.Windows.Forms.Button();
             this.gpNote = new System.Windows.Forms.GroupBox();
-            this.dataGridViewNote = new System.Windows.Forms.DataGridView();
+            this.lstCandid = new System.Windows.Forms.ListBox();
             this.gpBoxMod.SuspendLayout();
             this.gpBoxAdd.SuspendLayout();
             this.gpBoxDateLimite.SuspendLayout();
             this.gpNote.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNote)).BeginInit();
             this.SuspendLayout();
             // 
             // lstOffre
@@ -283,7 +282,7 @@
             // 
             // gpNote
             // 
-            this.gpNote.Controls.Add(this.dataGridViewNote);
+            this.gpNote.Controls.Add(this.lstCandid);
             this.gpNote.Location = new System.Drawing.Point(802, 95);
             this.gpNote.Name = "gpNote";
             this.gpNote.Size = new System.Drawing.Size(205, 321);
@@ -291,13 +290,13 @@
             this.gpNote.TabStop = false;
             this.gpNote.Text = "Noter";
             // 
-            // dataGridViewNote
+            // lstCandid
             // 
-            this.dataGridViewNote.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewNote.Location = new System.Drawing.Point(7, 20);
-            this.dataGridViewNote.Name = "dataGridViewNote";
-            this.dataGridViewNote.Size = new System.Drawing.Size(192, 150);
-            this.dataGridViewNote.TabIndex = 0;
+            this.lstCandid.FormattingEnabled = true;
+            this.lstCandid.Location = new System.Drawing.Point(7, 20);
+            this.lstCandid.Name = "lstCandid";
+            this.lstCandid.Size = new System.Drawing.Size(120, 95);
+            this.lstCandid.TabIndex = 0;
             // 
             // Form1
             // 
@@ -321,7 +320,6 @@
             this.gpBoxAdd.PerformLayout();
             this.gpBoxDateLimite.ResumeLayout(false);
             this.gpNote.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNote)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -352,7 +350,7 @@
         private System.Windows.Forms.Button btnDateLimite;
         private System.Windows.Forms.Button AddDate;
         private System.Windows.Forms.GroupBox gpNote;
-        private System.Windows.Forms.DataGridView dataGridViewNote;
+        private System.Windows.Forms.ListBox lstCandid;
     }
 }
 
