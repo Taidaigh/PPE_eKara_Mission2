@@ -302,7 +302,7 @@
             this.gpNote.Controls.Add(this.label8);
             this.gpNote.Controls.Add(this.label7);
             this.gpNote.Controls.Add(this.txtBoxCrit);
-            this.gpNote.Location = new System.Drawing.Point(778, 145);
+            this.gpNote.Location = new System.Drawing.Point(778, 68);
             this.gpNote.Name = "gpNote";
             this.gpNote.Size = new System.Drawing.Size(205, 168);
             this.gpNote.TabIndex = 104;
@@ -414,7 +414,7 @@
             // lstCandid
             // 
             this.lstCandid.FormattingEnabled = true;
-            this.lstCandid.Location = new System.Drawing.Point(778, 321);
+            this.lstCandid.Location = new System.Drawing.Point(778, 254);
             this.lstCandid.Name = "lstCandid";
             this.lstCandid.Size = new System.Drawing.Size(205, 147);
             this.lstCandid.TabIndex = 0;

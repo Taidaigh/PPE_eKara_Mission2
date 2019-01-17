@@ -382,7 +382,48 @@ namespace WindowsFormsApp1
 
         private void btnNoter_Click(object sender, EventArgs e)
         {
-            
+            int note = -1;
+            if (radBtnNote0.Checked == true)
+            {
+                note = 0;
+            }
+            else
+            {
+                if (radBtnNote1.Checked == true)
+                {
+                    note = 1;
+                }
+                else
+                {
+                    if (radBtnNote2.Checked == true)
+                    {
+                        note = 2;
+                    }
+                    else
+                    {
+                        if (radBtnNote3.Checked == true)
+                        {
+                            note = 3;
+                        }
+                        else
+                        {
+                            if (radBtnNote4.Checked == true)
+                            {
+                                note = 4;
+                            }
+                            else
+                            {
+                                if (radBtnNote5.Checked == true)
+                                {
+                                    note = 5;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //DAOCritEval.SetNote(conn, lstOffre.SelectedIndex + 1,,, note, "De Lemos almeida", "Pierre",txtBoxCrit);
         }
     }
 }
