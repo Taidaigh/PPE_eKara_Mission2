@@ -51,6 +51,7 @@
             this.btnDateLimite = new System.Windows.Forms.Button();
             this.AddDate = new System.Windows.Forms.Button();
             this.gpNote = new System.Windows.Forms.GroupBox();
+            this.btnNoter = new System.Windows.Forms.Button();
             this.radBtnNote5 = new System.Windows.Forms.RadioButton();
             this.radBtnNote4 = new System.Windows.Forms.RadioButton();
             this.radBtnNote3 = new System.Windows.Forms.RadioButton();
@@ -61,7 +62,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtBoxCrit = new System.Windows.Forms.TextBox();
             this.lstCandid = new System.Windows.Forms.ListBox();
-            this.btn = new System.Windows.Forms.Button();
             this.gpBoxMod.SuspendLayout();
             this.gpBoxAdd.SuspendLayout();
             this.gpBoxDateLimite.SuspendLayout();
@@ -116,7 +116,7 @@
             this.lstCrit.Name = "lstCrit";
             this.lstCrit.Size = new System.Drawing.Size(205, 147);
             this.lstCrit.TabIndex = 2;
-            this.lstCrit.SelectedIndexChanged += new System.EventHandler(this.listCrit_SelectedIndexChanged);
+            this.lstCrit.SelectedIndexChanged += new System.EventHandler(this.lstCrit_SelectedIndexChanged);
             // 
             // txtBoxCritMod
             // 
@@ -292,7 +292,7 @@
             // 
             // gpNote
             // 
-            this.gpNote.Controls.Add(this.btn);
+            this.gpNote.Controls.Add(this.btnNoter);
             this.gpNote.Controls.Add(this.radBtnNote5);
             this.gpNote.Controls.Add(this.radBtnNote4);
             this.gpNote.Controls.Add(this.radBtnNote3);
@@ -308,6 +308,16 @@
             this.gpNote.TabIndex = 104;
             this.gpNote.TabStop = false;
             this.gpNote.Text = "Noter";
+            // 
+            // btnNoter
+            // 
+            this.btnNoter.Location = new System.Drawing.Point(67, 125);
+            this.btnNoter.Name = "btnNoter";
+            this.btnNoter.Size = new System.Drawing.Size(71, 30);
+            this.btnNoter.TabIndex = 110;
+            this.btnNoter.Text = "Noter";
+            this.btnNoter.UseVisualStyleBackColor = true;
+            this.btnNoter.Click += new System.EventHandler(this.btnNoter_Click);
             // 
             // radBtnNote5
             // 
@@ -410,15 +420,6 @@
             this.lstCandid.TabIndex = 0;
             this.lstCandid.SelectedIndexChanged += new System.EventHandler(this.lstCandid_SelectedIndexChanged);
             // 
-            // btn
-            // 
-            this.btn.Location = new System.Drawing.Point(67, 125);
-            this.btn.Name = "btn";
-            this.btn.Size = new System.Drawing.Size(71, 30);
-            this.btn.TabIndex = 110;
-            this.btn.Text = "noter";
-            this.btn.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -483,7 +484,7 @@
         private System.Windows.Forms.RadioButton radBtnNote2;
         private System.Windows.Forms.RadioButton radBtnNote1;
         private System.Windows.Forms.RadioButton radBtnNote0;
-        private System.Windows.Forms.Button btn;
+        private System.Windows.Forms.Button btnNoter;
     }
 }
 

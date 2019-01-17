@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    class Evaluation
+    public class Evaluation
     {
+
+        public Evaluation()
+        {
+
+        }
     }
 }

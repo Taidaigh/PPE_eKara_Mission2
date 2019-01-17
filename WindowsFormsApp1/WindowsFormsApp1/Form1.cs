@@ -147,7 +147,7 @@ namespace WindowsFormsApp1
             AddCrit.Enabled = true;
         }
 
-        private void listCrit_SelectedIndexChanged(object sender, EventArgs e)
+        private void lstCrit_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(this.drh == true)
             {
@@ -380,9 +380,9 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnNoter_Click(object sender, EventArgs e)
         {
-
+            
         }
     }
 }
