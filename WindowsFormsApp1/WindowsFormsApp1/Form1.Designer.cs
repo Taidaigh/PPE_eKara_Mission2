@@ -59,9 +59,9 @@
             this.radBtnNote0 = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtBoxCrit = new System.Windows.Forms.TextBox();
             this.lstCandid = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn = new System.Windows.Forms.Button();
             this.gpBoxMod.SuspendLayout();
             this.gpBoxAdd.SuspendLayout();
             this.gpBoxDateLimite.SuspendLayout();
@@ -197,7 +197,7 @@
             this.gpBoxAdd.Controls.Add(this.label6);
             this.gpBoxAdd.Controls.Add(this.btnAddCrit);
             this.gpBoxAdd.Controls.Add(this.txtBoxCritCoefAdd);
-            this.gpBoxAdd.Location = new System.Drawing.Point(541, 302);
+            this.gpBoxAdd.Location = new System.Drawing.Point(535, 281);
             this.gpBoxAdd.Name = "gpBoxAdd";
             this.gpBoxAdd.Size = new System.Drawing.Size(205, 151);
             this.gpBoxAdd.TabIndex = 14;
@@ -260,7 +260,7 @@
             // 
             this.gpBoxDateLimite.Controls.Add(this.btnDateLimite);
             this.gpBoxDateLimite.Controls.Add(this.dateTimePicker);
-            this.gpBoxDateLimite.Location = new System.Drawing.Point(541, 145);
+            this.gpBoxDateLimite.Location = new System.Drawing.Point(535, 68);
             this.gpBoxDateLimite.Name = "gpBoxDateLimite";
             this.gpBoxDateLimite.Size = new System.Drawing.Size(205, 151);
             this.gpBoxDateLimite.TabIndex = 102;
@@ -292,7 +292,7 @@
             // 
             // gpNote
             // 
-            this.gpNote.Controls.Add(this.button1);
+            this.gpNote.Controls.Add(this.btn);
             this.gpNote.Controls.Add(this.radBtnNote5);
             this.gpNote.Controls.Add(this.radBtnNote4);
             this.gpNote.Controls.Add(this.radBtnNote3);
@@ -301,7 +301,7 @@
             this.gpNote.Controls.Add(this.radBtnNote0);
             this.gpNote.Controls.Add(this.label8);
             this.gpNote.Controls.Add(this.label7);
-            this.gpNote.Controls.Add(this.textBox1);
+            this.gpNote.Controls.Add(this.txtBoxCrit);
             this.gpNote.Location = new System.Drawing.Point(778, 145);
             this.gpNote.Name = "gpNote";
             this.gpNote.Size = new System.Drawing.Size(205, 168);
@@ -393,32 +393,31 @@
             this.label7.TabIndex = 101;
             this.label7.Text = "Critère :";
             // 
-            // textBox1
+            // txtBoxCrit
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(17, 44);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 102;
+            this.txtBoxCrit.Enabled = false;
+            this.txtBoxCrit.Location = new System.Drawing.Point(17, 44);
+            this.txtBoxCrit.Name = "txtBoxCrit";
+            this.txtBoxCrit.Size = new System.Drawing.Size(100, 20);
+            this.txtBoxCrit.TabIndex = 102;
             // 
             // lstCandid
             // 
             this.lstCandid.FormattingEnabled = true;
-            this.lstCandid.Location = new System.Drawing.Point(535, -8);
+            this.lstCandid.Location = new System.Drawing.Point(778, 321);
             this.lstCandid.Name = "lstCandid";
             this.lstCandid.Size = new System.Drawing.Size(205, 147);
             this.lstCandid.TabIndex = 0;
             this.lstCandid.SelectedIndexChanged += new System.EventHandler(this.lstCandid_SelectedIndexChanged);
             // 
-            // button1
+            // btn
             // 
-            this.button1.Location = new System.Drawing.Point(67, 125);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(71, 30);
-            this.button1.TabIndex = 110;
-            this.button1.Text = "Modifier";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn.Location = new System.Drawing.Point(67, 125);
+            this.btn.Name = "btn";
+            this.btn.Size = new System.Drawing.Size(71, 30);
+            this.btn.TabIndex = 110;
+            this.btn.Text = "noter";
+            this.btn.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -477,14 +476,14 @@
         private System.Windows.Forms.ListBox lstCandid;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtBoxCrit;
         private System.Windows.Forms.RadioButton radBtnNote5;
         private System.Windows.Forms.RadioButton radBtnNote4;
         private System.Windows.Forms.RadioButton radBtnNote3;
         private System.Windows.Forms.RadioButton radBtnNote2;
         private System.Windows.Forms.RadioButton radBtnNote1;
         private System.Windows.Forms.RadioButton radBtnNote0;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn;
     }
 }
 

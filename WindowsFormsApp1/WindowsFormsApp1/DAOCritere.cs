@@ -52,6 +52,46 @@ namespace WindowsFormsApp1
             return resul;
         }
 
+
+        public static List<Critere> GetCritereByOffreNomPrenomRH(NpgsqlConnection conn, int offre, string nom_rh, string prenom_rh)
+        {
+            List<Critere> resul = new List<Critere>();
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT CRITERE.id_critere, CRITERE.libelle_critere FROM CRITERE INNER JOIN ASSOCIER ON ASSOCIER.id_critere = CRITERE.id_critere LEFT OUTER JOIN NOTER ON CRITERE.id_critere = NOTER.id_critere LEFT OUTER JOIN EVALUATION ON NOTER.id_evaluation = EVALUATION.id_evaluation WHERE ASSOCIER.id_offre_emplois = " + offre + " AND (NOTER.id_evaluation IS NULL OR EVALUATION.nom_rh_evaluation='" + nom_rh + "' AND EVALUATION.prenom_rh_evaluation='" + prenom_rh + "') ORDER BY CRITERE.id_critere;", conn))
+            using (NpgsqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Critere c = new Critere(reader.GetInt32(0),reader.GetString(1));
+                    resul.Add(c);
+                }
+            }
+
+            return resul;
+        }
+
+        public static Dictionary<Critere, int> GetCritereNoteByOffreNomPrenomRH(NpgsqlConnection conn, int offre, string nom_rh, string prenom_rh)
+        {
+            Dictionary<Critere, int> resul = new Dictionary<Critere, int>();
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT NOTER.note, CRITERE.id_critere, CRITERE.libelle_critere FROM CRITERE INNER JOIN ASSOCIER ON ASSOCIER.id_critere = CRITERE.id_critere LEFT OUTER JOIN NOTER ON CRITERE.id_critere = NOTER.id_critere LEFT OUTER JOIN EVALUATION ON NOTER.id_evaluation = EVALUATION.id_evaluation WHERE ASSOCIER.id_offre_emplois = " + offre + " AND (NOTER.id_evaluation IS NULL OR EVALUATION.nom_rh_evaluation='" + nom_rh + "' AND EVALUATION.prenom_rh_evaluation='" + prenom_rh + "') ORDER BY CRITERE.id_critere;", conn))
+            using (NpgsqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Critere c = new Critere(int.Parse(reader.GetInt32(1).ToString()), reader.GetString(2));
+                    if(reader.GetInt32(0)==null)
+                    {
+                        resul.Add(c, -1);
+                    }
+                    else
+                    {
+                        resul.Add(c, reader.GetInt32(0));
+                    }
+                }
+            }
+
+            return resul;
+        }
+
         /// <summary>
         /// Methode qui permet d'ajouter des critères
         /// </summary>

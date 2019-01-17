@@ -14,6 +14,7 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         NpgsqlConnection conn;
+        Boolean drh = true;
 
         public Form1()
         {
@@ -27,43 +28,78 @@ namespace WindowsFormsApp1
             {
                 lstOffre.Items.Add(o.Intitule);
             }
-            
 
-            //Met la postition des groupBox
-            gpBoxAdd.Location = new Point(299, 281);
-            gpBoxMod.Location = new Point(299, 281);
-            gpBoxDateLimite.Location = new Point(299, 281);
-            lstCandid.Location = new Point(299, 281);
-            gpNote.Location = new Point(535, 72);
+            if (this.drh == true)
+            {
+                label2.Visible = true;
+                lstCrit.Visible = true;
+                AddCrit.Visible = false;
+                AddDate.Visible = false;
+                gpBoxMod.Visible = false;
+                gpBoxDateLimite.Visible = false;
+                gpBoxAdd.Visible = false;
+                lstCandid.Visible = false;
+                gpNote.Visible = false;
+
+                //Met la postition des groupBox
+                gpBoxAdd.Location = new Point(299, 281);
+                gpBoxMod.Location = new Point(299, 281);
+                gpBoxDateLimite.Location = new Point(299, 281);
+                lstCrit.Location = new Point(299, 72);
+            }
+            else
+            {
+                label2.Visible = false;
+                lstCrit.Visible = false;
+                AddCrit.Visible = false;
+                AddDate.Visible = false;
+                gpBoxMod.Visible = false;
+                gpBoxDateLimite.Visible = false;
+                gpBoxAdd.Visible = false;
+                lstCandid.Visible = false;
+                gpNote.Visible = false;
+
+                //Se position
+                lstCrit.Location = new Point(299, 281);
+                lstCandid.Location = new Point(299, 72);
+                gpNote.Location = new Point(535, 68);
+
+            }
         }
 
 
         //Event sur la liste d'offre lors d'un changement de selection d'index
         private void lstOffre_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lstCrit.Enabled = true;
-            //Reinitialise la liste des criteres
-            lstCrit.Items.Clear();
-            //Ajout des criteres de l'offre dans la liste de critère
-            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn,lstOffre.SelectedIndex+1))
+            if (this.drh == true)
             {
-                lstCrit.Items.Add(o.Key.Libelle);
+                lstCrit.Enabled = true;
+                AddDate.Visible = true;
+                AddCrit.Visible = true;
+                gpBoxMod.Visible = false;
+                gpBoxAdd.Visible = false;
+                gpBoxDateLimite.Visible = false;
+                //Reinitialise la liste des criteres
+                lstCrit.Items.Clear();
+                //Ajout des criteres de l'offre dans la liste de critère
+                foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
+                {
+                    lstCrit.Items.Add(o.Key.Libelle);
+
+                }
+                dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
 
             }
-            foreach (Candidature c in DAOCandidature.GetCandidatureByOffre(conn, lstOffre.SelectedIndex + 1))
+            else
             {
-                lstCandid.Items.Add(c.Nom + "  " + c.Prenom);
+                lstCandid.Visible = true;
+                gpNote.Visible = false;
+                lstCrit.Visible = false;
+                foreach (Candidature c in DAOCandidature.GetCandidatureByOffre(conn, lstOffre.SelectedIndex + 1))
+                {
+                    lstCandid.Items.Add(c.Nom + "  " + c.Prenom);
+                }
             }
-
-            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
-
-            AddDate.Visible = true;
-            AddCrit.Visible = true;
-            gpBoxMod.Visible = false;
-            gpBoxAdd.Visible = false;
-            gpBoxDateLimite.Visible = false;
-            AddDate.Enabled = true;
-            AddCrit.Enabled = true;
         }
 
 
@@ -113,19 +149,111 @@ namespace WindowsFormsApp1
 
         private void listCrit_SelectedIndexChanged(object sender, EventArgs e)
         {
-            AddDate.Enabled = true;
-            AddCrit.Enabled = true;
-            gpBoxMod.Visible = true;
-            gpBoxAdd.Visible = false;
-            gpBoxDateLimite.Visible = false;
-
-            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
+            if(this.drh == true)
             {
-                if (o.Key.Libelle == lstCrit.Text)
+                AddDate.Enabled = true;
+                AddCrit.Enabled = true;
+                gpBoxMod.Visible = true;
+                gpBoxAdd.Visible = false;
+                gpBoxDateLimite.Visible = false;
+
+                foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
                 {
-                    txtBoxCritMod.Text = o.Key.Libelle;
-                    txtBoxCritCoefMod.Text = o.Value.ToString();
-                }                
+                    if (o.Key.Libelle == lstCrit.Text)
+                    {
+                        txtBoxCritMod.Text = o.Key.Libelle;
+                        txtBoxCritCoefMod.Text = o.Value.ToString();
+                    }
+                }
+            }
+            else
+            {
+                lstCandid.Visible = true;
+                gpNote.Visible = true;
+                lstCrit.Visible = true;
+                foreach(KeyValuePair<Critere, int> c in DAOCritere.GetCritereNoteByOffreNomPrenomRH(conn,lstOffre.SelectedIndex+1,"De Lemos Almeida","Pierre"))
+                {
+                    txtBoxCrit.Text = c.Key.Libelle;
+                    if(c.Value == 0)
+                    {
+                        radBtnNote0.Checked = true;
+                        radBtnNote1.Checked = false;
+                        radBtnNote2.Checked = false;
+                        radBtnNote3.Checked = false;
+                        radBtnNote4.Checked = false;
+                        radBtnNote5.Checked = false;
+                    }
+                    else
+                    {
+                        if(c.Value == 1)
+                        {
+                            radBtnNote0.Checked = false;
+                            radBtnNote1.Checked = true;
+                            radBtnNote2.Checked = false;
+                            radBtnNote3.Checked = false;
+                            radBtnNote4.Checked = false;
+                            radBtnNote5.Checked = false;
+                        }
+                        else
+                        {
+                            if(c.Value == 2)
+                            {
+                                radBtnNote0.Checked = false;
+                                radBtnNote1.Checked = true;
+                                radBtnNote2.Checked = false;
+                                radBtnNote3.Checked = false;
+                                radBtnNote4.Checked = false;
+                                radBtnNote5.Checked = false;
+
+                            }
+                            else
+                            {
+                                if(c.Value == 3)
+                                {
+                                    radBtnNote0.Checked = false;
+                                    radBtnNote1.Checked = false;
+                                    radBtnNote2.Checked = false;
+                                    radBtnNote3.Checked = true;
+                                    radBtnNote4.Checked = false;
+                                    radBtnNote5.Checked = false;
+                                }
+                                else
+                                {
+                                    if(c.Value == 4)
+                                    {
+                                        radBtnNote0.Checked = false;
+                                        radBtnNote1.Checked = false;
+                                        radBtnNote2.Checked = false;
+                                        radBtnNote3.Checked = false;
+                                        radBtnNote4.Checked = true;
+                                        radBtnNote5.Checked = false;
+                                    }
+                                    else
+                                    {
+                                        if(c.Value == 5)
+                                        {
+                                            radBtnNote0.Checked = false;
+                                            radBtnNote1.Checked = false;
+                                            radBtnNote2.Checked = false;
+                                            radBtnNote3.Checked = false;
+                                            radBtnNote4.Checked = false;
+                                            radBtnNote5.Checked = true;
+                                        }
+                                        else
+                                        {
+                                            radBtnNote0.Checked = false;
+                                            radBtnNote1.Checked = false;
+                                            radBtnNote2.Checked = false;
+                                            radBtnNote3.Checked = false;
+                                            radBtnNote4.Checked = false;
+                                            radBtnNote5.Checked = false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -242,7 +370,14 @@ namespace WindowsFormsApp1
 
         private void lstCandid_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            lstCandid.Visible = true;
+            gpNote.Visible = true;
+            lstCrit.Visible = true;
+            lstCrit.Items.Clear();
+            foreach(Critere c in DAOCritere.GetCritereByOffreNomPrenomRH(conn,lstOffre.SelectedIndex+1,"De Lemos almeida","Pierre"))
+            {
+                lstCrit.Items.Add(c.Libelle);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
