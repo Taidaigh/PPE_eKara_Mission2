@@ -14,7 +14,7 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         NpgsqlConnection conn;
-        Boolean drh = true;
+        Boolean drh = false;
 
         public Form1()
         {
@@ -95,6 +95,7 @@ namespace WindowsFormsApp1
                 lstCandid.Visible = true;
                 gpNote.Visible = false;
                 lstCrit.Visible = false;
+                lstCandid.Items.Clear();
                 foreach (Candidature c in DAOCandidature.GetCandidatureByOffre(conn, lstOffre.SelectedIndex + 1))
                 {
                     lstCandid.Items.Add(c.Nom + "  " + c.Prenom);
@@ -171,7 +172,7 @@ namespace WindowsFormsApp1
                 lstCandid.Visible = true;
                 gpNote.Visible = true;
                 lstCrit.Visible = true;
-                foreach(KeyValuePair<Critere, int> c in DAOCritere.GetCritereNoteByOffreNomPrenomRH(conn,lstOffre.SelectedIndex+1,"De Lemos Almeida","Pierre"))
+                foreach(KeyValuePair<Critere, int> c in DAOCritere.GetCritereNoteByOffreNomPrenomRH(conn,lstOffre.SelectedIndex+1,"De Lemos Almeida","Pierre",lstCrit.Text))
                 {
                     txtBoxCrit.Text = c.Key.Libelle;
                     if(c.Value == 0)
@@ -374,7 +375,7 @@ namespace WindowsFormsApp1
             gpNote.Visible = true;
             lstCrit.Visible = true;
             lstCrit.Items.Clear();
-            foreach(Critere c in DAOCritere.GetCritereByOffreNomPrenomRH(conn,lstOffre.SelectedIndex+1,"De Lemos almeida","Pierre"))
+            foreach(Critere c in DAOCritere.GetCritereByOffreNomPrenomRH(conn,lstOffre.SelectedIndex+1,"De Lemos Almeida","Pierre"))
             {
                 lstCrit.Items.Add(c.Libelle);
             }
