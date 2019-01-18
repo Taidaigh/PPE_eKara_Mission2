@@ -62,10 +62,18 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtBoxCrit = new System.Windows.Forms.TextBox();
             this.lstCandid = new System.Windows.Forms.ListBox();
+            this.gpBoxEval = new System.Windows.Forms.GroupBox();
+            this.btnEval = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.gpBoxMod.SuspendLayout();
             this.gpBoxAdd.SuspendLayout();
             this.gpBoxDateLimite.SuspendLayout();
             this.gpNote.SuspendLayout();
+            this.gpBoxEval.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // lstOffre
@@ -414,17 +422,84 @@
             // lstCandid
             // 
             this.lstCandid.FormattingEnabled = true;
-            this.lstCandid.Location = new System.Drawing.Point(778, 254);
+            this.lstCandid.Location = new System.Drawing.Point(989, 76);
             this.lstCandid.Name = "lstCandid";
             this.lstCandid.Size = new System.Drawing.Size(205, 147);
             this.lstCandid.TabIndex = 0;
             this.lstCandid.SelectedIndexChanged += new System.EventHandler(this.lstCandid_SelectedIndexChanged);
+            // 
+            // gpBoxEval
+            // 
+            this.gpBoxEval.Controls.Add(this.numericUpDown1);
+            this.gpBoxEval.Controls.Add(this.richTextBox1);
+            this.gpBoxEval.Controls.Add(this.btnEval);
+            this.gpBoxEval.Controls.Add(this.label9);
+            this.gpBoxEval.Controls.Add(this.label10);
+            this.gpBoxEval.Location = new System.Drawing.Point(778, 242);
+            this.gpBoxEval.Name = "gpBoxEval";
+            this.gpBoxEval.Size = new System.Drawing.Size(282, 214);
+            this.gpBoxEval.TabIndex = 105;
+            this.gpBoxEval.TabStop = false;
+            this.gpBoxEval.Text = "Noter";
+            // 
+            // btnEval
+            // 
+            this.btnEval.Location = new System.Drawing.Point(105, 172);
+            this.btnEval.Name = "btnEval";
+            this.btnEval.Size = new System.Drawing.Size(71, 30);
+            this.btnEval.TabIndex = 110;
+            this.btnEval.Text = "Valider";
+            this.btnEval.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(17, 146);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(78, 13);
+            this.label9.TabIndex = 103;
+            this.label9.Text = "Bonus/malus : ";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(17, 28);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(74, 13);
+            this.label10.TabIndex = 101;
+            this.label10.Text = "Commentaire :";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(17, 44);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(246, 96);
+            this.richTextBox1.TabIndex = 111;
+            this.richTextBox1.Text = "";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(143, 146);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 112;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1072, 460);
+            this.Controls.Add(this.gpBoxEval);
             this.Controls.Add(this.lstCandid);
             this.Controls.Add(this.gpNote);
             this.Controls.Add(this.AddDate);
@@ -444,6 +519,9 @@
             this.gpBoxDateLimite.ResumeLayout(false);
             this.gpNote.ResumeLayout(false);
             this.gpNote.PerformLayout();
+            this.gpBoxEval.ResumeLayout(false);
+            this.gpBoxEval.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -485,6 +563,12 @@
         private System.Windows.Forms.RadioButton radBtnNote1;
         private System.Windows.Forms.RadioButton radBtnNote0;
         private System.Windows.Forms.Button btnNoter;
+        private System.Windows.Forms.GroupBox gpBoxEval;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button btnEval;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }
 
