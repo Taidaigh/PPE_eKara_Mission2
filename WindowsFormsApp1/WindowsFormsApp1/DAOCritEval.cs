@@ -23,7 +23,7 @@ namespace WindowsFormsApp1
 
             if (eval == 0)
             {
-                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO EVALUATION(nom_rh_evaluation, prenom_rh_evaluation, bonus_malus_evaluation, commentaire_evaluation, id_candidature) VALUES(" + nom_rh + "," + prenom_rh + ",0,'',(SELECT id_candidature FROM CANDIDATURE WHERE CANDIDATURE.nom_candidature ='" + nom_candid + "' AND CANDIDATURE.prenom_candidature ='" + prenom_candid + "' AND CANDIDATURE.id_offre_emplois=" + offre + "));", conn))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO EVALUATION(nom_rh_evaluation, prenom_rh_evaluation, bonus_malus_evaluation, commentaire_evaluation, id_candidature) VALUES('" + nom_rh + "','" + prenom_rh + "',0,'',(SELECT id_candidature FROM CANDIDATURE WHERE CANDIDATURE.nom_candidature ='" + nom_candid + "' AND CANDIDATURE.prenom_candidature ='" + prenom_candid + "' AND CANDIDATURE.id_offre_emplois=" + offre + "));", conn))
                 {
                     cmd.ExecuteNonQuery();
                 }

@@ -98,7 +98,7 @@ namespace WindowsFormsApp1
                 lstCandid.Items.Clear();
                 foreach (Candidature c in DAOCandidature.GetCandidatureByOffre(conn, lstOffre.SelectedIndex + 1))
                 {
-                    lstCandid.Items.Add(c.Nom + "  " + c.Prenom);
+                    lstCandid.Items.Add(c.Nom + " | " + c.Prenom);
                 }
             }
         }
@@ -423,8 +423,32 @@ namespace WindowsFormsApp1
                     }
                 }
             }
-
-            //DAOCritEval.SetNote(conn, lstOffre.SelectedIndex + 1,,, note, "De Lemos almeida", "Pierre",txtBoxCrit);
+            string nom_candidat = "";
+            string prenom_candidat = "";
+            Boolean verif = false;
+            for (int i=0; i<lstCandid.Text.Length;i++)
+            {
+                if(verif == false)
+                {
+                    if(lstCandid.Text.ElementAt(i) != ' ' && lstCandid.Text.ElementAt(i + 1) != '|')
+                    {
+                        nom_candidat = nom_candidat + lstCandid.Text.ElementAt(i);
+                    }
+                    else
+                    {
+                        i += 2;
+                        verif = true;
+                    }
+                }
+                else
+                {
+                     prenom_candidat = prenom_candidat + lstCandid.Text.ElementAt(i);
+                    
+                }
+                    lstCandid.Text.ElementAt(i);
+            }
+            
+            DAOCritEval.SetNote(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat, note, "De Lemos almeida", "Pierre",txtBoxCrit.Text);
         }
     }
 }
