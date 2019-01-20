@@ -448,7 +448,7 @@ namespace WindowsFormsApp1
                     lstCandid.Text.ElementAt(i);
             }
             
-            DAOCritEval.SetNote(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat, note, "De Lemos almeida", "Pierre",txtBoxCrit.Text);
+            DAOCritEval.SetNote(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat, note, "De Lemos Almeida", "Pierre",txtBoxCrit.Text);
         }
     }
 }
