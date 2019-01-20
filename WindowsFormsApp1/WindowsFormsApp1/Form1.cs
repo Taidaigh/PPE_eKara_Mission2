@@ -371,8 +371,15 @@ namespace WindowsFormsApp1
 
         private void lstCandid_SelectedIndexChanged(object sender, EventArgs e)
         {
+            txtBoxCrit.Clear();
+            radBtnNote0.Checked = false;
+            radBtnNote1.Checked = false;
+            radBtnNote2.Checked = false;
+            radBtnNote3.Checked = false;
+            radBtnNote4.Checked = false;
+            radBtnNote5.Checked = false;
             lstCandid.Visible = true;
-            gpNote.Visible = true;
+            gpNote.Visible = false;
             lstCrit.Visible = true;
             lstCrit.Items.Clear();
             foreach(Critere c in DAOCritere.GetCritereByOffreNomPrenomRH(conn,lstOffre.SelectedIndex+1,"De Lemos Almeida","Pierre"))
@@ -447,8 +454,8 @@ namespace WindowsFormsApp1
                 }
                     lstCandid.Text.ElementAt(i);
             }
-            
             DAOCritEval.SetNote(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat, note, "De Lemos Almeida", "Pierre",txtBoxCrit.Text);
+            ///lstCrit.SelectedIndex = lstCrit.SelectedIndex + 1;
         }
     }
 }
