@@ -53,10 +53,10 @@ namespace WindowsFormsApp1
         }
 
 
-        public static List<Critere> GetCritereByOffreNomPrenomRH(NpgsqlConnection conn, int offre, string nom_rh, string prenom_rh)
+        public static List<Critere> GetCritereByOffreNomPrenomRH(NpgsqlConnection conn, int offre)
         {
             List<Critere> resul = new List<Critere>();
-            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT CRITERE.id_critere, CRITERE.libelle_critere FROM CRITERE INNER JOIN ASSOCIER ON ASSOCIER.id_critere = CRITERE.id_critere LEFT OUTER JOIN NOTER ON CRITERE.id_critere = NOTER.id_critere LEFT OUTER JOIN EVALUATION ON NOTER.id_evaluation = EVALUATION.id_evaluation WHERE ASSOCIER.id_offre_emplois = " + offre + " AND (NOTER.id_evaluation IS NULL OR (EVALUATION.nom_rh_evaluation='" + nom_rh + "' AND EVALUATION.prenom_rh_evaluation='" + prenom_rh + "')) ORDER BY CRITERE.id_critere;", conn))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT CRITERE.id_critere, CRITERE.libelle_critere FROM CRITERE INNER JOIN ASSOCIER ON ASSOCIER.id_critere = CRITERE.id_critere WHERE ASSOCIER.id_offre_emplois = '" + offre + "'ORDER BY CRITERE.id_critere;", conn))
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())

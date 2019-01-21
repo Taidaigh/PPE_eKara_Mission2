@@ -63,6 +63,7 @@ namespace WindowsFormsApp1
                 lstCrit.Location = new Point(299, 281);
                 lstCandid.Location = new Point(299, 72);
                 gpNote.Location = new Point(535, 68);
+                gpBoxEval.Location = new Point(535, 242);
 
             }
         }
@@ -95,6 +96,7 @@ namespace WindowsFormsApp1
                 lstCandid.Visible = true;
                 gpNote.Visible = false;
                 lstCrit.Visible = false;
+                gpBoxEval.Visible = false;
                 lstCandid.Items.Clear();
                 foreach (Candidature c in DAOCandidature.GetCandidatureByOffre(conn, lstOffre.SelectedIndex + 1))
                 {
@@ -400,6 +402,7 @@ namespace WindowsFormsApp1
 
         private void lstCandid_SelectedIndexChanged(object sender, EventArgs e)
         {
+            gpBoxEval.Visible = false;
             txtBoxCrit.Clear();
             radBtnNote0.Checked = false;
             radBtnNote1.Checked = false;
@@ -411,9 +414,42 @@ namespace WindowsFormsApp1
             gpNote.Visible = false;
             lstCrit.Visible = true;
             lstCrit.Items.Clear();
-            foreach(Critere c in DAOCritere.GetCritereByOffreNomPrenomRH(conn,lstOffre.SelectedIndex+1,"De Lemos Almeida","Pierre"))
+            string nom_candidat = "";
+            string prenom_candidat = "";
+            Boolean verif = false;
+            for (int i = 0; i < lstCandid.Text.Length; i++)
+            {
+                if (verif == false)
+                {
+                    if (lstCandid.Text.ElementAt(i) != ' ' && lstCandid.Text.ElementAt(i + 1) != '|')
+                    {
+                        nom_candidat = nom_candidat + lstCandid.Text.ElementAt(i);
+                    }
+                    else
+                    {
+                        i += 2;
+                        verif = true;
+                    }
+                }
+                else
+                {
+                    prenom_candidat = prenom_candidat + lstCandid.Text.ElementAt(i);
+
+                }
+                lstCandid.Text.ElementAt(i);
+            }
+            foreach (Critere c in DAOCritere.GetCritereByOffreNomPrenomRH(conn, lstOffre.SelectedIndex + 1))
             {
                 lstCrit.Items.Add(c.Libelle);
+            }
+
+            if (DAOCritEval.GetNombreNoteByOffreNomPrenomRHNomPrenomCandid(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat, "De Lemos Almeida", "Pierre") == DAOCritere.GetCritereByOffreNomPrenomRH(conn, lstOffre.SelectedIndex + 1).Count)
+            {
+                gpBoxEval.Visible = true;
+                Evaluation evalu = DAOEvaluation.GetEvalByOffreNomPrenomCandidNomPrenomRH(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat, "De Lemos Almeida", "Pierre");
+                numUpDownBonusMalus.Value = evalu.Bonus_malus;
+                richTextBoxCom.Text = evalu.Commentaire;
+
             }
         }
 
@@ -484,7 +520,37 @@ namespace WindowsFormsApp1
                     lstCandid.Text.ElementAt(i);
             }
             DAOCritEval.SetNote(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat, note, "De Lemos Almeida", "Pierre",txtBoxCrit.Text);
-            ///lstCrit.SelectedIndex = lstCrit.SelectedIndex + 1;
+            lstCrit_SelectedIndexChanged(sender, e);
+        }
+
+        private void btnEval_Click(object sender, EventArgs e)
+        {
+            string nom_candidat = "";
+            string prenom_candidat = "";
+            Boolean verif = false;
+            for (int i = 0; i < lstCandid.Text.Length; i++)
+            {
+                if (verif == false)
+                {
+                    if (lstCandid.Text.ElementAt(i) != ' ' && lstCandid.Text.ElementAt(i + 1) != '|')
+                    {
+                        nom_candidat = nom_candidat + lstCandid.Text.ElementAt(i);
+                    }
+                    else
+                    {
+                        i += 2;
+                        verif = true;
+                    }
+                }
+                else
+                {
+                    prenom_candidat = prenom_candidat + lstCandid.Text.ElementAt(i);
+
+                }
+                lstCandid.Text.ElementAt(i);
+            }
+            DAOEvaluation.SetBonusMalusComs(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat, "De Lemos Almeida", "Pierre",int.Parse(numUpDownBonusMalus.Value.ToString()),richTextBoxCom.Text);
+            lstCandid_SelectedIndexChanged(sender,e);
         }
     }
 }

@@ -63,8 +63,8 @@
             this.txtBoxCrit = new System.Windows.Forms.TextBox();
             this.lstCandid = new System.Windows.Forms.ListBox();
             this.gpBoxEval = new System.Windows.Forms.GroupBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.numUpDownBonusMalus = new System.Windows.Forms.NumericUpDown();
+            this.richTextBoxCom = new System.Windows.Forms.RichTextBox();
             this.btnEval = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -73,7 +73,7 @@
             this.gpBoxDateLimite.SuspendLayout();
             this.gpNote.SuspendLayout();
             this.gpBoxEval.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownBonusMalus)).BeginInit();
             this.SuspendLayout();
             // 
             // lstOffre
@@ -430,8 +430,8 @@
             // 
             // gpBoxEval
             // 
-            this.gpBoxEval.Controls.Add(this.numericUpDown1);
-            this.gpBoxEval.Controls.Add(this.richTextBox1);
+            this.gpBoxEval.Controls.Add(this.numUpDownBonusMalus);
+            this.gpBoxEval.Controls.Add(this.richTextBoxCom);
             this.gpBoxEval.Controls.Add(this.btnEval);
             this.gpBoxEval.Controls.Add(this.label9);
             this.gpBoxEval.Controls.Add(this.label10);
@@ -441,31 +441,32 @@
             this.gpBoxEval.TabIndex = 105;
             this.gpBoxEval.TabStop = false;
             this.gpBoxEval.Text = "Noter";
+            this.gpBoxEval.Visible = false;
             // 
-            // numericUpDown1
+            // numUpDownBonusMalus
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(143, 146);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.numUpDownBonusMalus.Location = new System.Drawing.Point(143, 146);
+            this.numUpDownBonusMalus.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.numUpDownBonusMalus.Minimum = new decimal(new int[] {
             10,
             0,
             0,
             -2147483648});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 112;
+            this.numUpDownBonusMalus.Name = "numUpDownBonusMalus";
+            this.numUpDownBonusMalus.Size = new System.Drawing.Size(120, 20);
+            this.numUpDownBonusMalus.TabIndex = 112;
             // 
-            // richTextBox1
+            // richTextBoxCom
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(17, 44);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(246, 96);
-            this.richTextBox1.TabIndex = 111;
-            this.richTextBox1.Text = "";
+            this.richTextBoxCom.Location = new System.Drawing.Point(17, 44);
+            this.richTextBoxCom.Name = "richTextBoxCom";
+            this.richTextBoxCom.Size = new System.Drawing.Size(246, 96);
+            this.richTextBoxCom.TabIndex = 111;
+            this.richTextBoxCom.Text = "";
             // 
             // btnEval
             // 
@@ -475,6 +476,7 @@
             this.btnEval.TabIndex = 110;
             this.btnEval.Text = "Valider";
             this.btnEval.UseVisualStyleBackColor = true;
+            this.btnEval.Click += new System.EventHandler(this.btnEval_Click);
             // 
             // label9
             // 
@@ -521,7 +523,7 @@
             this.gpNote.PerformLayout();
             this.gpBoxEval.ResumeLayout(false);
             this.gpBoxEval.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownBonusMalus)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -564,8 +566,8 @@
         private System.Windows.Forms.RadioButton radBtnNote0;
         private System.Windows.Forms.Button btnNoter;
         private System.Windows.Forms.GroupBox gpBoxEval;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.NumericUpDown numUpDownBonusMalus;
+        private System.Windows.Forms.RichTextBox richTextBoxCom;
         private System.Windows.Forms.Button btnEval;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
