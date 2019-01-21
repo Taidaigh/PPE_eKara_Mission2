@@ -69,10 +69,10 @@ namespace WindowsFormsApp1
             return resul;
         }
 
-        public static Dictionary<Critere, int> GetCritereNoteByOffreNomPrenomRH(NpgsqlConnection conn, int offre, string nom_rh, string prenom_rh, string libelle_crit)
+        public static Dictionary<Critere, int> GetCritereNoteByOffreNomPrenomRHNomPrenomCandid(NpgsqlConnection conn, int offre, string nom_rh, string prenom_rh, string prenom_candid, string nom_candid, string libelle_crit)
         {
             Dictionary<Critere, int> resul = new Dictionary<Critere, int>();
-            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT NOTER.note, CRITERE.id_critere, CRITERE.libelle_critere, EVALUATION.id_evaluation FROM CRITERE INNER JOIN ASSOCIER ON ASSOCIER.id_critere = CRITERE.id_critere LEFT OUTER JOIN NOTER ON CRITERE.id_critere = NOTER.id_critere LEFT OUTER JOIN EVALUATION ON NOTER.id_evaluation = EVALUATION.id_evaluation WHERE ASSOCIER.id_offre_emplois = " + offre + " AND (NOTER.id_evaluation IS NULL OR (EVALUATION.nom_rh_evaluation='" + nom_rh + "' AND EVALUATION.prenom_rh_evaluation='" + prenom_rh + "')) AND CRITERE.libelle_critere = '" + libelle_crit + "' ORDER BY CRITERE.id_critere;", conn))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT NOTER.note, CRITERE.id_critere, CRITERE.libelle_critere FROM CRITERE INNER JOIN ASSOCIER ON ASSOCIER.id_critere = CRITERE.id_critere LEFT OUTER JOIN NOTER ON CRITERE.id_critere = NOTER.id_critere LEFT OUTER JOIN EVALUATION ON NOTER.id_evaluation = EVALUATION.id_evaluation WHERE ASSOCIER.id_offre_emplois = " + offre + " AND (NOTER.id_evaluation IS NULL OR (EVALUATION.nom_rh_evaluation='" + nom_rh + "' AND EVALUATION.prenom_rh_evaluation='" + prenom_rh + "')) AND CRITERE.libelle_critere = '" + libelle_crit + "' AND EVALUATION.id_candidature = (SELECT id_candidature FROM CANDIDATURE WHERE nom_candidature = '" + nom_candid + "' AND prenom_candidature = '" + prenom_candid + "') ORDER BY CRITERE.id_critere;", conn))
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())

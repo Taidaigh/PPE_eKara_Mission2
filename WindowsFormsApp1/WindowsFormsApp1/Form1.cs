@@ -172,13 +172,53 @@ namespace WindowsFormsApp1
                 lstCandid.Visible = true;
                 gpNote.Visible = true;
                 lstCrit.Visible = true;
-                foreach(KeyValuePair<Critere, int> c in DAOCritere.GetCritereNoteByOffreNomPrenomRH(conn,lstOffre.SelectedIndex+1,"De Lemos Almeida","Pierre",lstCrit.Text))
+
+                //Recuperation du nom et du prenom
+                string nom_candidat = "";
+                string prenom_candidat = "";
+                Boolean verif = false;
+                for (int i = 0; i < lstCandid.Text.Length; i++)
                 {
-                    txtBoxCrit.Text = c.Key.Libelle;
-                    if(c.Value == 0)
+                    if (verif == false)
                     {
-                        radBtnNote0.Checked = true;
-                        radBtnNote1.Checked = false;
+                        if (lstCandid.Text.ElementAt(i) != ' ' && lstCandid.Text.ElementAt(i + 1) != '|')
+                        {
+                            nom_candidat = nom_candidat + lstCandid.Text.ElementAt(i);
+                        }
+                        else
+                        {
+                            i += 2;
+                            verif = true;
+                        }
+                    }
+                    else
+                    {
+                        prenom_candidat = prenom_candidat + lstCandid.Text.ElementAt(i);
+
+                    }
+                    lstCandid.Text.ElementAt(i);
+                }
+                int laNote = -1;
+                foreach (KeyValuePair<Critere, int> c in DAOCritere.GetCritereNoteByOffreNomPrenomRHNomPrenomCandid(conn,lstOffre.SelectedIndex+1,"De Lemos Almeida","Pierre", prenom_candidat, nom_candidat, lstCrit.Text))
+                {
+                    laNote = c.Value;                    
+                }
+                txtBoxCrit.Text = lstCrit.Text;
+                if (laNote == 0)
+                {
+                    radBtnNote0.Checked = true;
+                    radBtnNote1.Checked = false;
+                    radBtnNote2.Checked = false;
+                    radBtnNote3.Checked = false;
+                    radBtnNote4.Checked = false;
+                    radBtnNote5.Checked = false;
+                }
+                else
+                {
+                    if (laNote == 1)
+                    {
+                        radBtnNote0.Checked = false;
+                        radBtnNote1.Checked = true;
                         radBtnNote2.Checked = false;
                         radBtnNote3.Checked = false;
                         radBtnNote4.Checked = false;
@@ -186,7 +226,7 @@ namespace WindowsFormsApp1
                     }
                     else
                     {
-                        if(c.Value == 1)
+                        if (laNote == 2)
                         {
                             radBtnNote0.Checked = false;
                             radBtnNote1.Checked = true;
@@ -194,61 +234,49 @@ namespace WindowsFormsApp1
                             radBtnNote3.Checked = false;
                             radBtnNote4.Checked = false;
                             radBtnNote5.Checked = false;
+
                         }
                         else
                         {
-                            if(c.Value == 2)
+                            if (laNote == 3)
                             {
                                 radBtnNote0.Checked = false;
-                                radBtnNote1.Checked = true;
+                                radBtnNote1.Checked = false;
                                 radBtnNote2.Checked = false;
-                                radBtnNote3.Checked = false;
+                                radBtnNote3.Checked = true;
                                 radBtnNote4.Checked = false;
                                 radBtnNote5.Checked = false;
-
                             }
                             else
                             {
-                                if(c.Value == 3)
+                                if (laNote == 4)
                                 {
                                     radBtnNote0.Checked = false;
                                     radBtnNote1.Checked = false;
                                     radBtnNote2.Checked = false;
-                                    radBtnNote3.Checked = true;
-                                    radBtnNote4.Checked = false;
+                                    radBtnNote3.Checked = false;
+                                    radBtnNote4.Checked = true;
                                     radBtnNote5.Checked = false;
                                 }
                                 else
                                 {
-                                    if(c.Value == 4)
+                                    if (laNote == 5)
                                     {
                                         radBtnNote0.Checked = false;
                                         radBtnNote1.Checked = false;
                                         radBtnNote2.Checked = false;
                                         radBtnNote3.Checked = false;
-                                        radBtnNote4.Checked = true;
-                                        radBtnNote5.Checked = false;
+                                        radBtnNote4.Checked = false;
+                                        radBtnNote5.Checked = true;
                                     }
                                     else
                                     {
-                                        if(c.Value == 5)
-                                        {
-                                            radBtnNote0.Checked = false;
-                                            radBtnNote1.Checked = false;
-                                            radBtnNote2.Checked = false;
-                                            radBtnNote3.Checked = false;
-                                            radBtnNote4.Checked = false;
-                                            radBtnNote5.Checked = true;
-                                        }
-                                        else
-                                        {
-                                            radBtnNote0.Checked = false;
-                                            radBtnNote1.Checked = false;
-                                            radBtnNote2.Checked = false;
-                                            radBtnNote3.Checked = false;
-                                            radBtnNote4.Checked = false;
-                                            radBtnNote5.Checked = false;
-                                        }
+                                        radBtnNote0.Checked = false;
+                                        radBtnNote1.Checked = false;
+                                        radBtnNote2.Checked = false;
+                                        radBtnNote3.Checked = false;
+                                        radBtnNote4.Checked = false;
+                                        radBtnNote5.Checked = false;
                                     }
                                 }
                             }
@@ -257,6 +285,7 @@ namespace WindowsFormsApp1
                 }
             }
         }
+            
 
 
         private void AddCrit_Click(object sender, EventArgs e)
