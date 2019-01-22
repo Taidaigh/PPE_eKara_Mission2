@@ -520,7 +520,9 @@ namespace WindowsFormsApp1
                     lstCandid.Text.ElementAt(i);
             }
             DAOCritEval.SetNote(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat, note, "De Lemos Almeida", "Pierre",txtBoxCrit.Text);
+            lstCandid_SelectedIndexChanged(sender, e);
             lstCrit_SelectedIndexChanged(sender, e);
+
         }
 
         private void btnEval_Click(object sender, EventArgs e)
