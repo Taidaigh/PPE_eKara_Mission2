@@ -68,6 +68,7 @@
             this.btnEval = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.btnPDF = new System.Windows.Forms.Button();
             this.gpBoxMod.SuspendLayout();
             this.gpBoxAdd.SuspendLayout();
             this.gpBoxDateLimite.SuspendLayout();
@@ -496,11 +497,23 @@
             this.label10.TabIndex = 101;
             this.label10.Text = "Commentaire :";
             // 
+            // btnPDF
+            // 
+            this.btnPDF.Location = new System.Drawing.Point(535, 225);
+            this.btnPDF.Name = "btnPDF";
+            this.btnPDF.Size = new System.Drawing.Size(205, 23);
+            this.btnPDF.TabIndex = 106;
+            this.btnPDF.Text = "Fiche individuelle";
+            this.btnPDF.UseVisualStyleBackColor = true;
+            this.btnPDF.Visible = false;
+            this.btnPDF.Click += new System.EventHandler(this.btnPDF_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1072, 479);
+            this.Controls.Add(this.btnPDF);
             this.Controls.Add(this.gpBoxEval);
             this.Controls.Add(this.lstCandid);
             this.Controls.Add(this.gpNote);
@@ -571,6 +584,7 @@
         private System.Windows.Forms.Button btnEval;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btnPDF;
     }
 }
 

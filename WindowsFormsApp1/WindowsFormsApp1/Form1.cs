@@ -14,7 +14,7 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         NpgsqlConnection conn;
-        Boolean drh = false;
+        Boolean drh = true;
 
         public Form1()
         {
@@ -80,6 +80,7 @@ namespace WindowsFormsApp1
                 gpBoxMod.Visible = false;
                 gpBoxAdd.Visible = false;
                 gpBoxDateLimite.Visible = false;
+                btnPDF.Visible = true;
                 //Reinitialise la liste des criteres
                 lstCrit.Items.Clear();
                 //Ajout des criteres de l'offre dans la liste de critère
@@ -553,6 +554,11 @@ namespace WindowsFormsApp1
             }
             DAOEvaluation.SetBonusMalusComs(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat, "De Lemos Almeida", "Pierre",int.Parse(numUpDownBonusMalus.Value.ToString()),richTextBoxCom.Text);
             lstCandid_SelectedIndexChanged(sender,e);
+        }
+
+        private void btnPDF_Click(object sender, EventArgs e)
+        {
+            FichePDF.fiche();
         }
     }
 }
