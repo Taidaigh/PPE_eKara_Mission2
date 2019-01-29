@@ -69,12 +69,16 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.btnPDF = new System.Windows.Forms.Button();
+            this.dataGridViewReu = new System.Windows.Forms.DataGridView();
+            this.colCandid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMoy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gpBoxMod.SuspendLayout();
             this.gpBoxAdd.SuspendLayout();
             this.gpBoxDateLimite.SuspendLayout();
             this.gpNote.SuspendLayout();
             this.gpBoxEval.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownBonusMalus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReu)).BeginInit();
             this.SuspendLayout();
             // 
             // lstOffre
@@ -508,11 +512,33 @@
             this.btnPDF.Visible = false;
             this.btnPDF.Click += new System.EventHandler(this.btnPDF_Click);
             // 
+            // dataGridViewReu
+            // 
+            this.dataGridViewReu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewReu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colCandid,
+            this.colMoy});
+            this.dataGridViewReu.Location = new System.Drawing.Point(138, 500);
+            this.dataGridViewReu.Name = "dataGridViewReu";
+            this.dataGridViewReu.Size = new System.Drawing.Size(565, 150);
+            this.dataGridViewReu.TabIndex = 107;
+            // 
+            // colCandid
+            // 
+            this.colCandid.HeaderText = "Candidat";
+            this.colCandid.Name = "colCandid";
+            // 
+            // colMoy
+            // 
+            this.colMoy.HeaderText = "Moyenne";
+            this.colMoy.Name = "colMoy";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1072, 479);
+            this.ClientSize = new System.Drawing.Size(1072, 689);
+            this.Controls.Add(this.dataGridViewReu);
             this.Controls.Add(this.btnPDF);
             this.Controls.Add(this.gpBoxEval);
             this.Controls.Add(this.lstCandid);
@@ -537,6 +563,7 @@
             this.gpBoxEval.ResumeLayout(false);
             this.gpBoxEval.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownBonusMalus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReu)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -585,6 +612,9 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnPDF;
+        private System.Windows.Forms.DataGridView dataGridViewReu;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCandid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colMoy;
     }
 }
 
