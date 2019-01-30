@@ -30,6 +30,8 @@ namespace WindowsFormsApp1
             cb.SetFontAndSize(bf, 15f);
             cb.SetTextMatrix(150, 700);
             cb.ShowText("FICHE INDIVIDUELLE DE CANDIDATURE");
+            cb.SetTextMatrix(100, 630);
+            cb.ShowText("Poste");
             cb.EndText();
 
             doc.Close();
