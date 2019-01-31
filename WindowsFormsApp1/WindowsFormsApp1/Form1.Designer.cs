@@ -72,6 +72,7 @@
             this.dataGridViewReu = new System.Windows.Forms.DataGridView();
             this.colCandid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colMoy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnReunion = new System.Windows.Forms.Button();
             this.gpBoxMod.SuspendLayout();
             this.gpBoxAdd.SuspendLayout();
             this.gpBoxDateLimite.SuspendLayout();
@@ -518,7 +519,8 @@
             this.dataGridViewReu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colCandid,
             this.colMoy});
-            this.dataGridViewReu.Location = new System.Drawing.Point(138, 500);
+            this.dataGridViewReu.Enabled = false;
+            this.dataGridViewReu.Location = new System.Drawing.Point(19, 464);
             this.dataGridViewReu.Name = "dataGridViewReu";
             this.dataGridViewReu.Size = new System.Drawing.Size(565, 150);
             this.dataGridViewReu.TabIndex = 107;
@@ -533,11 +535,22 @@
             this.colMoy.HeaderText = "Moyenne";
             this.colMoy.Name = "colMoy";
             // 
+            // btnReunion
+            // 
+            this.btnReunion.Location = new System.Drawing.Point(535, 252);
+            this.btnReunion.Name = "btnReunion";
+            this.btnReunion.Size = new System.Drawing.Size(205, 23);
+            this.btnReunion.TabIndex = 108;
+            this.btnReunion.Text = "Tableau Reunion";
+            this.btnReunion.UseVisualStyleBackColor = true;
+            this.btnReunion.Click += new System.EventHandler(this.btnReunion_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1072, 689);
+            this.Controls.Add(this.btnReunion);
             this.Controls.Add(this.dataGridViewReu);
             this.Controls.Add(this.btnPDF);
             this.Controls.Add(this.gpBoxEval);
@@ -615,6 +628,7 @@
         private System.Windows.Forms.DataGridView dataGridViewReu;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCandid;
         private System.Windows.Forms.DataGridViewTextBoxColumn colMoy;
+        private System.Windows.Forms.Button btnReunion;
     }
 }
 
