@@ -524,6 +524,7 @@
             this.dataGridViewReu.Name = "dataGridViewReu";
             this.dataGridViewReu.Size = new System.Drawing.Size(565, 150);
             this.dataGridViewReu.TabIndex = 107;
+            this.dataGridViewReu.Visible = false;
             // 
             // colCandid
             // 

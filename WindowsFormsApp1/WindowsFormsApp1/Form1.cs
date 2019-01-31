@@ -565,8 +565,8 @@ namespace WindowsFormsApp1
 
         private void btnReunion_Click(object sender, EventArgs e)
         {
-            dataGridViewReu.Columns.Add("Ba", "Bibel");
-            int uneOffre = 1;
+            dataGridViewReu.Visible = true;
+            int uneOffre = lstOffre.SelectedIndex+1;
             using (NpgsqlCommand cmd = new NpgsqlCommand("CREATE OR REPLACE VIEW v1 AS SELECT CANDIDATURE.nom_candidature AS candid_nom, CANDIDATURE.prenom_candidature AS candid_prenom, EVALUATION.nom_rh_evaluation AS rh_nom, EVALUATION.prenom_rh_evaluation AS rh_prenom, SUM(NOTER.note * ASSOCIER.coef) + EVALUATION.bonus_malus_evaluation AS note_total FROM CANDIDATURE INNER JOIN EVALUATION ON EVALUATION.id_candidature = CANDIDATURE.id_candidature INNER JOIN NOTER ON NOTER.id_evaluation = EVALUATION.id_evaluation INNER JOIN CRITERE ON CRITERE.id_critere = NOTER.id_critere INNER JOIN ASSOCIER ON ASSOCIER.id_critere = NOTER.id_critere WHERE CANDIDATURE.id_offre_emplois = " + uneOffre + " GROUP BY CANDIDATURE.nom_candidature, CANDIDATURE.prenom_candidature, EVALUATION.nom_rh_evaluation, EVALUATION.prenom_rh_evaluation,EVALUATION.bonus_malus_evaluation;", conn))
             {
                 cmd.ExecuteNonQuery();
@@ -579,36 +579,52 @@ namespace WindowsFormsApp1
             using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT v1.candid_nom, v1.candid_prenom, v2.moyenne, v1.RH_nom,v1.RH_prenom,v1.note_total FROM v1 INNER JOIN v2 ON v1.candid_nom = v2.nom AND v1.candid_prenom = v2.prenom ORDER BY Moyenne;", conn))
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
             {
-                string preced = " ";
+                int first = 1;
                 string[] row = new string[] { };
                 while (reader.Read())
                 {
-                    bool verif = true;
+                    bool verif = false;
+                    int comp = 0;
+                    //Colonne
                     for(int i=0;i<dataGridViewReu.Columns.Count;i++)
                     {
-                        if(dataGridViewReu.Columns[i].HeaderText != reader.GetString(3)+" "+reader.GetString(4))
+                        if(dataGridViewReu.Columns[i].HeaderText == reader.GetString(3)+" "+reader.GetString(4))
                         {
-                            verif = false;
-                        }                        
+                            verif = true;
+                            comp = i;
+                        }
                     }
-                    if(verif==false)
+                    if (verif==false)
                     {
-                        dataGridViewReu.Columns.Add(reader.GetString(3) + " " + reader.GetString(4), reader.GetString(3) + "_" + reader.GetString(4));
+                        dataGridViewReu.Columns.Add(reader.GetString(3) + "_" + reader.GetString(4), reader.GetString(3) + " " + reader.GetString(4));
+                        comp = dataGridViewReu.ColumnCount - 1;
                     }
 
-                    if(preced == reader.GetString(0) + " " + reader.GetString(1))
+                    //Row
+                    if(first !=1)
                     {
-                        if()//??
+                        if (dataGridViewReu.Rows[0].Cells[0].Value.ToString() == reader.GetString(0) + " " + reader.GetString(1))
                         {
-                            row = new string[] { row[0], row[1] };
-                        }                        
+                            dataGridViewReu.Rows[0].Cells[comp].Value = reader.GetInt32(5);
+                        }
+                        else
+                        {
+                            dataGridViewReu.Rows.Add();
+                            dataGridViewReu.Rows[0].Cells[0].Value = reader.GetString(0) + " " + reader.GetString(1);
+                            dataGridViewReu.Rows[0].Cells[1].Value = reader.GetInt32(2);
+                            dataGridViewReu.Rows[0].Cells[comp].Value = reader.GetInt32(5);
+                        }
                     }
                     else
-                    {
-                        row = new string[] {reader.GetString(0) + " " + reader.GetString(1),reader.GetInt32(2).ToString()};
+                    {                                                
+                        dataGridViewReu.Rows[0].Cells[0].Value = reader.GetString(0) + " " + reader.GetString(1);
+                        dataGridViewReu.Rows[0].Cells[1].Value = reader.GetInt32(2);
+                        dataGridViewReu.Rows[0].Cells[comp].Value = reader.GetInt32(5);
+                        first = -1;
                     }
                 }
             }
+            
         }
     }
 }
