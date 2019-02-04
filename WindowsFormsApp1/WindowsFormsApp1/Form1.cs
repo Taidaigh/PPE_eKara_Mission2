@@ -13,13 +13,20 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        //Déclaration des variables
         NpgsqlConnection conn;
-        Boolean drh = false;
+
+        //Gestion des DRH
+        Boolean drh = true;
         string rhNom = "Mabilon";
         string rhPrenom = "Loic";
 
+        /// <summary>
+        /// Création du form
+        /// </summary>
         public Form1()
         {
+            //Initiation des composants
             InitializeComponent();
 
             //Connexion bdd
@@ -31,42 +38,19 @@ namespace WindowsFormsApp1
                 lstOffre.Items.Add(o.Intitule);
             }
 
+            //Gere les differents modes des onglets
             if (this.drh == true)
             {
-                label2.Visible = true;
-                lstCrit.Visible = true;
-                AddCrit.Visible = false;
-                AddDate.Visible = false;
-                gpBoxMod.Visible = false;
-                gpBoxDateLimite.Visible = false;
-                gpBoxAdd.Visible = false;
-                lstCandid.Visible = false;
-                gpNote.Visible = false;
+                tabCtrl.TabPages.Clear();
+                tabCtrl.TabPages.Add(tabOff);
+                tabCtrl.TabPages.Add(tabCrit);
+                tabCtrl.TabPages.Add(tabReu);
 
-                //Met la postition des groupBox
-                gpBoxAdd.Location = new Point(299, 281);
-                gpBoxMod.Location = new Point(299, 281);
-                gpBoxDateLimite.Location = new Point(299, 281);
-                lstCrit.Location = new Point(299, 72);
             }
             else
             {
-                label2.Visible = false;
-                lstCrit.Visible = false;
-                AddCrit.Visible = false;
-                AddDate.Visible = false;
-                gpBoxMod.Visible = false;
-                gpBoxDateLimite.Visible = false;
-                gpBoxAdd.Visible = false;
-                lstCandid.Visible = false;
-                gpNote.Visible = false;
-
-                //Se position
-                lstCrit.Location = new Point(299, 281);
-                lstCandid.Location = new Point(299, 72);
-                gpNote.Location = new Point(535, 68);
-                gpBoxEval.Location = new Point(535, 242);
-
+                tabCtrl.TabPages.Clear();
+                tabCtrl.TabPages.Add(tabNot);
             }
         }
 
@@ -76,31 +60,19 @@ namespace WindowsFormsApp1
         {
             if (this.drh == true)
             {
-                lstCrit.Enabled = true;
-                AddDate.Visible = true;
-                AddCrit.Visible = true;
-                gpBoxMod.Visible = false;
-                gpBoxAdd.Visible = false;
-                gpBoxDateLimite.Visible = false;
-                btnPDF.Visible = true;
                 //Reinitialise la liste des criteres
-                lstCrit.Items.Clear();
+                dataGridViewCrit.Rows.Clear();
                 //Ajout des criteres de l'offre dans la liste de critère
                 foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
                 {
-                    lstCrit.Items.Add(o.Key.Libelle);
-
+                    dataGridViewCrit.Rows.Add(o.Key.Libelle, o.Value);
                 }
+                //Afficher la date limite
                 dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
-
             }
             else
             {
-                lstCandid.Visible = true;
-                gpNote.Visible = false;
-                lstCrit.Visible = false;
-                gpBoxEval.Visible = false;
-                lstCandid.Items.Clear();
+                //Remplit la liste des candidature
                 foreach (Candidature c in DAOCandidature.GetCandidatureByOffre(conn, lstOffre.SelectedIndex + 1))
                 {
                     lstCandid.Items.Add(c.Nom + " | " + c.Prenom);
@@ -114,21 +86,14 @@ namespace WindowsFormsApp1
             DAOCritere.AddCrit(conn, comboBoxCritAdd.Text, double.Parse(txtBoxCritCoefAdd.Text), lstOffre.SelectedIndex+1);
 
             //Reinitialise la liste des criteres
-            lstCrit.Items.Clear();
+            dataGridViewCrit.Rows.Clear();
             //Ajout des criteres de l'offre dans la liste de critère
             foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
             {
-                lstCrit.Items.Add(o.Key.Libelle);
-            }
-            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
+                dataGridViewCrit.Rows.Add(o.Key.Libelle, o.Value);
 
-            AddDate.Visible = true;
-            AddCrit.Visible = true;
-            gpBoxMod.Visible = false;
-            gpBoxAdd.Visible = false;
-            gpBoxDateLimite.Visible = false;
-            AddDate.Enabled = true;
-            AddCrit.Enabled = true;
+            }
+            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;            
         }
 
         private void btnModCrit_Click(object sender, EventArgs e)
@@ -136,32 +101,20 @@ namespace WindowsFormsApp1
             DAOCritere.ModifCrit(conn, txtBoxCritMod.Text, double.Parse(txtBoxCritCoefMod.Text), lstOffre.SelectedIndex+1);
 
             //Reinitialise la liste des criteres
-            lstCrit.Items.Clear();
+            dataGridViewCrit.Rows.Clear();
             //Ajout des criteres de l'offre dans la liste de critère
             foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
             {
-                lstCrit.Items.Add(o.Key.Libelle);
+                dataGridViewCrit.Rows.Add(o.Key.Libelle, o.Value);
+
             }
             dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
-
-            AddDate.Visible = true;
-            AddCrit.Visible = true;
-            gpBoxMod.Visible = false;
-            gpBoxAdd.Visible = false;
-            gpBoxDateLimite.Visible = false;
-            AddDate.Enabled = true;
-            AddCrit.Enabled = true;
         }
 
         private void lstCrit_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(this.drh == true)
             {
-                AddDate.Enabled = true;
-                AddCrit.Enabled = true;
-                gpBoxMod.Visible = true;
-                gpBoxAdd.Visible = false;
-                gpBoxDateLimite.Visible = false;
 
                 foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
                 {
@@ -174,10 +127,6 @@ namespace WindowsFormsApp1
             }
             else
             {
-                lstCandid.Visible = true;
-                gpNote.Visible = true;
-                lstCrit.Visible = true;
-
                 //Recuperation du nom et du prenom
                 string nom_candidat = "";
                 string prenom_candidat = "";
@@ -295,13 +244,6 @@ namespace WindowsFormsApp1
 
         private void AddCrit_Click(object sender, EventArgs e)
         {
-            //Mode ajouter critère
-            AddDate.Enabled = true;
-            AddCrit.Enabled = false;
-            gpBoxMod.Visible = false;
-            gpBoxAdd.Visible = true;
-            gpBoxDateLimite.Visible = false;
-
             comboBoxCritAdd.Items.Clear();
             foreach (Critere c in DAOCritere.GetCritere(this.conn))
             {
@@ -362,14 +304,6 @@ namespace WindowsFormsApp1
                 lstCrit.Items.Add(o.Key.Libelle);
             }
             dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
-
-            AddDate.Visible = true;
-            AddCrit.Visible = true;
-            gpBoxMod.Visible = false;
-            gpBoxAdd.Visible = false;
-            gpBoxDateLimite.Visible = false;
-            AddDate.Enabled = true;
-            AddCrit.Enabled = true;
         }
 
         private void btnDateLimite_Click(object sender, EventArgs e)
@@ -384,28 +318,10 @@ namespace WindowsFormsApp1
                 lstCrit.Items.Add(o.Key.Libelle);
             }
             dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
-
-            AddDate.Visible = true;
-            AddCrit.Visible = true;
-            gpBoxMod.Visible = false;
-            gpBoxAdd.Visible = false;
-            gpBoxDateLimite.Visible = false;
-            AddDate.Enabled = true;
-            AddCrit.Enabled = true;
-        }
-
-        private void AddDate_Click(object sender, EventArgs e)
-        {
-            AddDate.Enabled = false;
-            AddCrit.Enabled = true;
-            gpBoxMod.Visible = false;
-            gpBoxAdd.Visible = false;
-            gpBoxDateLimite.Visible = true;
         }
 
         private void lstCandid_SelectedIndexChanged(object sender, EventArgs e)
         {
-            gpBoxEval.Visible = false;
             txtBoxCrit.Clear();
             radBtnNote0.Checked = false;
             radBtnNote1.Checked = false;
@@ -413,9 +329,6 @@ namespace WindowsFormsApp1
             radBtnNote3.Checked = false;
             radBtnNote4.Checked = false;
             radBtnNote5.Checked = false;
-            lstCandid.Visible = true;
-            gpNote.Visible = false;
-            lstCrit.Visible = true;
             lstCrit.Items.Clear();
             string nom_candidat = "";
             string prenom_candidat = "";
@@ -565,8 +478,14 @@ namespace WindowsFormsApp1
 
         private void btnReunion_Click(object sender, EventArgs e)
         {
+           
+            
+        }
+
+        private void tabCtrl_SelectedIndexChanged(object sender, EventArgs e)
+        {
             dataGridViewReu.Visible = true;
-            int uneOffre = lstOffre.SelectedIndex+1;
+            int uneOffre = lstOffre.SelectedIndex + 1;
             using (NpgsqlCommand cmd = new NpgsqlCommand("CREATE OR REPLACE VIEW v1 AS SELECT CANDIDATURE.nom_candidature AS candid_nom, CANDIDATURE.prenom_candidature AS candid_prenom, EVALUATION.nom_rh_evaluation AS rh_nom, EVALUATION.prenom_rh_evaluation AS rh_prenom, SUM(NOTER.note * ASSOCIER.coef) + EVALUATION.bonus_malus_evaluation AS note_total FROM CANDIDATURE INNER JOIN EVALUATION ON EVALUATION.id_candidature = CANDIDATURE.id_candidature INNER JOIN NOTER ON NOTER.id_evaluation = EVALUATION.id_evaluation INNER JOIN CRITERE ON CRITERE.id_critere = NOTER.id_critere INNER JOIN ASSOCIER ON ASSOCIER.id_critere = NOTER.id_critere WHERE CANDIDATURE.id_offre_emplois = " + uneOffre + " GROUP BY CANDIDATURE.nom_candidature, CANDIDATURE.prenom_candidature, EVALUATION.nom_rh_evaluation, EVALUATION.prenom_rh_evaluation,EVALUATION.bonus_malus_evaluation;", conn))
             {
                 cmd.ExecuteNonQuery();
@@ -586,22 +505,22 @@ namespace WindowsFormsApp1
                     bool verif = false;
                     int comp = 0;
                     //Colonne
-                    for(int i=0;i<dataGridViewReu.Columns.Count;i++)
+                    for (int i = 0; i < dataGridViewReu.Columns.Count; i++)
                     {
-                        if(dataGridViewReu.Columns[i].HeaderText == reader.GetString(3)+" "+reader.GetString(4))
+                        if (dataGridViewReu.Columns[i].HeaderText == reader.GetString(3) + " " + reader.GetString(4))
                         {
                             verif = true;
                             comp = i;
                         }
                     }
-                    if (verif==false)
+                    if (verif == false)
                     {
                         dataGridViewReu.Columns.Add(reader.GetString(3) + "_" + reader.GetString(4), reader.GetString(3) + " " + reader.GetString(4));
                         comp = dataGridViewReu.ColumnCount - 1;
                     }
 
                     //Row
-                    if(first !=1)
+                    if (first != 1)
                     {
                         if (dataGridViewReu.Rows[0].Cells[0].Value.ToString() == reader.GetString(0) + " " + reader.GetString(1))
                         {
@@ -616,7 +535,7 @@ namespace WindowsFormsApp1
                         }
                     }
                     else
-                    {                                                
+                    {
                         dataGridViewReu.Rows[0].Cells[0].Value = reader.GetString(0) + " " + reader.GetString(1);
                         dataGridViewReu.Rows[0].Cells[1].Value = reader.GetInt32(2);
                         dataGridViewReu.Rows[0].Cells[comp].Value = reader.GetInt32(5);
@@ -624,7 +543,6 @@ namespace WindowsFormsApp1
                     }
                 }
             }
-            
         }
     }
 }
