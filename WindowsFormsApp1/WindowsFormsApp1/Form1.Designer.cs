@@ -543,6 +543,7 @@
             this.dataGridViewCrit.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colCrit,
             this.colCoef});
+            this.dataGridViewCrit.Enabled = false;
             this.dataGridViewCrit.Location = new System.Drawing.Point(260, 27);
             this.dataGridViewCrit.Name = "dataGridViewCrit";
             this.dataGridViewCrit.Size = new System.Drawing.Size(242, 150);
