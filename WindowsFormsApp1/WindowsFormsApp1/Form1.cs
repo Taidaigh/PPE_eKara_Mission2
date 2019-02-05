@@ -118,7 +118,7 @@ namespace WindowsFormsApp1
 
                 foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
                 {
-                    if (o.Key.Libelle == lstCrit.Text)
+                   // if (o.Key.Libelle == lstCrit.Text)
                     {
                         txtBoxCritMod.Text = o.Key.Libelle;
                         txtBoxCritCoefMod.Text = o.Value.ToString();
@@ -153,11 +153,11 @@ namespace WindowsFormsApp1
                     lstCandid.Text.ElementAt(i);
                 }
                 int laNote = -1;
-                foreach (KeyValuePair<Critere, int> c in DAOCritere.GetCritereNoteByOffreNomPrenomRHNomPrenomCandid(conn,lstOffre.SelectedIndex+1,rhNom,rhPrenom, prenom_candidat, nom_candidat, lstCrit.Text))
+                //foreach (KeyValuePair<Critere, int> c in DAOCritere.GetCritereNoteByOffreNomPrenomRHNomPrenomCandid(conn,lstOffre.SelectedIndex+1,rhNom,rhPrenom, prenom_candidat, nom_candidat, lstCrit.Text))
                 {
-                    laNote = c.Value;                    
+                    //laNote = c.Value;                    
                 }
-                txtBoxCrit.Text = lstCrit.Text;
+               // txtBoxCrit.Text = lstCrit.Text;
                 if (laNote == 0)
                 {
                     radBtnNote0.Checked = true;
@@ -297,11 +297,11 @@ namespace WindowsFormsApp1
             DAOCritere.DelCrit(conn, txtBoxCritMod.Text, lstOffre.SelectedIndex + 1);
 
             //Reinitialise la liste des criteres
-            lstCrit.Items.Clear();
+            //lstCrit.Items.Clear();
             //Ajout des criteres de l'offre dans la liste de critère
             foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
             {
-                lstCrit.Items.Add(o.Key.Libelle);
+               // lstCrit.Items.Add(o.Key.Libelle);
             }
             dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
         }
@@ -311,11 +311,11 @@ namespace WindowsFormsApp1
             DAOOffre.SetDateLimite(conn, lstOffre.SelectedIndex+1, dateTimePicker.Value);
 
             //Reinitialise la liste des criteres
-            lstCrit.Items.Clear();
+            //lstCrit.Items.Clear();
             //Ajout des criteres de l'offre dans la liste de critère
             foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
             {
-                lstCrit.Items.Add(o.Key.Libelle);
+                //lstCrit.Items.Add(o.Key.Libelle);
             }
             dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
         }
@@ -329,7 +329,7 @@ namespace WindowsFormsApp1
             radBtnNote3.Checked = false;
             radBtnNote4.Checked = false;
             radBtnNote5.Checked = false;
-            lstCrit.Items.Clear();
+           // lstCrit.Items.Clear();
             string nom_candidat = "";
             string prenom_candidat = "";
             Boolean verif = false;
@@ -356,7 +356,7 @@ namespace WindowsFormsApp1
             }
             foreach (Critere c in DAOCritere.GetCritereByOffreNomPrenomRH(conn, lstOffre.SelectedIndex + 1))
             {
-                lstCrit.Items.Add(c.Libelle);
+                //lstCrit.Items.Add(c.Libelle);
             }
 
             if (DAOCritEval.GetNombreNoteByOffreNomPrenomRHNomPrenomCandid(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat, rhNom, rhPrenom) == DAOCritere.GetCritereByOffreNomPrenomRH(conn, lstOffre.SelectedIndex + 1).Count)
@@ -543,6 +543,26 @@ namespace WindowsFormsApp1
                     }
                 }
             }
+        }
+
+        private void dataGridViewCrit_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            DAOCritere.ModifCrit(conn, dataGridViewCrit.Rows[e.RowIndex].Cells[0].Value.ToString(),Double.Parse(dataGridViewCrit.Rows[e.RowIndex].Cells[1].Value.ToString()),);
+        }
+
+        private void dataGridViewCrit_UserAddedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            MessageBox.Show("fdhi");
+        }
+
+        private void dataGridViewCrit_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            
+        }
+
+        private void dataGridViewCrit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
         }
     }
 }

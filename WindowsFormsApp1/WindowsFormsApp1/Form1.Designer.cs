@@ -72,12 +72,12 @@
             this.tabCtrl = new System.Windows.Forms.TabControl();
             this.tabOff = new System.Windows.Forms.TabPage();
             this.dataGridViewCrit = new System.Windows.Forms.DataGridView();
-            this.colCrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCoef = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gpBoxDateLimite = new System.Windows.Forms.GroupBox();
             this.tabCrit = new System.Windows.Forms.TabPage();
             this.tabNot = new System.Windows.Forms.TabPage();
             this.tabReu = new System.Windows.Forms.TabPage();
+            this.colCrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCoef = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gpBoxMod.SuspendLayout();
             this.gpBoxAdd.SuspendLayout();
             this.gpNote.SuspendLayout();
@@ -211,7 +211,7 @@
             this.gpBoxAdd.Controls.Add(this.label6);
             this.gpBoxAdd.Controls.Add(this.btnAddCrit);
             this.gpBoxAdd.Controls.Add(this.txtBoxCritCoefAdd);
-            this.gpBoxAdd.Location = new System.Drawing.Point(11, 199);
+            this.gpBoxAdd.Location = new System.Drawing.Point(11, 22);
             this.gpBoxAdd.Name = "gpBoxAdd";
             this.gpBoxAdd.Size = new System.Drawing.Size(205, 151);
             this.gpBoxAdd.TabIndex = 14;
@@ -543,21 +543,14 @@
             this.dataGridViewCrit.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colCrit,
             this.colCoef});
-            this.dataGridViewCrit.Enabled = false;
             this.dataGridViewCrit.Location = new System.Drawing.Point(260, 27);
             this.dataGridViewCrit.Name = "dataGridViewCrit";
             this.dataGridViewCrit.Size = new System.Drawing.Size(242, 150);
             this.dataGridViewCrit.TabIndex = 103;
-            // 
-            // colCrit
-            // 
-            this.colCrit.HeaderText = "Critère";
-            this.colCrit.Name = "colCrit";
-            // 
-            // colCoef
-            // 
-            this.colCoef.HeaderText = "Coeficient";
-            this.colCoef.Name = "colCoef";
+            this.dataGridViewCrit.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCrit_CellEndEdit);
+            this.dataGridViewCrit.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridViewCrit_UserAddedRow);
+            this.dataGridViewCrit.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridViewCrit_UserDeletingRow);
+            this.dataGridViewCrit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridViewCrit_KeyPress);
             // 
             // gpBoxDateLimite
             // 
@@ -606,6 +599,18 @@
             this.tabReu.TabIndex = 3;
             this.tabReu.Text = "Réunion";
             this.tabReu.UseVisualStyleBackColor = true;
+            // 
+            // colCrit
+            // 
+            this.colCrit.HeaderText = "Critère";
+            this.colCrit.Name = "colCrit";
+            this.colCrit.ReadOnly = true;
+            this.colCrit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // colCoef
+            // 
+            this.colCoef.HeaderText = "Coeficient";
+            this.colCoef.Name = "colCoef";
             // 
             // Form1
             // 
