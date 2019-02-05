@@ -96,21 +96,6 @@ namespace WindowsFormsApp1
             dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;            
         }
 
-        private void btnModCrit_Click(object sender, EventArgs e)
-        {
-            DAOCritere.ModifCrit(conn, txtBoxCritMod.Text, double.Parse(txtBoxCritCoefMod.Text), lstOffre.SelectedIndex+1);
-
-            //Reinitialise la liste des criteres
-            dataGridViewCrit.Rows.Clear();
-            //Ajout des criteres de l'offre dans la liste de critère
-            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
-            {
-                dataGridViewCrit.Rows.Add(o.Key.Libelle, o.Value);
-
-            }
-            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
-        }
-
         private void lstCrit_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(this.drh == true)
@@ -119,10 +104,6 @@ namespace WindowsFormsApp1
                 foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
                 {
                    // if (o.Key.Libelle == lstCrit.Text)
-                    {
-                        txtBoxCritMod.Text = o.Key.Libelle;
-                        txtBoxCritCoefMod.Text = o.Value.ToString();
-                    }
                 }
             }
             else
@@ -255,55 +236,6 @@ namespace WindowsFormsApp1
         private void Form1_FormClosing(Object sender, FormClosingEventArgs e)
         {
             Connexion.Deconnect(conn);
-        }
-
-
-        //Permet à cette textBox d'accepter que des int,double, numeric...
-        private void txtBoxCritCoefAdd_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char ch = e.KeyChar;
-
-            if (ch == 46 && txtBoxCritCoefMod.Text.IndexOf('.') != -1)
-            {
-                e.Handled = true;
-                return;
-            }
-
-            if (!Char.IsDigit(ch) && ch != 8 && ch != 46)
-            {
-                e.Handled = true;
-            }
-        }
-
-        //Permet à cette textBox d'accepter que des int,double, numeric...
-        private void txtBoxCritCoefMod_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char ch = e.KeyChar;
-
-            if (ch == 46 && txtBoxCritCoefMod.Text.IndexOf('.') != -1)
-            {
-                e.Handled = true;
-                return;
-            }
-
-            if (!Char.IsDigit(ch) && ch != 8 && ch != 46)
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void btnSuppCrit_Click(object sender, EventArgs e)
-        {
-            DAOCritere.DelCrit(conn, txtBoxCritMod.Text, lstOffre.SelectedIndex + 1);
-
-            //Reinitialise la liste des criteres
-            //lstCrit.Items.Clear();
-            //Ajout des criteres de l'offre dans la liste de critère
-            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
-            {
-               // lstCrit.Items.Add(o.Key.Libelle);
-            }
-            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
         }
 
         private void btnDateLimite_Click(object sender, EventArgs e)
@@ -547,7 +479,7 @@ namespace WindowsFormsApp1
 
         private void dataGridViewCrit_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            DAOCritere.ModifCrit(conn, dataGridViewCrit.Rows[e.RowIndex].Cells[0].Value.ToString(),Double.Parse(dataGridViewCrit.Rows[e.RowIndex].Cells[1].Value.ToString()),);
+            DAOCritere.ModifCrit(conn, dataGridViewCrit.Rows[e.RowIndex+1].Cells[0].Value.ToString(),Double.Parse(dataGridViewCrit.Rows[e.RowIndex].Cells[1].Value.ToString()),lstOffre.SelectedIndex+1);
         }
 
         private void dataGridViewCrit_UserAddedRow(object sender, DataGridViewRowEventArgs e)
@@ -557,12 +489,78 @@ namespace WindowsFormsApp1
 
         private void dataGridViewCrit_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            
+            DAOCritere.DelCrit(conn, dataGridViewCrit.Rows[e.Row.Index+1].Cells[0].ToString(), lstOffre.SelectedIndex + 1);
         }
 
         private void dataGridViewCrit_KeyPress(object sender, KeyPressEventArgs e)
         {
 
+        }
+
+        private void btnReu_Click(object sender, EventArgs e)
+        {
+            tabCtrl.TabIndex = 3;
+            dataGridViewReu.Rows.Remove;
+
+            dataGridViewReu.Visible = true;
+            int uneOffre = lstOffre.SelectedIndex + 1;
+            using (NpgsqlCommand cmd = new NpgsqlCommand("CREATE OR REPLACE VIEW v1 AS SELECT CANDIDATURE.nom_candidature AS candid_nom, CANDIDATURE.prenom_candidature AS candid_prenom, EVALUATION.nom_rh_evaluation AS rh_nom, EVALUATION.prenom_rh_evaluation AS rh_prenom, SUM(NOTER.note * ASSOCIER.coef) + EVALUATION.bonus_malus_evaluation AS note_total FROM CANDIDATURE INNER JOIN EVALUATION ON EVALUATION.id_candidature = CANDIDATURE.id_candidature INNER JOIN NOTER ON NOTER.id_evaluation = EVALUATION.id_evaluation INNER JOIN CRITERE ON CRITERE.id_critere = NOTER.id_critere INNER JOIN ASSOCIER ON ASSOCIER.id_critere = NOTER.id_critere WHERE CANDIDATURE.id_offre_emplois = " + uneOffre + " GROUP BY CANDIDATURE.nom_candidature, CANDIDATURE.prenom_candidature, EVALUATION.nom_rh_evaluation, EVALUATION.prenom_rh_evaluation,EVALUATION.bonus_malus_evaluation;", conn))
+            {
+                cmd.ExecuteNonQuery();
+            }
+            using (NpgsqlCommand cmd2 = new NpgsqlCommand("CREATE OR REPLACE VIEW v2 AS SELECT v1.candid_nom AS nom,v1.candid_prenom AS prenom, ROUND(AVG(v1.note_total),2) AS moyenne FROM v1 GROUP BY v1.candid_nom,v1.candid_prenom;", conn))
+            {
+                cmd2.ExecuteNonQuery();
+            }
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT v1.candid_nom, v1.candid_prenom, v2.moyenne, v1.RH_nom,v1.RH_prenom,v1.note_total FROM v1 INNER JOIN v2 ON v1.candid_nom = v2.nom AND v1.candid_prenom = v2.prenom ORDER BY Moyenne;", conn))
+            using (NpgsqlDataReader reader = cmd.ExecuteReader())
+            {
+                int first = 1;
+                string[] row = new string[] { };
+                while (reader.Read())
+                {
+                    bool verif = false;
+                    int comp = 0;
+                    //Colonne
+                    for (int i = 0; i < dataGridViewReu.Columns.Count; i++)
+                    {
+                        if (dataGridViewReu.Columns[i].HeaderText == reader.GetString(3) + " " + reader.GetString(4))
+                        {
+                            verif = true;
+                            comp = i;
+                        }
+                    }
+                    if (verif == false)
+                    {
+                        dataGridViewReu.Columns.Add(reader.GetString(3) + "_" + reader.GetString(4), reader.GetString(3) + " " + reader.GetString(4));
+                        comp = dataGridViewReu.ColumnCount - 1;
+                    }
+
+                    //Row
+                    if (first != 1)
+                    {
+                        if (dataGridViewReu.Rows[0].Cells[0].Value.ToString() == reader.GetString(0) + " " + reader.GetString(1))
+                        {
+                            dataGridViewReu.Rows[0].Cells[comp].Value = reader.GetInt32(5);
+                        }
+                        else
+                        {
+                            dataGridViewReu.Rows.Add();
+                            dataGridViewReu.Rows[0].Cells[0].Value = reader.GetString(0) + " " + reader.GetString(1);
+                            dataGridViewReu.Rows[0].Cells[1].Value = reader.GetInt32(2);
+                            dataGridViewReu.Rows[0].Cells[comp].Value = reader.GetInt32(5);
+                        }
+                    }
+                    else
+                    {
+                        dataGridViewReu.Rows[0].Cells[0].Value = reader.GetString(0) + " " + reader.GetString(1);
+                        dataGridViewReu.Rows[0].Cells[1].Value = reader.GetInt32(2);
+                        dataGridViewReu.Rows[0].Cells[comp].Value = reader.GetInt32(5);
+                        first = -1;
+                    }
+                }
+            }
         }
     }
 }
