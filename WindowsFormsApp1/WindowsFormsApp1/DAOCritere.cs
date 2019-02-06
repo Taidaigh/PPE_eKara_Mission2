@@ -134,7 +134,7 @@ namespace WindowsFormsApp1
         /// 
         /// </summary>
         /// <param name="conn"></param>
-        public static void ModifCrit(NpgsqlConnection conn, string libelle, double coef, int id_offre)
+        public static void ModifCrit(NpgsqlConnection conn, string libelle, string coef, int id_offre)
         {
             int id_critere = -1;
             using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT CRITERE.id_critere FROM CRITERE WHERE CRITERE.libelle_critere = '"+ libelle +"';", conn))
@@ -146,6 +146,7 @@ namespace WindowsFormsApp1
                 }
             }
 
+            string sql = "UPDATE ASSOCIER SET coef = " + coef + " WHERE id_critere = " + id_critere + " AND id_offre_emplois = " + id_offre + ";";
             NpgsqlCommand cmd2 = new NpgsqlCommand("UPDATE ASSOCIER SET coef = " + coef + " WHERE id_critere = " + id_critere + " AND id_offre_emplois = " + id_offre + ";", conn);
             cmd2.ExecuteNonQuery();
         }

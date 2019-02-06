@@ -65,6 +65,7 @@ namespace WindowsFormsApp1
                 //Ajout des criteres de l'offre dans la liste de critère
                 foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
                 {
+                    MessageBox.Show(o.Value.ToString());
                     dataGridViewCrit.Rows.Add(o.Key.Libelle, o.Value);
                 }
                 //Afficher la date limite
@@ -72,6 +73,7 @@ namespace WindowsFormsApp1
             }
             else
             {
+                tabCtrl.SelectTab(1);
                 //Remplit la liste des candidature
                 foreach (Candidature c in DAOCandidature.GetCandidatureByOffre(conn, lstOffre.SelectedIndex + 1))
                 {
@@ -479,7 +481,8 @@ namespace WindowsFormsApp1
 
         private void dataGridViewCrit_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            DAOCritere.ModifCrit(conn, dataGridViewCrit.Rows[e.RowIndex+1].Cells[0].Value.ToString(),Double.Parse(dataGridViewCrit.Rows[e.RowIndex].Cells[1].Value.ToString()),lstOffre.SelectedIndex+1);
+            DAOCritere.ModifCrit(conn, dataGridViewCrit.Rows[e.RowIndex].Cells[0].Value.ToString(),dataGridViewCrit.Rows[e.RowIndex].Cells[1].Value.ToString(),lstOffre.SelectedIndex+1);
+            
         }
 
         private void dataGridViewCrit_UserAddedRow(object sender, DataGridViewRowEventArgs e)
@@ -489,7 +492,7 @@ namespace WindowsFormsApp1
 
         private void dataGridViewCrit_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            DAOCritere.DelCrit(conn, dataGridViewCrit.Rows[e.Row.Index+1].Cells[0].ToString(), lstOffre.SelectedIndex + 1);
+            DAOCritere.DelCrit(conn, dataGridViewCrit.Rows[e.Row.Index].Cells[0].Value.ToString(), lstOffre.SelectedIndex + 1);
         }
 
         private void dataGridViewCrit_KeyPress(object sender, KeyPressEventArgs e)
@@ -499,8 +502,8 @@ namespace WindowsFormsApp1
 
         private void btnReu_Click(object sender, EventArgs e)
         {
-            tabCtrl.TabIndex = 3;
-            dataGridViewReu.Rows.Remove;
+            tabCtrl.SelectTab(2);
+            dataGridViewReu.Rows.Clear();
 
             dataGridViewReu.Visible = true;
             int uneOffre = lstOffre.SelectedIndex + 1;

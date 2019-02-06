@@ -63,14 +63,13 @@
             this.colMoy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabCtrl = new System.Windows.Forms.TabControl();
             this.tabOff = new System.Windows.Forms.TabPage();
+            this.btnReu = new System.Windows.Forms.Button();
             this.dataGridViewCrit = new System.Windows.Forms.DataGridView();
             this.colCrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCoef = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gpBoxDateLimite = new System.Windows.Forms.GroupBox();
-            this.tabCrit = new System.Windows.Forms.TabPage();
             this.tabNot = new System.Windows.Forms.TabPage();
             this.tabReu = new System.Windows.Forms.TabPage();
-            this.btnReu = new System.Windows.Forms.Button();
             this.gpBoxAdd.SuspendLayout();
             this.gpNote.SuspendLayout();
             this.gpBoxEval.SuspendLayout();
@@ -80,7 +79,6 @@
             this.tabOff.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCrit)).BeginInit();
             this.gpBoxDateLimite.SuspendLayout();
-            this.tabCrit.SuspendLayout();
             this.tabNot.SuspendLayout();
             this.tabReu.SuspendLayout();
             this.SuspendLayout();
@@ -123,7 +121,7 @@
             this.gpBoxAdd.Controls.Add(this.label6);
             this.gpBoxAdd.Controls.Add(this.btnAddCrit);
             this.gpBoxAdd.Controls.Add(this.txtBoxCritCoefAdd);
-            this.gpBoxAdd.Location = new System.Drawing.Point(11, 22);
+            this.gpBoxAdd.Location = new System.Drawing.Point(492, 322);
             this.gpBoxAdd.Name = "gpBoxAdd";
             this.gpBoxAdd.Size = new System.Drawing.Size(205, 151);
             this.gpBoxAdd.TabIndex = 14;
@@ -202,7 +200,7 @@
             this.gpNote.Controls.Add(this.label8);
             this.gpNote.Controls.Add(this.label7);
             this.gpNote.Controls.Add(this.txtBoxCrit);
-            this.gpNote.Location = new System.Drawing.Point(8, 7);
+            this.gpNote.Location = new System.Drawing.Point(299, 7);
             this.gpNote.Name = "gpNote";
             this.gpNote.Size = new System.Drawing.Size(205, 168);
             this.gpNote.TabIndex = 104;
@@ -314,9 +312,9 @@
             // lstCandid
             // 
             this.lstCandid.FormattingEnabled = true;
-            this.lstCandid.Location = new System.Drawing.Point(262, 15);
+            this.lstCandid.Location = new System.Drawing.Point(6, 7);
             this.lstCandid.Name = "lstCandid";
-            this.lstCandid.Size = new System.Drawing.Size(205, 147);
+            this.lstCandid.Size = new System.Drawing.Size(210, 329);
             this.lstCandid.TabIndex = 0;
             this.lstCandid.SelectedIndexChanged += new System.EventHandler(this.lstCandid_SelectedIndexChanged);
             // 
@@ -327,7 +325,7 @@
             this.gpBoxEval.Controls.Add(this.btnEval);
             this.gpBoxEval.Controls.Add(this.label9);
             this.gpBoxEval.Controls.Add(this.label10);
-            this.gpBoxEval.Location = new System.Drawing.Point(8, 180);
+            this.gpBoxEval.Location = new System.Drawing.Point(246, 181);
             this.gpBoxEval.Name = "gpBoxEval";
             this.gpBoxEval.Size = new System.Drawing.Size(276, 170);
             this.gpBoxEval.TabIndex = 105;
@@ -422,19 +420,19 @@
             // tabCtrl
             // 
             this.tabCtrl.Controls.Add(this.tabOff);
-            this.tabCtrl.Controls.Add(this.tabCrit);
             this.tabCtrl.Controls.Add(this.tabNot);
             this.tabCtrl.Controls.Add(this.tabReu);
             this.tabCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabCtrl.Location = new System.Drawing.Point(0, 0);
             this.tabCtrl.Name = "tabCtrl";
             this.tabCtrl.SelectedIndex = 0;
-            this.tabCtrl.Size = new System.Drawing.Size(547, 380);
+            this.tabCtrl.Size = new System.Drawing.Size(548, 378);
             this.tabCtrl.TabIndex = 109;
             this.tabCtrl.SelectedIndexChanged += new System.EventHandler(this.tabCtrl_SelectedIndexChanged);
             // 
             // tabOff
             // 
+            this.tabOff.Controls.Add(this.gpBoxAdd);
             this.tabOff.Controls.Add(this.btnReu);
             this.tabOff.Controls.Add(this.dataGridViewCrit);
             this.tabOff.Controls.Add(this.lstOffre);
@@ -443,10 +441,20 @@
             this.tabOff.Location = new System.Drawing.Point(4, 22);
             this.tabOff.Name = "tabOff";
             this.tabOff.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOff.Size = new System.Drawing.Size(539, 354);
+            this.tabOff.Size = new System.Drawing.Size(540, 352);
             this.tabOff.TabIndex = 0;
             this.tabOff.Text = "Offres";
             this.tabOff.UseVisualStyleBackColor = true;
+            // 
+            // btnReu
+            // 
+            this.btnReu.Location = new System.Drawing.Point(281, 300);
+            this.btnReu.Name = "btnReu";
+            this.btnReu.Size = new System.Drawing.Size(205, 23);
+            this.btnReu.TabIndex = 107;
+            this.btnReu.Text = "Réunion";
+            this.btnReu.UseVisualStyleBackColor = true;
+            this.btnReu.Click += new System.EventHandler(this.btnReu_Click);
             // 
             // dataGridViewCrit
             // 
@@ -486,17 +494,6 @@
             this.gpBoxDateLimite.TabStop = false;
             this.gpBoxDateLimite.Text = "Date Limite";
             // 
-            // tabCrit
-            // 
-            this.tabCrit.Controls.Add(this.gpBoxAdd);
-            this.tabCrit.Location = new System.Drawing.Point(4, 22);
-            this.tabCrit.Name = "tabCrit";
-            this.tabCrit.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCrit.Size = new System.Drawing.Size(539, 354);
-            this.tabCrit.TabIndex = 1;
-            this.tabCrit.Text = "Critères";
-            this.tabCrit.UseVisualStyleBackColor = true;
-            // 
             // tabNot
             // 
             this.tabNot.Controls.Add(this.gpNote);
@@ -505,7 +502,7 @@
             this.tabNot.Location = new System.Drawing.Point(4, 22);
             this.tabNot.Name = "tabNot";
             this.tabNot.Padding = new System.Windows.Forms.Padding(3);
-            this.tabNot.Size = new System.Drawing.Size(539, 354);
+            this.tabNot.Size = new System.Drawing.Size(540, 352);
             this.tabNot.TabIndex = 2;
             this.tabNot.Text = "Noter";
             this.tabNot.UseVisualStyleBackColor = true;
@@ -517,26 +514,16 @@
             this.tabReu.Location = new System.Drawing.Point(4, 22);
             this.tabReu.Name = "tabReu";
             this.tabReu.Padding = new System.Windows.Forms.Padding(3);
-            this.tabReu.Size = new System.Drawing.Size(539, 354);
+            this.tabReu.Size = new System.Drawing.Size(540, 352);
             this.tabReu.TabIndex = 3;
             this.tabReu.Text = "Réunion";
             this.tabReu.UseVisualStyleBackColor = true;
-            // 
-            // btnReu
-            // 
-            this.btnReu.Location = new System.Drawing.Point(281, 300);
-            this.btnReu.Name = "btnReu";
-            this.btnReu.Size = new System.Drawing.Size(205, 23);
-            this.btnReu.TabIndex = 107;
-            this.btnReu.Text = "Réunion";
-            this.btnReu.UseVisualStyleBackColor = true;
-            this.btnReu.Click += new System.EventHandler(this.btnReu_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(547, 380);
+            this.ClientSize = new System.Drawing.Size(548, 378);
             this.Controls.Add(this.tabCtrl);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
@@ -553,7 +540,6 @@
             this.tabOff.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCrit)).EndInit();
             this.gpBoxDateLimite.ResumeLayout(false);
-            this.tabCrit.ResumeLayout(false);
             this.tabNot.ResumeLayout(false);
             this.tabReu.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -598,7 +584,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colMoy;
         private System.Windows.Forms.TabControl tabCtrl;
         private System.Windows.Forms.TabPage tabOff;
-        private System.Windows.Forms.TabPage tabCrit;
         private System.Windows.Forms.TabPage tabNot;
         private System.Windows.Forms.TabPage tabReu;
         private System.Windows.Forms.GroupBox gpBoxDateLimite;
