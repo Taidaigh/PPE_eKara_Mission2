@@ -70,6 +70,9 @@
             this.gpBoxDateLimite = new System.Windows.Forms.GroupBox();
             this.tabNot = new System.Windows.Forms.TabPage();
             this.tabReu = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.columnCrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gpBoxAdd.SuspendLayout();
             this.gpNote.SuspendLayout();
             this.gpBoxEval.SuspendLayout();
@@ -81,6 +84,7 @@
             this.gpBoxDateLimite.SuspendLayout();
             this.tabNot.SuspendLayout();
             this.tabReu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // lstOffre
@@ -90,7 +94,7 @@
             this.lstOffre.ItemHeight = 15;
             this.lstOffre.Location = new System.Drawing.Point(3, 7);
             this.lstOffre.Name = "lstOffre";
-            this.lstOffre.Size = new System.Drawing.Size(245, 334);
+            this.lstOffre.Size = new System.Drawing.Size(245, 439);
             this.lstOffre.TabIndex = 1;
             this.lstOffre.SelectedIndexChanged += new System.EventHandler(this.lstOffre_SelectedIndexChanged);
             // 
@@ -121,9 +125,9 @@
             this.gpBoxAdd.Controls.Add(this.label6);
             this.gpBoxAdd.Controls.Add(this.btnAddCrit);
             this.gpBoxAdd.Controls.Add(this.txtBoxCritCoefAdd);
-            this.gpBoxAdd.Location = new System.Drawing.Point(492, 322);
+            this.gpBoxAdd.Location = new System.Drawing.Point(260, 183);
             this.gpBoxAdd.Name = "gpBoxAdd";
-            this.gpBoxAdd.Size = new System.Drawing.Size(205, 151);
+            this.gpBoxAdd.Size = new System.Drawing.Size(242, 109);
             this.gpBoxAdd.TabIndex = 14;
             this.gpBoxAdd.TabStop = false;
             this.gpBoxAdd.Text = "Ajouter un Critère";
@@ -148,7 +152,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(120, 19);
+            this.label6.Location = new System.Drawing.Point(146, 19);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(63, 13);
             this.label6.TabIndex = 15;
@@ -156,9 +160,9 @@
             // 
             // btnAddCrit
             // 
-            this.btnAddCrit.Location = new System.Drawing.Point(67, 105);
+            this.btnAddCrit.Location = new System.Drawing.Point(65, 61);
             this.btnAddCrit.Name = "btnAddCrit";
-            this.btnAddCrit.Size = new System.Drawing.Size(71, 30);
+            this.btnAddCrit.Size = new System.Drawing.Size(113, 39);
             this.btnAddCrit.TabIndex = 5;
             this.btnAddCrit.Text = "Ajouter";
             this.btnAddCrit.UseVisualStyleBackColor = true;
@@ -166,7 +170,7 @@
             // 
             // txtBoxCritCoefAdd
             // 
-            this.txtBoxCritCoefAdd.Location = new System.Drawing.Point(123, 35);
+            this.txtBoxCritCoefAdd.Location = new System.Drawing.Point(149, 35);
             this.txtBoxCritCoefAdd.Name = "txtBoxCritCoefAdd";
             this.txtBoxCritCoefAdd.Size = new System.Drawing.Size(76, 20);
             this.txtBoxCritCoefAdd.TabIndex = 4;
@@ -401,7 +405,6 @@
             this.dataGridViewReu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colCandid,
             this.colMoy});
-            this.dataGridViewReu.Enabled = false;
             this.dataGridViewReu.Location = new System.Drawing.Point(6, 7);
             this.dataGridViewReu.Name = "dataGridViewReu";
             this.dataGridViewReu.Size = new System.Drawing.Size(473, 150);
@@ -426,7 +429,7 @@
             this.tabCtrl.Location = new System.Drawing.Point(0, 0);
             this.tabCtrl.Name = "tabCtrl";
             this.tabCtrl.SelectedIndex = 0;
-            this.tabCtrl.Size = new System.Drawing.Size(548, 378);
+            this.tabCtrl.Size = new System.Drawing.Size(529, 488);
             this.tabCtrl.TabIndex = 109;
             this.tabCtrl.SelectedIndexChanged += new System.EventHandler(this.tabCtrl_SelectedIndexChanged);
             // 
@@ -441,16 +444,17 @@
             this.tabOff.Location = new System.Drawing.Point(4, 22);
             this.tabOff.Name = "tabOff";
             this.tabOff.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOff.Size = new System.Drawing.Size(540, 352);
+            this.tabOff.Size = new System.Drawing.Size(521, 462);
             this.tabOff.TabIndex = 0;
             this.tabOff.Text = "Offres";
             this.tabOff.UseVisualStyleBackColor = true;
             // 
             // btnReu
             // 
-            this.btnReu.Location = new System.Drawing.Point(281, 300);
+            this.btnReu.Enabled = false;
+            this.btnReu.Location = new System.Drawing.Point(260, 424);
             this.btnReu.Name = "btnReu";
-            this.btnReu.Size = new System.Drawing.Size(205, 23);
+            this.btnReu.Size = new System.Drawing.Size(242, 23);
             this.btnReu.TabIndex = 107;
             this.btnReu.Text = "Réunion";
             this.btnReu.UseVisualStyleBackColor = true;
@@ -487,7 +491,7 @@
             // 
             this.gpBoxDateLimite.Controls.Add(this.btnDateLimite);
             this.gpBoxDateLimite.Controls.Add(this.dateTimePicker);
-            this.gpBoxDateLimite.Location = new System.Drawing.Point(260, 183);
+            this.gpBoxDateLimite.Location = new System.Drawing.Point(260, 298);
             this.gpBoxDateLimite.Name = "gpBoxDateLimite";
             this.gpBoxDateLimite.Size = new System.Drawing.Size(242, 111);
             this.gpBoxDateLimite.TabIndex = 102;
@@ -496,13 +500,14 @@
             // 
             // tabNot
             // 
+            this.tabNot.Controls.Add(this.dataGridView1);
             this.tabNot.Controls.Add(this.gpNote);
             this.tabNot.Controls.Add(this.lstCandid);
             this.tabNot.Controls.Add(this.gpBoxEval);
             this.tabNot.Location = new System.Drawing.Point(4, 22);
             this.tabNot.Name = "tabNot";
             this.tabNot.Padding = new System.Windows.Forms.Padding(3);
-            this.tabNot.Size = new System.Drawing.Size(540, 352);
+            this.tabNot.Size = new System.Drawing.Size(521, 462);
             this.tabNot.TabIndex = 2;
             this.tabNot.Text = "Noter";
             this.tabNot.UseVisualStyleBackColor = true;
@@ -514,16 +519,37 @@
             this.tabReu.Location = new System.Drawing.Point(4, 22);
             this.tabReu.Name = "tabReu";
             this.tabReu.Padding = new System.Windows.Forms.Padding(3);
-            this.tabReu.Size = new System.Drawing.Size(540, 352);
+            this.tabReu.Size = new System.Drawing.Size(521, 462);
             this.tabReu.TabIndex = 3;
             this.tabReu.Text = "Réunion";
             this.tabReu.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.columnCrit,
+            this.columnNote});
+            this.dataGridView1.Location = new System.Drawing.Point(246, 357);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(240, 97);
+            this.dataGridView1.TabIndex = 106;
+            // 
+            // columnCrit
+            // 
+            this.columnCrit.HeaderText = "Critère";
+            this.columnCrit.Name = "columnCrit";
+            // 
+            // columnNote
+            // 
+            this.columnNote.HeaderText = "Note";
+            this.columnNote.Name = "columnNote";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(548, 378);
+            this.ClientSize = new System.Drawing.Size(529, 488);
             this.Controls.Add(this.tabCtrl);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
@@ -542,6 +568,7 @@
             this.gpBoxDateLimite.ResumeLayout(false);
             this.tabNot.ResumeLayout(false);
             this.tabReu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -591,6 +618,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colCrit;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCoef;
         private System.Windows.Forms.Button btnReu;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnCrit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnNote;
     }
 }
 

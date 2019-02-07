@@ -43,7 +43,6 @@ namespace WindowsFormsApp1
             {
                 tabCtrl.TabPages.Clear();
                 tabCtrl.TabPages.Add(tabOff);
-                tabCtrl.TabPages.Add(tabCrit);
                 tabCtrl.TabPages.Add(tabReu);
 
             }
@@ -60,13 +59,23 @@ namespace WindowsFormsApp1
         {
             if (this.drh == true)
             {
+                btnReu.Enabled = true;
                 //Reinitialise la liste des criteres
                 dataGridViewCrit.Rows.Clear();
                 //Ajout des criteres de l'offre dans la liste de critère
+                Boolean first = true;
                 foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
                 {
-                    MessageBox.Show(o.Value.ToString());
-                    dataGridViewCrit.Rows.Add(o.Key.Libelle, o.Value);
+                    if (first == true)
+                    {
+                        first = false;
+                        dataGridViewCrit.Rows[0].Cells[0].Value = o.Key.Libelle;
+                        dataGridViewCrit.Rows[0].Cells[1].Value = o.Value;
+                    }
+                    else
+                    {
+                        dataGridViewCrit.Rows.Add(o.Key.Libelle, o.Value);
+                    }
                 }
                 //Afficher la date limite
                 dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
@@ -502,7 +511,7 @@ namespace WindowsFormsApp1
 
         private void btnReu_Click(object sender, EventArgs e)
         {
-            tabCtrl.SelectTab(2);
+            tabCtrl.SelectTab(1);
             dataGridViewReu.Rows.Clear();
 
             dataGridViewReu.Visible = true;
@@ -516,15 +525,16 @@ namespace WindowsFormsApp1
                 cmd2.ExecuteNonQuery();
             }
 
-            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT v1.candid_nom, v1.candid_prenom, v2.moyenne, v1.RH_nom,v1.RH_prenom,v1.note_total FROM v1 INNER JOIN v2 ON v1.candid_nom = v2.nom AND v1.candid_prenom = v2.prenom ORDER BY Moyenne;", conn))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT v1.candid_nom, v1.candid_prenom, v2.moyenne, v1.RH_nom,v1.RH_prenom,v1.note_total FROM v1 INNER JOIN v2 ON v1.candid_nom = v2.nom AND v1.candid_prenom = v2.prenom ORDER BY Moyenne, v1.candid_nom, v1.candid_prenom;", conn))
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
             {
+
                 int first = 1;
-                string[] row = new string[] { };
                 while (reader.Read())
                 {
                     bool verif = false;
                     int comp = 0;
+
                     //Colonne
                     for (int i = 0; i < dataGridViewReu.Columns.Count; i++)
                     {
@@ -543,17 +553,13 @@ namespace WindowsFormsApp1
                     //Row
                     if (first != 1)
                     {
-                        if (dataGridViewReu.Rows[0].Cells[0].Value.ToString() == reader.GetString(0) + " " + reader.GetString(1))
-                        {
-                            dataGridViewReu.Rows[0].Cells[comp].Value = reader.GetInt32(5);
-                        }
-                        else
+                        if (dataGridViewReu.Rows[0].Cells[0].Value.ToString() != reader.GetString(0) + " " + reader.GetString(1))
                         {
                             dataGridViewReu.Rows.Add();
                             dataGridViewReu.Rows[0].Cells[0].Value = reader.GetString(0) + " " + reader.GetString(1);
                             dataGridViewReu.Rows[0].Cells[1].Value = reader.GetInt32(2);
-                            dataGridViewReu.Rows[0].Cells[comp].Value = reader.GetInt32(5);
                         }
+                        dataGridViewReu.Rows[0].Cells[comp].Value = reader.GetInt32(5);
                     }
                     else
                     {
