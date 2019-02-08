@@ -39,17 +39,6 @@
             this.txtBoxCritCoefAdd = new System.Windows.Forms.TextBox();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.btnDateLimite = new System.Windows.Forms.Button();
-            this.gpNote = new System.Windows.Forms.GroupBox();
-            this.btnNoter = new System.Windows.Forms.Button();
-            this.radBtnNote5 = new System.Windows.Forms.RadioButton();
-            this.radBtnNote4 = new System.Windows.Forms.RadioButton();
-            this.radBtnNote3 = new System.Windows.Forms.RadioButton();
-            this.radBtnNote2 = new System.Windows.Forms.RadioButton();
-            this.radBtnNote1 = new System.Windows.Forms.RadioButton();
-            this.radBtnNote0 = new System.Windows.Forms.RadioButton();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtBoxCrit = new System.Windows.Forms.TextBox();
             this.lstCandid = new System.Windows.Forms.ListBox();
             this.gpBoxEval = new System.Windows.Forms.GroupBox();
             this.numUpDownBonusMalus = new System.Windows.Forms.NumericUpDown();
@@ -69,12 +58,12 @@
             this.colCoef = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gpBoxDateLimite = new System.Windows.Forms.GroupBox();
             this.tabNot = new System.Windows.Forms.TabPage();
-            this.tabReu = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.lstOffreNoter = new System.Windows.Forms.ListBox();
+            this.dataGridViewCritNote = new System.Windows.Forms.DataGridView();
             this.columnCrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabReu = new System.Windows.Forms.TabPage();
             this.gpBoxAdd.SuspendLayout();
-            this.gpNote.SuspendLayout();
             this.gpBoxEval.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownBonusMalus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReu)).BeginInit();
@@ -83,8 +72,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCrit)).BeginInit();
             this.gpBoxDateLimite.SuspendLayout();
             this.tabNot.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCritNote)).BeginInit();
             this.tabReu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // lstOffre
@@ -192,133 +181,12 @@
             this.btnDateLimite.UseVisualStyleBackColor = true;
             this.btnDateLimite.Click += new System.EventHandler(this.btnDateLimite_Click);
             // 
-            // gpNote
-            // 
-            this.gpNote.Controls.Add(this.btnNoter);
-            this.gpNote.Controls.Add(this.radBtnNote5);
-            this.gpNote.Controls.Add(this.radBtnNote4);
-            this.gpNote.Controls.Add(this.radBtnNote3);
-            this.gpNote.Controls.Add(this.radBtnNote2);
-            this.gpNote.Controls.Add(this.radBtnNote1);
-            this.gpNote.Controls.Add(this.radBtnNote0);
-            this.gpNote.Controls.Add(this.label8);
-            this.gpNote.Controls.Add(this.label7);
-            this.gpNote.Controls.Add(this.txtBoxCrit);
-            this.gpNote.Location = new System.Drawing.Point(299, 7);
-            this.gpNote.Name = "gpNote";
-            this.gpNote.Size = new System.Drawing.Size(205, 168);
-            this.gpNote.TabIndex = 104;
-            this.gpNote.TabStop = false;
-            this.gpNote.Text = "Noter";
-            // 
-            // btnNoter
-            // 
-            this.btnNoter.Location = new System.Drawing.Point(67, 125);
-            this.btnNoter.Name = "btnNoter";
-            this.btnNoter.Size = new System.Drawing.Size(71, 30);
-            this.btnNoter.TabIndex = 110;
-            this.btnNoter.Text = "Noter";
-            this.btnNoter.UseVisualStyleBackColor = true;
-            this.btnNoter.Click += new System.EventHandler(this.btnNoter_Click);
-            // 
-            // radBtnNote5
-            // 
-            this.radBtnNote5.AutoSize = true;
-            this.radBtnNote5.Location = new System.Drawing.Point(124, 102);
-            this.radBtnNote5.Name = "radBtnNote5";
-            this.radBtnNote5.Size = new System.Drawing.Size(31, 17);
-            this.radBtnNote5.TabIndex = 109;
-            this.radBtnNote5.TabStop = true;
-            this.radBtnNote5.Text = "5";
-            this.radBtnNote5.UseVisualStyleBackColor = true;
-            // 
-            // radBtnNote4
-            // 
-            this.radBtnNote4.AutoSize = true;
-            this.radBtnNote4.Location = new System.Drawing.Point(87, 102);
-            this.radBtnNote4.Name = "radBtnNote4";
-            this.radBtnNote4.Size = new System.Drawing.Size(31, 17);
-            this.radBtnNote4.TabIndex = 108;
-            this.radBtnNote4.TabStop = true;
-            this.radBtnNote4.Text = "4";
-            this.radBtnNote4.UseVisualStyleBackColor = true;
-            // 
-            // radBtnNote3
-            // 
-            this.radBtnNote3.AutoSize = true;
-            this.radBtnNote3.Location = new System.Drawing.Point(50, 102);
-            this.radBtnNote3.Name = "radBtnNote3";
-            this.radBtnNote3.Size = new System.Drawing.Size(31, 17);
-            this.radBtnNote3.TabIndex = 107;
-            this.radBtnNote3.TabStop = true;
-            this.radBtnNote3.Text = "3";
-            this.radBtnNote3.UseVisualStyleBackColor = true;
-            // 
-            // radBtnNote2
-            // 
-            this.radBtnNote2.AutoSize = true;
-            this.radBtnNote2.Location = new System.Drawing.Point(124, 83);
-            this.radBtnNote2.Name = "radBtnNote2";
-            this.radBtnNote2.Size = new System.Drawing.Size(31, 17);
-            this.radBtnNote2.TabIndex = 106;
-            this.radBtnNote2.TabStop = true;
-            this.radBtnNote2.Text = "2";
-            this.radBtnNote2.UseVisualStyleBackColor = true;
-            // 
-            // radBtnNote1
-            // 
-            this.radBtnNote1.AutoSize = true;
-            this.radBtnNote1.Location = new System.Drawing.Point(87, 80);
-            this.radBtnNote1.Name = "radBtnNote1";
-            this.radBtnNote1.Size = new System.Drawing.Size(31, 17);
-            this.radBtnNote1.TabIndex = 105;
-            this.radBtnNote1.TabStop = true;
-            this.radBtnNote1.Text = "1";
-            this.radBtnNote1.UseVisualStyleBackColor = true;
-            // 
-            // radBtnNote0
-            // 
-            this.radBtnNote0.AutoSize = true;
-            this.radBtnNote0.Location = new System.Drawing.Point(50, 80);
-            this.radBtnNote0.Name = "radBtnNote0";
-            this.radBtnNote0.Size = new System.Drawing.Size(31, 17);
-            this.radBtnNote0.TabIndex = 104;
-            this.radBtnNote0.TabStop = true;
-            this.radBtnNote0.Text = "0";
-            this.radBtnNote0.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(17, 67);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(36, 13);
-            this.label8.TabIndex = 103;
-            this.label8.Text = "Note :";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(17, 28);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 13);
-            this.label7.TabIndex = 101;
-            this.label7.Text = "Critère :";
-            // 
-            // txtBoxCrit
-            // 
-            this.txtBoxCrit.Enabled = false;
-            this.txtBoxCrit.Location = new System.Drawing.Point(17, 44);
-            this.txtBoxCrit.Name = "txtBoxCrit";
-            this.txtBoxCrit.Size = new System.Drawing.Size(100, 20);
-            this.txtBoxCrit.TabIndex = 102;
-            // 
             // lstCandid
             // 
             this.lstCandid.FormattingEnabled = true;
-            this.lstCandid.Location = new System.Drawing.Point(6, 7);
+            this.lstCandid.Location = new System.Drawing.Point(261, 6);
             this.lstCandid.Name = "lstCandid";
-            this.lstCandid.Size = new System.Drawing.Size(210, 329);
+            this.lstCandid.Size = new System.Drawing.Size(254, 160);
             this.lstCandid.TabIndex = 0;
             this.lstCandid.SelectedIndexChanged += new System.EventHandler(this.lstCandid_SelectedIndexChanged);
             // 
@@ -329,16 +197,16 @@
             this.gpBoxEval.Controls.Add(this.btnEval);
             this.gpBoxEval.Controls.Add(this.label9);
             this.gpBoxEval.Controls.Add(this.label10);
-            this.gpBoxEval.Location = new System.Drawing.Point(246, 181);
+            this.gpBoxEval.Location = new System.Drawing.Point(259, 275);
             this.gpBoxEval.Name = "gpBoxEval";
-            this.gpBoxEval.Size = new System.Drawing.Size(276, 170);
+            this.gpBoxEval.Size = new System.Drawing.Size(256, 185);
             this.gpBoxEval.TabIndex = 105;
             this.gpBoxEval.TabStop = false;
             this.gpBoxEval.Text = "Noter";
             // 
             // numUpDownBonusMalus
             // 
-            this.numUpDownBonusMalus.Location = new System.Drawing.Point(143, 146);
+            this.numUpDownBonusMalus.Location = new System.Drawing.Point(118, 119);
             this.numUpDownBonusMalus.Maximum = new decimal(new int[] {
             10,
             0,
@@ -357,24 +225,23 @@
             // 
             this.richTextBoxCom.Location = new System.Drawing.Point(17, 44);
             this.richTextBoxCom.Name = "richTextBoxCom";
-            this.richTextBoxCom.Size = new System.Drawing.Size(246, 96);
+            this.richTextBoxCom.Size = new System.Drawing.Size(221, 74);
             this.richTextBoxCom.TabIndex = 111;
             this.richTextBoxCom.Text = "";
             // 
             // btnEval
             // 
-            this.btnEval.Location = new System.Drawing.Point(105, 172);
+            this.btnEval.Location = new System.Drawing.Point(91, 149);
             this.btnEval.Name = "btnEval";
             this.btnEval.Size = new System.Drawing.Size(71, 30);
             this.btnEval.TabIndex = 110;
             this.btnEval.Text = "Valider";
             this.btnEval.UseVisualStyleBackColor = true;
-            this.btnEval.Click += new System.EventHandler(this.btnEval_Click);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(17, 146);
+            this.label9.Location = new System.Drawing.Point(14, 121);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(78, 13);
             this.label9.TabIndex = 103;
@@ -429,9 +296,8 @@
             this.tabCtrl.Location = new System.Drawing.Point(0, 0);
             this.tabCtrl.Name = "tabCtrl";
             this.tabCtrl.SelectedIndex = 0;
-            this.tabCtrl.Size = new System.Drawing.Size(529, 488);
+            this.tabCtrl.Size = new System.Drawing.Size(529, 492);
             this.tabCtrl.TabIndex = 109;
-            this.tabCtrl.SelectedIndexChanged += new System.EventHandler(this.tabCtrl_SelectedIndexChanged);
             // 
             // tabOff
             // 
@@ -473,10 +339,10 @@
             this.dataGridViewCrit.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCrit_CellEndEdit);
             this.dataGridViewCrit.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridViewCrit_UserAddedRow);
             this.dataGridViewCrit.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridViewCrit_UserDeletingRow);
-            this.dataGridViewCrit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridViewCrit_KeyPress);
             // 
             // colCrit
             // 
+            this.colCrit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colCrit.HeaderText = "Critère";
             this.colCrit.Name = "colCrit";
             this.colCrit.ReadOnly = true;
@@ -484,6 +350,7 @@
             // 
             // colCoef
             // 
+            this.colCoef.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colCoef.HeaderText = "Coeficient";
             this.colCoef.Name = "colCoef";
             // 
@@ -500,17 +367,53 @@
             // 
             // tabNot
             // 
-            this.tabNot.Controls.Add(this.dataGridView1);
-            this.tabNot.Controls.Add(this.gpNote);
+            this.tabNot.Controls.Add(this.lstOffreNoter);
+            this.tabNot.Controls.Add(this.dataGridViewCritNote);
             this.tabNot.Controls.Add(this.lstCandid);
             this.tabNot.Controls.Add(this.gpBoxEval);
             this.tabNot.Location = new System.Drawing.Point(4, 22);
             this.tabNot.Name = "tabNot";
             this.tabNot.Padding = new System.Windows.Forms.Padding(3);
-            this.tabNot.Size = new System.Drawing.Size(521, 462);
+            this.tabNot.Size = new System.Drawing.Size(521, 466);
             this.tabNot.TabIndex = 2;
             this.tabNot.Text = "Noter";
             this.tabNot.UseVisualStyleBackColor = true;
+            // 
+            // lstOffreNoter
+            // 
+            this.lstOffreNoter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstOffreNoter.FormattingEnabled = true;
+            this.lstOffreNoter.ItemHeight = 15;
+            this.lstOffreNoter.Location = new System.Drawing.Point(6, 6);
+            this.lstOffreNoter.Name = "lstOffreNoter";
+            this.lstOffreNoter.Size = new System.Drawing.Size(245, 454);
+            this.lstOffreNoter.TabIndex = 107;
+            this.lstOffreNoter.SelectedIndexChanged += new System.EventHandler(this.lstOffreNoter_SelectedIndexChanged);
+            // 
+            // dataGridViewCritNote
+            // 
+            this.dataGridViewCritNote.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCritNote.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.columnCrit,
+            this.columnNote});
+            this.dataGridViewCritNote.Location = new System.Drawing.Point(259, 172);
+            this.dataGridViewCritNote.Name = "dataGridViewCritNote";
+            this.dataGridViewCritNote.Size = new System.Drawing.Size(256, 97);
+            this.dataGridViewCritNote.TabIndex = 106;
+            this.dataGridViewCritNote.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCrit_CellEndEdit);
+            // 
+            // columnCrit
+            // 
+            this.columnCrit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnCrit.HeaderText = "Critère";
+            this.columnCrit.Name = "columnCrit";
+            this.columnCrit.ReadOnly = true;
+            // 
+            // columnNote
+            // 
+            this.columnNote.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnNote.HeaderText = "Note";
+            this.columnNote.Name = "columnNote";
             // 
             // tabReu
             // 
@@ -524,39 +427,16 @@
             this.tabReu.Text = "Réunion";
             this.tabReu.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.columnCrit,
-            this.columnNote});
-            this.dataGridView1.Location = new System.Drawing.Point(246, 357);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 97);
-            this.dataGridView1.TabIndex = 106;
-            // 
-            // columnCrit
-            // 
-            this.columnCrit.HeaderText = "Critère";
-            this.columnCrit.Name = "columnCrit";
-            // 
-            // columnNote
-            // 
-            this.columnNote.HeaderText = "Note";
-            this.columnNote.Name = "columnNote";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(529, 488);
+            this.ClientSize = new System.Drawing.Size(529, 492);
             this.Controls.Add(this.tabCtrl);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.gpBoxAdd.ResumeLayout(false);
             this.gpBoxAdd.PerformLayout();
-            this.gpNote.ResumeLayout(false);
-            this.gpNote.PerformLayout();
             this.gpBoxEval.ResumeLayout(false);
             this.gpBoxEval.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownBonusMalus)).EndInit();
@@ -567,8 +447,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCrit)).EndInit();
             this.gpBoxDateLimite.ResumeLayout(false);
             this.tabNot.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCritNote)).EndInit();
             this.tabReu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -587,18 +467,7 @@
         private System.Windows.Forms.TextBox txtBoxCritCoefAdd;
         private System.Windows.Forms.DateTimePicker dateTimePicker;
         private System.Windows.Forms.Button btnDateLimite;
-        private System.Windows.Forms.GroupBox gpNote;
         private System.Windows.Forms.ListBox lstCandid;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtBoxCrit;
-        private System.Windows.Forms.RadioButton radBtnNote5;
-        private System.Windows.Forms.RadioButton radBtnNote4;
-        private System.Windows.Forms.RadioButton radBtnNote3;
-        private System.Windows.Forms.RadioButton radBtnNote2;
-        private System.Windows.Forms.RadioButton radBtnNote1;
-        private System.Windows.Forms.RadioButton radBtnNote0;
-        private System.Windows.Forms.Button btnNoter;
         private System.Windows.Forms.GroupBox gpBoxEval;
         private System.Windows.Forms.NumericUpDown numUpDownBonusMalus;
         private System.Windows.Forms.RichTextBox richTextBoxCom;
@@ -615,10 +484,11 @@
         private System.Windows.Forms.TabPage tabReu;
         private System.Windows.Forms.GroupBox gpBoxDateLimite;
         private System.Windows.Forms.DataGridView dataGridViewCrit;
+        private System.Windows.Forms.Button btnReu;
+        private System.Windows.Forms.DataGridView dataGridViewCritNote;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCrit;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCoef;
-        private System.Windows.Forms.Button btnReu;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ListBox lstOffreNoter;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnCrit;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnNote;
     }

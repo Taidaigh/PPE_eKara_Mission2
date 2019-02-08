@@ -17,9 +17,9 @@ namespace WindowsFormsApp1
         NpgsqlConnection conn;
 
         //Gestion des DRH
-        Boolean drh = true;
-        string rhNom = "Mabilon";
-        string rhPrenom = "Loic";
+        Boolean drh = false;
+        string rhNom = "De Lemos Almeida";
+        string rhPrenom = "Pierre";
 
         /// <summary>
         /// Création du form
@@ -32,24 +32,32 @@ namespace WindowsFormsApp1
             //Connexion bdd
             conn = Connexion.Connect();
 
-            //Generation de la liste des offres
-            foreach (Offre o in DAOOffre.GetOffre(conn))
-            {
-                lstOffre.Items.Add(o.Intitule);
-            }
-
             //Gere les differents modes des onglets
             if (this.drh == true)
             {
                 tabCtrl.TabPages.Clear();
                 tabCtrl.TabPages.Add(tabOff);
                 tabCtrl.TabPages.Add(tabReu);
+                //Generation de la liste des offres
+                foreach (Offre o in DAOOffre.GetOffre(conn))
+                {
+                    lstOffre.Items.Add(o.Intitule);
+                }
 
             }
             else
             {
                 tabCtrl.TabPages.Clear();
                 tabCtrl.TabPages.Add(tabNot);
+                //Generation de la liste des offres
+                foreach (Offre o in DAOOffre.GetOffre(conn))
+                {
+                    lstOffreNoter.Items.Add(o.Intitule);
+                }
+
+                lstCandid.Enabled = false;
+                dataGridViewCritNote.Enabled = false;
+                gpBoxEval.Enabled = false;
             }
         }
 
@@ -57,38 +65,27 @@ namespace WindowsFormsApp1
         //Event sur la liste d'offre lors d'un changement de selection d'index
         private void lstOffre_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.drh == true)
+            btnReu.Enabled = true;
+            //Reinitialise la liste des criteres
+            dataGridViewCrit.Rows.Clear();
+            //Ajout des criteres de l'offre dans la liste de critère
+            Boolean first = true;
+            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
             {
-                btnReu.Enabled = true;
-                //Reinitialise la liste des criteres
-                dataGridViewCrit.Rows.Clear();
-                //Ajout des criteres de l'offre dans la liste de critère
-                Boolean first = true;
-                foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
+                if (first == true)
                 {
-                    if (first == true)
-                    {
-                        first = false;
-                        dataGridViewCrit.Rows[0].Cells[0].Value = o.Key.Libelle;
-                        dataGridViewCrit.Rows[0].Cells[1].Value = o.Value;
-                    }
-                    else
-                    {
-                        dataGridViewCrit.Rows.Add(o.Key.Libelle, o.Value);
-                    }
+                    first = false;
+                    dataGridViewCrit.Rows[0].Cells[0].Value = o.Key.Libelle;
+                    dataGridViewCrit.Rows[0].Cells[1].Value = o.Value;
                 }
-                //Afficher la date limite
-                dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
-            }
-            else
-            {
-                tabCtrl.SelectTab(1);
-                //Remplit la liste des candidature
-                foreach (Candidature c in DAOCandidature.GetCandidatureByOffre(conn, lstOffre.SelectedIndex + 1))
+                else
                 {
-                    lstCandid.Items.Add(c.Nom + " | " + c.Prenom);
+                    dataGridViewCrit.Rows.Add(o.Key.Libelle, o.Value);
                 }
             }
+            //Afficher la date limite
+            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
+            
         }
 
 
@@ -99,140 +96,24 @@ namespace WindowsFormsApp1
             //Reinitialise la liste des criteres
             dataGridViewCrit.Rows.Clear();
             //Ajout des criteres de l'offre dans la liste de critère
+            Boolean first = true;
             foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
             {
-                dataGridViewCrit.Rows.Add(o.Key.Libelle, o.Value);
-
-            }
-            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;            
-        }
-
-        private void lstCrit_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(this.drh == true)
-            {
-
-                foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
+                if (first == true)
                 {
-                   // if (o.Key.Libelle == lstCrit.Text)
-                }
-            }
-            else
-            {
-                //Recuperation du nom et du prenom
-                string nom_candidat = "";
-                string prenom_candidat = "";
-                Boolean verif = false;
-                for (int i = 0; i < lstCandid.Text.Length; i++)
-                {
-                    if (verif == false)
-                    {
-                        if (lstCandid.Text.ElementAt(i) != ' ' && lstCandid.Text.ElementAt(i + 1) != '|')
-                        {
-                            nom_candidat = nom_candidat + lstCandid.Text.ElementAt(i);
-                        }
-                        else
-                        {
-                            i += 2;
-                            verif = true;
-                        }
-                    }
-                    else
-                    {
-                        prenom_candidat = prenom_candidat + lstCandid.Text.ElementAt(i);
-
-                    }
-                    lstCandid.Text.ElementAt(i);
-                }
-                int laNote = -1;
-                //foreach (KeyValuePair<Critere, int> c in DAOCritere.GetCritereNoteByOffreNomPrenomRHNomPrenomCandid(conn,lstOffre.SelectedIndex+1,rhNom,rhPrenom, prenom_candidat, nom_candidat, lstCrit.Text))
-                {
-                    //laNote = c.Value;                    
-                }
-               // txtBoxCrit.Text = lstCrit.Text;
-                if (laNote == 0)
-                {
-                    radBtnNote0.Checked = true;
-                    radBtnNote1.Checked = false;
-                    radBtnNote2.Checked = false;
-                    radBtnNote3.Checked = false;
-                    radBtnNote4.Checked = false;
-                    radBtnNote5.Checked = false;
+                    first = false;
+                    dataGridViewCrit.Rows[0].Cells[0].Value = o.Key.Libelle;
+                    dataGridViewCrit.Rows[0].Cells[1].Value = o.Value;
                 }
                 else
                 {
-                    if (laNote == 1)
-                    {
-                        radBtnNote0.Checked = false;
-                        radBtnNote1.Checked = true;
-                        radBtnNote2.Checked = false;
-                        radBtnNote3.Checked = false;
-                        radBtnNote4.Checked = false;
-                        radBtnNote5.Checked = false;
-                    }
-                    else
-                    {
-                        if (laNote == 2)
-                        {
-                            radBtnNote0.Checked = false;
-                            radBtnNote1.Checked = true;
-                            radBtnNote2.Checked = false;
-                            radBtnNote3.Checked = false;
-                            radBtnNote4.Checked = false;
-                            radBtnNote5.Checked = false;
-
-                        }
-                        else
-                        {
-                            if (laNote == 3)
-                            {
-                                radBtnNote0.Checked = false;
-                                radBtnNote1.Checked = false;
-                                radBtnNote2.Checked = false;
-                                radBtnNote3.Checked = true;
-                                radBtnNote4.Checked = false;
-                                radBtnNote5.Checked = false;
-                            }
-                            else
-                            {
-                                if (laNote == 4)
-                                {
-                                    radBtnNote0.Checked = false;
-                                    radBtnNote1.Checked = false;
-                                    radBtnNote2.Checked = false;
-                                    radBtnNote3.Checked = false;
-                                    radBtnNote4.Checked = true;
-                                    radBtnNote5.Checked = false;
-                                }
-                                else
-                                {
-                                    if (laNote == 5)
-                                    {
-                                        radBtnNote0.Checked = false;
-                                        radBtnNote1.Checked = false;
-                                        radBtnNote2.Checked = false;
-                                        radBtnNote3.Checked = false;
-                                        radBtnNote4.Checked = false;
-                                        radBtnNote5.Checked = true;
-                                    }
-                                    else
-                                    {
-                                        radBtnNote0.Checked = false;
-                                        radBtnNote1.Checked = false;
-                                        radBtnNote2.Checked = false;
-                                        radBtnNote3.Checked = false;
-                                        radBtnNote4.Checked = false;
-                                        radBtnNote5.Checked = false;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    dataGridViewCrit.Rows.Add(o.Key.Libelle, o.Value);
                 }
             }
-        }
-            
 
+            //Afficher la date
+            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;            
+        }
 
         private void AddCrit_Click(object sender, EventArgs e)
         {
@@ -252,27 +133,15 @@ namespace WindowsFormsApp1
         private void btnDateLimite_Click(object sender, EventArgs e)
         {
             DAOOffre.SetDateLimite(conn, lstOffre.SelectedIndex+1, dateTimePicker.Value);
-
-            //Reinitialise la liste des criteres
-            //lstCrit.Items.Clear();
-            //Ajout des criteres de l'offre dans la liste de critère
-            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
-            {
-                //lstCrit.Items.Add(o.Key.Libelle);
-            }
             dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
         }
 
         private void lstCandid_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtBoxCrit.Clear();
-            radBtnNote0.Checked = false;
-            radBtnNote1.Checked = false;
-            radBtnNote2.Checked = false;
-            radBtnNote3.Checked = false;
-            radBtnNote4.Checked = false;
-            radBtnNote5.Checked = false;
-           // lstCrit.Items.Clear();
+            dataGridViewCritNote.Enabled = true;
+            gpBoxEval.Enabled = true;
+
+            dataGridViewCritNote.Rows.Clear();
             string nom_candidat = "";
             string prenom_candidat = "";
             Boolean verif = false;
@@ -297,92 +166,26 @@ namespace WindowsFormsApp1
                 }
                 lstCandid.Text.ElementAt(i);
             }
-            foreach (Critere c in DAOCritere.GetCritereByOffreNomPrenomRH(conn, lstOffre.SelectedIndex + 1))
-            {
-                //lstCrit.Items.Add(c.Libelle);
-            }
 
-            if (DAOCritEval.GetNombreNoteByOffreNomPrenomRHNomPrenomCandid(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat, rhNom, rhPrenom) == DAOCritere.GetCritereByOffreNomPrenomRH(conn, lstOffre.SelectedIndex + 1).Count)
+            Boolean first = true;
+            foreach(KeyValuePair<Critere,int> c in DAOCritere.GetCritereNoteByOffreNomPrenomRHNomPrenomCandid(conn,lstOffreNoter.SelectedIndex+1, rhNom, rhPrenom, prenom_candidat, nom_candidat))
             {
-                gpBoxEval.Visible = true;
-                Evaluation evalu = DAOEvaluation.GetEvalByOffreNomPrenomCandidNomPrenomRH(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat, rhNom, rhPrenom);
-                numUpDownBonusMalus.Value = evalu.Bonus_malus;
-                richTextBoxCom.Text = evalu.Commentaire;
-
-            }
-        }
-
-        private void btnNoter_Click(object sender, EventArgs e)
-        {
-            int note = -1;
-            if (radBtnNote0.Checked == true)
-            {
-                note = 0;
-            }
-            else
-            {
-                if (radBtnNote1.Checked == true)
+                if (first == true)
                 {
-                    note = 1;
+                    first = false;
+                    dataGridViewCritNote.Rows[0].Cells[0].Value = c.Key.Libelle;
+                    dataGridViewCritNote.Rows[0].Cells[1].Value = c.Value;
                 }
                 else
                 {
-                    if (radBtnNote2.Checked == true)
-                    {
-                        note = 2;
-                    }
-                    else
-                    {
-                        if (radBtnNote3.Checked == true)
-                        {
-                            note = 3;
-                        }
-                        else
-                        {
-                            if (radBtnNote4.Checked == true)
-                            {
-                                note = 4;
-                            }
-                            else
-                            {
-                                if (radBtnNote5.Checked == true)
-                                {
-                                    note = 5;
-                                }
-                            }
-                        }
-                    }
+                    dataGridViewCritNote.Rows.Add(c.Key.Libelle, c.Value);
                 }
             }
-            string nom_candidat = "";
-            string prenom_candidat = "";
-            Boolean verif = false;
-            for (int i=0; i<lstCandid.Text.Length;i++)
-            {
-                if(verif == false)
-                {
-                    if(lstCandid.Text.ElementAt(i) != ' ' && lstCandid.Text.ElementAt(i + 1) != '|')
-                    {
-                        nom_candidat = nom_candidat + lstCandid.Text.ElementAt(i);
-                    }
-                    else
-                    {
-                        i += 2;
-                        verif = true;
-                    }
-                }
-                else
-                {
-                     prenom_candidat = prenom_candidat + lstCandid.Text.ElementAt(i);
-                    
-                }
-                    lstCandid.Text.ElementAt(i);
-            }
-            DAOCritEval.SetNote(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat, note, rhNom, rhPrenom,txtBoxCrit.Text);
-            lstCandid_SelectedIndexChanged(sender, e);
-            lstCrit_SelectedIndexChanged(sender, e);
 
-        }
+            Evaluation evalu = DAOEvaluation.GetEvalByOffreNomPrenomCandidNomPrenomRH(conn, lstOffreNoter.SelectedIndex + 1, nom_candidat, prenom_candidat, rhNom, rhPrenom);
+            numUpDownBonusMalus.Value = evalu.Bonus_malus;
+            richTextBoxCom.Text = evalu.Commentaire;
+        }       
 
         private void btnEval_Click(object sender, EventArgs e)
         {
@@ -419,79 +222,33 @@ namespace WindowsFormsApp1
             FichePDF.fiche();
         }
 
-        private void btnReunion_Click(object sender, EventArgs e)
+        private void dataGridViewCrit_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-           
-            
-        }
-
-        private void tabCtrl_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            dataGridViewReu.Visible = true;
-            int uneOffre = lstOffre.SelectedIndex + 1;
-            using (NpgsqlCommand cmd = new NpgsqlCommand("CREATE OR REPLACE VIEW v1 AS SELECT CANDIDATURE.nom_candidature AS candid_nom, CANDIDATURE.prenom_candidature AS candid_prenom, EVALUATION.nom_rh_evaluation AS rh_nom, EVALUATION.prenom_rh_evaluation AS rh_prenom, SUM(NOTER.note * ASSOCIER.coef) + EVALUATION.bonus_malus_evaluation AS note_total FROM CANDIDATURE INNER JOIN EVALUATION ON EVALUATION.id_candidature = CANDIDATURE.id_candidature INNER JOIN NOTER ON NOTER.id_evaluation = EVALUATION.id_evaluation INNER JOIN CRITERE ON CRITERE.id_critere = NOTER.id_critere INNER JOIN ASSOCIER ON ASSOCIER.id_critere = NOTER.id_critere WHERE CANDIDATURE.id_offre_emplois = " + uneOffre + " GROUP BY CANDIDATURE.nom_candidature, CANDIDATURE.prenom_candidature, EVALUATION.nom_rh_evaluation, EVALUATION.prenom_rh_evaluation,EVALUATION.bonus_malus_evaluation;", conn))
+            string nom_candidat = "";
+            string prenom_candidat = "";
+            Boolean verif = false;
+            for (int i = 0; i < lstCandid.Text.Length; i++)
             {
-                cmd.ExecuteNonQuery();
-            }
-            using (NpgsqlCommand cmd2 = new NpgsqlCommand("CREATE OR REPLACE VIEW v2 AS SELECT v1.candid_nom AS nom,v1.candid_prenom AS prenom, ROUND(AVG(v1.note_total),2) AS moyenne FROM v1 GROUP BY v1.candid_nom,v1.candid_prenom;", conn))
-            {
-                cmd2.ExecuteNonQuery();
-            }
-
-            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT v1.candid_nom, v1.candid_prenom, v2.moyenne, v1.RH_nom,v1.RH_prenom,v1.note_total FROM v1 INNER JOIN v2 ON v1.candid_nom = v2.nom AND v1.candid_prenom = v2.prenom ORDER BY Moyenne;", conn))
-            using (NpgsqlDataReader reader = cmd.ExecuteReader())
-            {
-                int first = 1;
-                string[] row = new string[] { };
-                while (reader.Read())
+                if (verif == false)
                 {
-                    bool verif = false;
-                    int comp = 0;
-                    //Colonne
-                    for (int i = 0; i < dataGridViewReu.Columns.Count; i++)
+                    if (lstCandid.Text.ElementAt(i) != ' ' && lstCandid.Text.ElementAt(i + 1) != '|')
                     {
-                        if (dataGridViewReu.Columns[i].HeaderText == reader.GetString(3) + " " + reader.GetString(4))
-                        {
-                            verif = true;
-                            comp = i;
-                        }
-                    }
-                    if (verif == false)
-                    {
-                        dataGridViewReu.Columns.Add(reader.GetString(3) + "_" + reader.GetString(4), reader.GetString(3) + " " + reader.GetString(4));
-                        comp = dataGridViewReu.ColumnCount - 1;
-                    }
-
-                    //Row
-                    if (first != 1)
-                    {
-                        if (dataGridViewReu.Rows[0].Cells[0].Value.ToString() == reader.GetString(0) + " " + reader.GetString(1))
-                        {
-                            dataGridViewReu.Rows[0].Cells[comp].Value = reader.GetInt32(5);
-                        }
-                        else
-                        {
-                            dataGridViewReu.Rows.Add();
-                            dataGridViewReu.Rows[0].Cells[0].Value = reader.GetString(0) + " " + reader.GetString(1);
-                            dataGridViewReu.Rows[0].Cells[1].Value = reader.GetInt32(2);
-                            dataGridViewReu.Rows[0].Cells[comp].Value = reader.GetInt32(5);
-                        }
+                        nom_candidat = nom_candidat + lstCandid.Text.ElementAt(i);
                     }
                     else
                     {
-                        dataGridViewReu.Rows[0].Cells[0].Value = reader.GetString(0) + " " + reader.GetString(1);
-                        dataGridViewReu.Rows[0].Cells[1].Value = reader.GetInt32(2);
-                        dataGridViewReu.Rows[0].Cells[comp].Value = reader.GetInt32(5);
-                        first = -1;
+                        i += 2;
+                        verif = true;
                     }
                 }
-            }
-        }
+                else
+                {
+                    prenom_candidat = prenom_candidat + lstCandid.Text.ElementAt(i);
 
-        private void dataGridViewCrit_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            DAOCritere.ModifCrit(conn, dataGridViewCrit.Rows[e.RowIndex].Cells[0].Value.ToString(),dataGridViewCrit.Rows[e.RowIndex].Cells[1].Value.ToString(),lstOffre.SelectedIndex+1);
-            
+                }
+                lstCandid.Text.ElementAt(i);
+            }
+            DAOCritEval.SetNote(conn, lstOffreNoter.SelectedIndex + 1, nom_candidat, prenom_candidat, int.Parse(dataGridViewCritNote.Rows[dataGridViewCritNote.CurrentRow.Index].Cells[1].Value.ToString()), rhNom, rhPrenom, dataGridViewCritNote.Rows[dataGridViewCritNote.CurrentRow.Index].Cells[0].Value.ToString());
         }
 
         private void dataGridViewCrit_UserAddedRow(object sender, DataGridViewRowEventArgs e)
@@ -502,11 +259,6 @@ namespace WindowsFormsApp1
         private void dataGridViewCrit_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             DAOCritere.DelCrit(conn, dataGridViewCrit.Rows[e.Row.Index].Cells[0].Value.ToString(), lstOffre.SelectedIndex + 1);
-        }
-
-        private void dataGridViewCrit_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
         }
 
         private void btnReu_Click(object sender, EventArgs e)
@@ -569,6 +321,31 @@ namespace WindowsFormsApp1
                         first = -1;
                     }
                 }
+            }
+        }
+
+        private void lstOffreNoter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lstCandid.Enabled = true;
+            dataGridViewCritNote.Enabled = false;
+            gpBoxEval.Enabled = false;
+
+            //Efface le bonus malus
+            numUpDownBonusMalus.Value = 0;
+
+            //Efface le commentaire
+            richTextBoxCom.Clear();
+
+            //Vide les notes et les critères
+            dataGridViewCritNote.Rows.Clear();
+
+            //Vide la liste des candidats
+            lstCandid.Items.Clear();
+
+            //Remplit les candidats de l'offre selectionné
+            foreach (Candidature c in DAOCandidature.GetCandidatureByOffre(conn, lstOffreNoter.SelectedIndex + 1))
+            {
+                lstCandid.Items.Add(c.Nom + " | " + c.Prenom);
             }
         }
     }
