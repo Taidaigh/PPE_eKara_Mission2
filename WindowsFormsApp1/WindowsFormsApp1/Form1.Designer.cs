@@ -52,6 +52,7 @@
             this.colMoy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabCtrl = new System.Windows.Forms.TabControl();
             this.tabOff = new System.Windows.Forms.TabPage();
+            this.btnVerr = new System.Windows.Forms.Button();
             this.btnReu = new System.Windows.Forms.Button();
             this.dataGridViewCrit = new System.Windows.Forms.DataGridView();
             this.colCrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,7 +64,8 @@
             this.columnCrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabReu = new System.Windows.Forms.TabPage();
-            this.btnVerr = new System.Windows.Forms.Button();
+            this.lstOffreId = new System.Windows.Forms.ListBox();
+            this.lstOffreNoterId = new System.Windows.Forms.ListBox();
             this.gpBoxAdd.SuspendLayout();
             this.gpBoxEval.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownBonusMalus)).BeginInit();
@@ -304,6 +306,7 @@
             // 
             // tabOff
             // 
+            this.tabOff.Controls.Add(this.lstOffreId);
             this.tabOff.Controls.Add(this.btnVerr);
             this.tabOff.Controls.Add(this.gpBoxAdd);
             this.tabOff.Controls.Add(this.btnReu);
@@ -318,6 +321,17 @@
             this.tabOff.TabIndex = 0;
             this.tabOff.Text = "Offres";
             this.tabOff.UseVisualStyleBackColor = true;
+            // 
+            // btnVerr
+            // 
+            this.btnVerr.Enabled = false;
+            this.btnVerr.Location = new System.Drawing.Point(260, 422);
+            this.btnVerr.Name = "btnVerr";
+            this.btnVerr.Size = new System.Drawing.Size(242, 23);
+            this.btnVerr.TabIndex = 108;
+            this.btnVerr.Text = "Verrouiller les critères";
+            this.btnVerr.UseVisualStyleBackColor = true;
+            this.btnVerr.Click += new System.EventHandler(this.btnVerr_Click);
             // 
             // btnReu
             // 
@@ -373,6 +387,7 @@
             // 
             // tabNot
             // 
+            this.tabNot.Controls.Add(this.lstOffreNoterId);
             this.tabNot.Controls.Add(this.lstOffreNoter);
             this.tabNot.Controls.Add(this.dataGridViewCritNote);
             this.tabNot.Controls.Add(this.lstCandid);
@@ -380,7 +395,7 @@
             this.tabNot.Location = new System.Drawing.Point(4, 22);
             this.tabNot.Name = "tabNot";
             this.tabNot.Padding = new System.Windows.Forms.Padding(3);
-            this.tabNot.Size = new System.Drawing.Size(521, 466);
+            this.tabNot.Size = new System.Drawing.Size(521, 482);
             this.tabNot.TabIndex = 2;
             this.tabNot.Text = "Noter";
             this.tabNot.UseVisualStyleBackColor = true;
@@ -392,7 +407,7 @@
             this.lstOffreNoter.ItemHeight = 15;
             this.lstOffreNoter.Location = new System.Drawing.Point(6, 6);
             this.lstOffreNoter.Name = "lstOffreNoter";
-            this.lstOffreNoter.Size = new System.Drawing.Size(245, 454);
+            this.lstOffreNoter.Size = new System.Drawing.Size(245, 469);
             this.lstOffreNoter.TabIndex = 107;
             this.lstOffreNoter.SelectedIndexChanged += new System.EventHandler(this.lstOffreNoter_SelectedIndexChanged);
             // 
@@ -428,21 +443,28 @@
             this.tabReu.Location = new System.Drawing.Point(4, 22);
             this.tabReu.Name = "tabReu";
             this.tabReu.Padding = new System.Windows.Forms.Padding(3);
-            this.tabReu.Size = new System.Drawing.Size(521, 466);
+            this.tabReu.Size = new System.Drawing.Size(521, 482);
             this.tabReu.TabIndex = 3;
             this.tabReu.Text = "Réunion";
             this.tabReu.UseVisualStyleBackColor = true;
             // 
-            // btnVerr
+            // lstOffreId
             // 
-            this.btnVerr.Enabled = false;
-            this.btnVerr.Location = new System.Drawing.Point(260, 422);
-            this.btnVerr.Name = "btnVerr";
-            this.btnVerr.Size = new System.Drawing.Size(242, 23);
-            this.btnVerr.TabIndex = 108;
-            this.btnVerr.Text = "Verrouiller les critères";
-            this.btnVerr.UseVisualStyleBackColor = true;
-            this.btnVerr.Click += new System.EventHandler(this.btnVerr_Click);
+            this.lstOffreId.FormattingEnabled = true;
+            this.lstOffreId.Location = new System.Drawing.Point(508, 90);
+            this.lstOffreId.Name = "lstOffreId";
+            this.lstOffreId.Size = new System.Drawing.Size(12, 121);
+            this.lstOffreId.TabIndex = 109;
+            this.lstOffreId.Visible = false;
+            // 
+            // lstOffreNoterId
+            // 
+            this.lstOffreNoterId.FormattingEnabled = true;
+            this.lstOffreNoterId.Location = new System.Drawing.Point(261, 462);
+            this.lstOffreNoterId.Name = "lstOffreNoterId";
+            this.lstOffreNoterId.Size = new System.Drawing.Size(96, 17);
+            this.lstOffreNoterId.TabIndex = 108;
+            this.lstOffreNoterId.Visible = false;
             // 
             // Form1
             // 
@@ -509,6 +531,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn columnCrit;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnNote;
         private System.Windows.Forms.Button btnVerr;
+        private System.Windows.Forms.ListBox lstOffreId;
+        private System.Windows.Forms.ListBox lstOffreNoterId;
     }
 }
 

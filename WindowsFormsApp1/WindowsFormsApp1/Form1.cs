@@ -42,6 +42,7 @@ namespace WindowsFormsApp1
                 foreach (Offre o in DAOOffre.GetOffre(conn))
                 {
                     lstOffre.Items.Add(o.Intitule);
+                    lstOffreId.Items.Add(o.Id);
                 }
             }
             else
@@ -49,9 +50,10 @@ namespace WindowsFormsApp1
                 tabCtrl.TabPages.Clear();
                 tabCtrl.TabPages.Add(tabNot);
                 //Generation de la liste des offres
-                foreach (Offre o in DAOOffre.GetOffre(conn))
+                foreach (Offre o in DAOOffre.GetOffreWhereDateVerr(conn))
                 {
                     lstOffreNoter.Items.Add(o.Intitule);
+                    lstOffreNoterId.Items.Add(o.Id);
                 }
 
                 lstCandid.Enabled = false;
@@ -64,16 +66,27 @@ namespace WindowsFormsApp1
         //Event sur la liste d'offre lors d'un changement de selection d'index
         private void lstOffre_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnVerr.Enabled = true;
-            dataGridViewCrit.Enabled = true;
-            btnReu.Enabled = true;
-            gpBoxAdd.Enabled = false;
-            gpBoxDateLimite.Enabled = false;
+            if (DAOOffre.GetVerrouilleById(conn, int.Parse(lstOffreId.Items[lstOffre.SelectedIndex].ToString())) == false)
+            {
+                btnVerr.Enabled = true;
+                dataGridViewCrit.Enabled = true;
+                btnReu.Enabled = false;
+                gpBoxAdd.Enabled = true;
+                gpBoxDateLimite.Enabled = true;
+            }
+            else
+            {
+                btnVerr.Enabled = false;
+                dataGridViewCrit.Enabled = false;
+                btnReu.Enabled = true;
+                gpBoxAdd.Enabled = false;
+                gpBoxDateLimite.Enabled = false;
+            }
             //Reinitialise la liste des criteres
             dataGridViewCrit.Rows.Clear();
             //Ajout des criteres de l'offre dans la liste de critère
             Boolean first = true;
-            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
+            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, int.Parse(lstOffreId.Items[lstOffre.SelectedIndex].ToString())))
             {
                 if (first == true)
                 {
@@ -86,21 +99,26 @@ namespace WindowsFormsApp1
                     dataGridViewCrit.Rows.Add(o.Key.Libelle, o.Value);
                 }
             }
-            //Afficher la date limite
-            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
-            
+            //Afficher la date limite            
+            dateTimePicker.Value = DAOOffre.GetOffreById(conn, int.Parse(lstOffreId.Items[lstOffre.SelectedIndex].ToString())).DateLimite;
+
+            comboBoxCritAdd.Items.Clear();
+            foreach (Critere c in DAOCritere.GetCritere(conn))
+            {
+                comboBoxCritAdd.Items.Add(c.Libelle);
+            }
         }
 
 
         private void btnAddCrit_Click(object sender, EventArgs e)
         {
-            DAOCritere.AddCrit(conn, comboBoxCritAdd.Text, double.Parse(txtBoxCritCoefAdd.Text), lstOffre.SelectedIndex+1);
+            DAOCritere.AddCrit(conn, comboBoxCritAdd.Text, double.Parse(txtBoxCritCoefAdd.Text), int.Parse(lstOffreId.Items[lstOffre.SelectedIndex].ToString()));
 
             //Reinitialise la liste des criteres
             dataGridViewCrit.Rows.Clear();
             //Ajout des criteres de l'offre dans la liste de critère
             Boolean first = true;
-            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, lstOffre.SelectedIndex + 1))
+            foreach (KeyValuePair<Critere, double> o in DAOCritere.GetCritereCoefByOffre(conn, int.Parse(lstOffreId.Items[lstOffre.SelectedIndex].ToString())))
             {
                 if (first == true)
                 {
@@ -115,16 +133,7 @@ namespace WindowsFormsApp1
             }
 
             //Afficher la date
-            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;            
-        }
-
-        private void AddCrit_Click(object sender, EventArgs e)
-        {
-            comboBoxCritAdd.Items.Clear();
-            foreach (Critere c in DAOCritere.GetCritere(this.conn))
-            {
-                comboBoxCritAdd.Items.Add(c.Libelle);
-            }
+            dateTimePicker.Value = DAOOffre.GetOffreById(conn, int.Parse(lstOffreId.Items[lstOffre.SelectedIndex].ToString())).DateLimite;            
         }
 
         //Deconnexion de la bdd lors de la fermeture du form
@@ -135,8 +144,8 @@ namespace WindowsFormsApp1
 
         private void btnDateLimite_Click(object sender, EventArgs e)
         {
-            DAOOffre.SetDateLimite(conn, lstOffre.SelectedIndex+1, dateTimePicker.Value);
-            dateTimePicker.Value = DAOOffre.GetOffreById(conn, lstOffre.SelectedIndex + 1).DateLimite;
+            DAOOffre.SetDateLimite(conn, int.Parse(lstOffreId.Items[lstOffre.SelectedIndex].ToString()), dateTimePicker.Value);
+            dateTimePicker.Value = DAOOffre.GetOffreById(conn, int.Parse(lstOffreId.Items[lstOffre.SelectedIndex].ToString())).DateLimite;
         }
 
         private void lstCandid_SelectedIndexChanged(object sender, EventArgs e)
@@ -173,11 +182,11 @@ namespace WindowsFormsApp1
             }
 
             //On créer une evaluation si elle existe pas dans la bdd
-            DAOEvaluation.CreerEvaluation(conn, lstOffreNoter.SelectedIndex + 1, nom_candidat, prenom_candidat, rhNom, rhPrenom);
+            DAOEvaluation.CreerEvaluation(conn, int.Parse(lstOffreNoterId.Items[lstOffreNoter.SelectedIndex].ToString()), nom_candidat, prenom_candidat, rhNom, rhPrenom);
 
             //On affiche dans le datagridview les criteres et les notes déjà noté par le RH
             Boolean first = true;            
-            foreach(KeyValuePair<Critere,int> c in DAOCritere.GetCritereNoteByOffreNomPrenomRHNomPrenomCandid(conn,lstOffreNoter.SelectedIndex+1, rhNom, rhPrenom, prenom_candidat, nom_candidat))
+            foreach(KeyValuePair<Critere,int> c in DAOCritere.GetCritereNoteByOffreNomPrenomRHNomPrenomCandid(conn, int.Parse(lstOffreNoterId.Items[lstOffreNoter.SelectedIndex].ToString()), rhNom, rhPrenom, prenom_candidat, nom_candidat))
             {
                 if (first == true)
                 {
@@ -192,7 +201,7 @@ namespace WindowsFormsApp1
             }
 
             //On affiche dans le datagridview les criteres qui ne sont pas noté par le RH
-            foreach(Critere c in DAOCritere.GetCritereByOffreNomPrenomRH(conn, lstOffreNoter.SelectedIndex+1))
+            foreach(Critere c in DAOCritere.GetCritereByOffreNomPrenomRH(conn, int.Parse(lstOffreNoterId.Items[lstOffreNoter.SelectedIndex].ToString())))
             {
                 verif = false;
                 if(first == false)
@@ -221,7 +230,7 @@ namespace WindowsFormsApp1
             }
 
             //On affiche le commentaire et le bonus malus donnée par le RH sur cette candidature
-            Evaluation evalu = DAOEvaluation.GetEvalByOffreNomPrenomCandidNomPrenomRH(conn, lstOffreNoter.SelectedIndex + 1, nom_candidat, prenom_candidat, rhNom, rhPrenom);
+            Evaluation evalu = DAOEvaluation.GetEvalByOffreNomPrenomCandidNomPrenomRH(conn, int.Parse(lstOffreNoterId.Items[lstOffreNoter.SelectedIndex].ToString()), nom_candidat, prenom_candidat, rhNom, rhPrenom);
             numUpDownBonusMalus.Value = evalu.Bonus_malus;
             richTextBoxCom.Text = evalu.Commentaire;
         }       
@@ -252,7 +261,7 @@ namespace WindowsFormsApp1
                 }
                 lstCandid.Text.ElementAt(i);
             }
-            DAOEvaluation.SetBonusMalusComs(conn, lstOffreNoter.SelectedIndex + 1, nom_candidat, prenom_candidat, rhNom, rhPrenom,int.Parse(numUpDownBonusMalus.Value.ToString()),richTextBoxCom.Text);
+            DAOEvaluation.SetBonusMalusComs(conn, int.Parse(lstOffreNoterId.Items[lstOffreNoter.SelectedIndex].ToString()), nom_candidat, prenom_candidat, rhNom, rhPrenom,int.Parse(numUpDownBonusMalus.Value.ToString()),richTextBoxCom.Text);
         }
 
         private void btnPDF_Click(object sender, EventArgs e)
@@ -286,7 +295,7 @@ namespace WindowsFormsApp1
                 }
                 lstCandid.Text.ElementAt(i);
             }
-            DAOCritEval.SetNote(conn, lstOffreNoter.SelectedIndex + 1, nom_candidat, prenom_candidat, int.Parse(dataGridViewCritNote.Rows[dataGridViewCritNote.CurrentRow.Index].Cells[1].Value.ToString()), rhNom, rhPrenom, dataGridViewCritNote.Rows[dataGridViewCritNote.CurrentRow.Index].Cells[0].Value.ToString());
+            DAOCritEval.SetNote(conn, int.Parse(lstOffreNoterId.Items[lstOffreNoter.SelectedIndex].ToString()), nom_candidat, prenom_candidat, int.Parse(dataGridViewCritNote.Rows[dataGridViewCritNote.CurrentRow.Index].Cells[1].Value.ToString()), rhNom, rhPrenom, dataGridViewCritNote.Rows[dataGridViewCritNote.CurrentRow.Index].Cells[0].Value.ToString());
         }
 
         private void dataGridViewCrit_UserAddedRow(object sender, DataGridViewRowEventArgs e)
@@ -296,7 +305,7 @@ namespace WindowsFormsApp1
 
         private void dataGridViewCrit_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            DAOCritere.DelCrit(conn, dataGridViewCrit.Rows[e.Row.Index].Cells[0].Value.ToString(), lstOffre.SelectedIndex + 1);
+            DAOCritere.DelCrit(conn, dataGridViewCrit.Rows[e.Row.Index].Cells[0].Value.ToString(), int.Parse(lstOffreId.Items[lstOffre.SelectedIndex].ToString()));
         }
 
         private void btnReu_Click(object sender, EventArgs e)
@@ -305,7 +314,7 @@ namespace WindowsFormsApp1
             dataGridViewReu.Rows.Clear();
 
             dataGridViewReu.Visible = true;
-            int uneOffre = lstOffre.SelectedIndex + 1;
+            int uneOffre = int.Parse(lstOffreId.Items[lstOffre.SelectedIndex].ToString());
             using (NpgsqlCommand cmd = new NpgsqlCommand("CREATE OR REPLACE VIEW v1 AS SELECT CANDIDATURE.nom_candidature AS candid_nom, CANDIDATURE.prenom_candidature AS candid_prenom, EVALUATION.nom_rh_evaluation AS rh_nom, EVALUATION.prenom_rh_evaluation AS rh_prenom, SUM(NOTER.note * ASSOCIER.coef) + EVALUATION.bonus_malus_evaluation AS note_total FROM CANDIDATURE INNER JOIN EVALUATION ON EVALUATION.id_candidature = CANDIDATURE.id_candidature INNER JOIN NOTER ON NOTER.id_evaluation = EVALUATION.id_evaluation INNER JOIN CRITERE ON CRITERE.id_critere = NOTER.id_critere INNER JOIN ASSOCIER ON ASSOCIER.id_critere = NOTER.id_critere WHERE CANDIDATURE.id_offre_emplois = " + uneOffre + " GROUP BY CANDIDATURE.nom_candidature, CANDIDATURE.prenom_candidature, EVALUATION.nom_rh_evaluation, EVALUATION.prenom_rh_evaluation,EVALUATION.bonus_malus_evaluation;", conn))
             {
                 cmd.ExecuteNonQuery();
@@ -381,7 +390,7 @@ namespace WindowsFormsApp1
             lstCandid.Items.Clear();
 
             //Remplit les candidats de l'offre selectionné
-            foreach (Candidature c in DAOCandidature.GetCandidatureByOffre(conn, lstOffreNoter.SelectedIndex + 1))
+            foreach (Candidature c in DAOCandidature.GetCandidatureByOffre(conn, int.Parse(lstOffreNoterId.Items[lstOffreNoter.SelectedIndex].ToString())))
             {
                 lstCandid.Items.Add(c.Nom + " | " + c.Prenom);
             }
@@ -390,7 +399,7 @@ namespace WindowsFormsApp1
         private void btnVerr_Click(object sender, EventArgs e)
         {
             //Verrouille l'offre selectionné
-            DAOOffre.VerrouillerOffre(conn, lstOffre.SelectedIndex + 1);
+            DAOOffre.VerrouillerOffre(conn, int.Parse(lstOffreId.Items[lstOffre.SelectedIndex].ToString()));
         }
     }
 }

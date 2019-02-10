@@ -29,6 +29,22 @@ namespace WindowsFormsApp1
             return resul;
         }
 
+        public static List<Offre> GetOffreWhereDateVerr(NpgsqlConnection conn)
+        {
+            List<Offre> resul = new List<Offre>();
+
+            using (var cmd = new NpgsqlCommand("SELECT OFFRE_EMPLOIS.id_offre_emplois, OFFRE_EMPLOIS.intitule_offre_emplois, OFFRE_EMPLOIS.lieux_offre_emplois,OFFRE_EMPLOIS.salaire_offre_emplois, OFFRE_EMPLOIS.date_limite_offre_emplois FROM OFFRE_EMPLOIS WHERE verrouiller_offre_emplois = true AND date_limite_offre_emplois >= NOW() ORDER BY  OFFRE_EMPLOIS.id_offre_emplois;", conn))
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Offre o = new Offre(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetDouble(3), reader.GetDateTime(4));
+                    resul.Add(o);
+                }
+            }
+            return resul;
+        }
+
         public static Offre GetOffreById(NpgsqlConnection conn, int id_offre)
         {
             Offre resul = null;
@@ -58,6 +74,21 @@ namespace WindowsFormsApp1
             {
                 cmd.ExecuteNonQuery();
             }
+        }
+
+        public static Boolean GetVerrouilleById(NpgsqlConnection conn, int id_offre)
+        {
+            Boolean resul = false;
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT verrouiller_offre_emplois FROM OFFRE_EMPLOIS WHERE OFFRE_EMPLOIS.id_offre_emplois = " + id_offre + " ;", conn))
+            using (NpgsqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    resul = reader.GetBoolean(0);
+                }
+            }
+            return resul;
         }
     }
 }
