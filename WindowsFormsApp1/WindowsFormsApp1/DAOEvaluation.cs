@@ -35,5 +35,13 @@ namespace WindowsFormsApp1
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public static void CreerEvaluation(NpgsqlConnection conn, int offre, string nom_candid, string prenom_candid, string nom_rh, string prenom_rh)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT creer_eval(" + offre + ",'" + nom_candid + "','" + prenom_candid + "','" + nom_rh + "','" + prenom_rh + "');", conn))
+            {
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

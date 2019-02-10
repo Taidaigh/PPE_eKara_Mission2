@@ -17,7 +17,7 @@ namespace WindowsFormsApp1
         NpgsqlConnection conn;
 
         //Gestion des DRH
-        Boolean drh = false;
+        Boolean drh = true;
         string rhNom = "De Lemos Almeida";
         string rhPrenom = "Pierre";
 
@@ -43,7 +43,6 @@ namespace WindowsFormsApp1
                 {
                     lstOffre.Items.Add(o.Intitule);
                 }
-
             }
             else
             {
@@ -65,7 +64,11 @@ namespace WindowsFormsApp1
         //Event sur la liste d'offre lors d'un changement de selection d'index
         private void lstOffre_SelectedIndexChanged(object sender, EventArgs e)
         {
+            btnVerr.Enabled = true;
+            dataGridViewCrit.Enabled = true;
             btnReu.Enabled = true;
+            gpBoxAdd.Enabled = false;
+            gpBoxDateLimite.Enabled = false;
             //Reinitialise la liste des criteres
             dataGridViewCrit.Rows.Clear();
             //Ajout des criteres de l'offre dans la liste de critère
@@ -142,6 +145,8 @@ namespace WindowsFormsApp1
             gpBoxEval.Enabled = true;
 
             dataGridViewCritNote.Rows.Clear();
+
+            //On recupere le nom et le prenom du candidat
             string nom_candidat = "";
             string prenom_candidat = "";
             Boolean verif = false;
@@ -167,7 +172,11 @@ namespace WindowsFormsApp1
                 lstCandid.Text.ElementAt(i);
             }
 
-            Boolean first = true;
+            //On créer une evaluation si elle existe pas dans la bdd
+            DAOEvaluation.CreerEvaluation(conn, lstOffreNoter.SelectedIndex + 1, nom_candidat, prenom_candidat, rhNom, rhPrenom);
+
+            //On affiche dans le datagridview les criteres et les notes déjà noté par le RH
+            Boolean first = true;            
             foreach(KeyValuePair<Critere,int> c in DAOCritere.GetCritereNoteByOffreNomPrenomRHNomPrenomCandid(conn,lstOffreNoter.SelectedIndex+1, rhNom, rhPrenom, prenom_candidat, nom_candidat))
             {
                 if (first == true)
@@ -182,6 +191,36 @@ namespace WindowsFormsApp1
                 }
             }
 
+            //On affiche dans le datagridview les criteres qui ne sont pas noté par le RH
+            foreach(Critere c in DAOCritere.GetCritereByOffreNomPrenomRH(conn, lstOffreNoter.SelectedIndex+1))
+            {
+                verif = false;
+                if(first == false)
+                {
+                    for (int i = 0; i < dataGridViewCritNote.Rows.Count; i++)
+                    {
+                        if (dataGridViewCritNote.Rows[i].Cells[0].Value.ToString() == c.Libelle)
+                        {
+                            verif = true;
+                        }
+                    }
+                }
+                if(verif==false)
+                {
+                    if(first == true)
+                    {
+                        first = false;
+                        dataGridViewCritNote.Rows[0].Cells[0].Value = c.Libelle;
+                        dataGridViewCritNote.Rows[0].Cells[1].Value = "";
+                    }
+                    else
+                    {
+                        dataGridViewCritNote.Rows.Add(c.Libelle,"");
+                    }
+                }
+            }
+
+            //On affiche le commentaire et le bonus malus donnée par le RH sur cette candidature
             Evaluation evalu = DAOEvaluation.GetEvalByOffreNomPrenomCandidNomPrenomRH(conn, lstOffreNoter.SelectedIndex + 1, nom_candidat, prenom_candidat, rhNom, rhPrenom);
             numUpDownBonusMalus.Value = evalu.Bonus_malus;
             richTextBoxCom.Text = evalu.Commentaire;
@@ -213,8 +252,7 @@ namespace WindowsFormsApp1
                 }
                 lstCandid.Text.ElementAt(i);
             }
-            DAOEvaluation.SetBonusMalusComs(conn, lstOffre.SelectedIndex + 1, nom_candidat, prenom_candidat,rhNom, rhPrenom,int.Parse(numUpDownBonusMalus.Value.ToString()),richTextBoxCom.Text);
-            lstCandid_SelectedIndexChanged(sender,e);
+            DAOEvaluation.SetBonusMalusComs(conn, lstOffreNoter.SelectedIndex + 1, nom_candidat, prenom_candidat, rhNom, rhPrenom,int.Parse(numUpDownBonusMalus.Value.ToString()),richTextBoxCom.Text);
         }
 
         private void btnPDF_Click(object sender, EventArgs e)
@@ -347,6 +385,12 @@ namespace WindowsFormsApp1
             {
                 lstCandid.Items.Add(c.Nom + " | " + c.Prenom);
             }
+        }
+
+        private void btnVerr_Click(object sender, EventArgs e)
+        {
+            //Verrouille l'offre selectionné
+            DAOOffre.VerrouillerOffre(conn, lstOffre.SelectedIndex + 1);
         }
     }
 }

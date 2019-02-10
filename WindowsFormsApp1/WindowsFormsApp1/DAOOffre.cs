@@ -52,6 +52,12 @@ namespace WindowsFormsApp1
             }
         }
 
-
+        public static void VerrouillerOffre(NpgsqlConnection conn, int id_offre)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand("", conn))
+            {
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }
