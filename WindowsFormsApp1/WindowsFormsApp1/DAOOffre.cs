@@ -54,7 +54,7 @@ namespace WindowsFormsApp1
 
         public static void VerrouillerOffre(NpgsqlConnection conn, int id_offre)
         {
-            using (NpgsqlCommand cmd = new NpgsqlCommand("", conn))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE OFFRE_EMPLOIS SET verrouiller_offre_emplois = true WHERE id_offre_emplois = " + id_offre + ";", conn))
             {
                 cmd.ExecuteNonQuery();
             }
