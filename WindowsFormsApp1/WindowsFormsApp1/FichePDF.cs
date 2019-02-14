@@ -14,8 +14,9 @@ namespace WindowsFormsApp1
     {
         private static string nomFichierPDF = "Y:/fiche_individuelle.pdf";
         
-        public static void fiche()
+        public static void fiche(int idCandidat)
         {
+            idCandidat = 1;
             NpgsqlConnection conn;
             conn = Connexion.Connect();
             iTextSharp.text.Document doc = new iTextSharp.text.Document(PageSize.A4);
@@ -36,7 +37,7 @@ namespace WindowsFormsApp1
             cb.SetTextMatrix(100, 630);
             cb.ShowText("Poste");
             string poste;
-            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT intitule_offre_emplois FROM offre_emplois WHERE id_offre_emplois = 1;", conn))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT intitule_offre_emplois FROM offre_emplois o INNER JOIN candidature c ON o.id_offre_emplois = c.id_offre_emplois WHERE id_candidature = "+ idCandidat +";", conn))
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
@@ -51,7 +52,7 @@ namespace WindowsFormsApp1
             cb.SetTextMatrix(100, 530);
             cb.ShowText("Nom :");
             string nom;
-            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT nom_candidature FROM candidature WHERE id_candidature = 1;", conn))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT nom_candidature FROM candidature WHERE id_candidature = "+ idCandidat +";", conn))
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
@@ -64,7 +65,7 @@ namespace WindowsFormsApp1
             cb.SetTextMatrix(300, 530);
             cb.ShowText("Prénom :");
             string prenom;
-            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT prenom_candidature FROM candidature WHERE id_candidature = 1;", conn))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT prenom_candidature FROM candidature WHERE id_candidature = "+ idCandidat +";", conn))
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
@@ -76,7 +77,6 @@ namespace WindowsFormsApp1
             }
             cb.SetTextMatrix(100, 430);
             cb.ShowText("Évaluations");
-
             PdfPTable table = new PdfPTable(3);
             PdfPCell cell = new PdfPCell();
             cell.Colspan = 3;
@@ -84,7 +84,7 @@ namespace WindowsFormsApp1
             table.AddCell("Évaluateur");
             table.AddCell("Note globale");
             table.AddCell("Commentaire");
-            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT prenom_rh_evaluation, note, commentaire_evaluation FROM evaluation e INNER JOIN noter n ON n.id_evaluation = e.id_evaluation WHERE e.id_evaluation=1;", conn))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT prenom_rh_evaluation, note, commentaire_evaluation FROM evaluation e INNER JOIN noter n ON n.id_evaluation = e.id_evaluation;", conn))
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
@@ -94,7 +94,6 @@ namespace WindowsFormsApp1
                     table.AddCell(reader[2].ToString());
                 }
             }
-
             doc.Add(table);
             cb.EndText();
 
