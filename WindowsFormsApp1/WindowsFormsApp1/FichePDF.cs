@@ -84,13 +84,14 @@ namespace WindowsFormsApp1
             table.AddCell("Évaluateur");
             table.AddCell("Note globale");
             table.AddCell("Commentaire");
-            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT prenom_rh_evaluation, commentaire_evaluation  FROM evaluation;", conn))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT prenom_rh_evaluation, note, commentaire_evaluation FROM evaluation e INNER JOIN noter n ON n.id_evaluation = e.id_evaluation WHERE e.id_evaluation=1;", conn))
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
                 {
                     table.AddCell(reader[0].ToString());
                     table.AddCell(reader[1].ToString());
+                    table.AddCell(reader[2].ToString());
                 }
             }
 
