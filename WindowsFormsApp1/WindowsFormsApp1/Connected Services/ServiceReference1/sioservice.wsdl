@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:typens="urn:sioservice" xmlns="http://schemas.xmlsoap.org/wsdl/" name="sioservice" targetNamespace="urn:sioservice" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:sioservice" />
+  </wsdl:types>
+  <wsdl:message name="connectRequest">
+    <wsdl:part name="login" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="connectResponse">
+    <wsdl:part name="status" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="exportOffreRequest">
+    <wsdl:part name="id" type="xsd:integer" />
+  </wsdl:message>
+  <wsdl:message name="exportOffreResponse">
+    <wsdl:part name="xml" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="exportCandidRequest">
+    <wsdl:part name="id" type="xsd:integer" />
+  </wsdl:message>
+  <wsdl:message name="exportCandidResponse">
+    <wsdl:part name="xml" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:portType name="sioservicePort">
+    <wsdl:operation name="connect">
+      <wsdl:input message="typens:connectRequest" />
+      <wsdl:output message="typens:connectResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="exportOffre">
+      <wsdl:input message="typens:exportOffreRequest" />
+      <wsdl:output message="typens:exportOffreResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="exportCandid">
+      <wsdl:input message="typens:exportCandidRequest" />
+      <wsdl:output message="typens:exportCandidResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="sioserviceBinding" type="typens:sioservicePort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="connect">
+      <soap:operation soapAction="connectAction" />
+      <wsdl:input name="connectRequest">
+        <soap:body use="encoded" namespace="urn:sioservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="connectResponse">
+        <soap:body use="encoded" namespace="urn:sioservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="exportOffre">
+      <soap:operation soapAction="exportOffreAction" />
+      <wsdl:input name="exportOffreRequest">
+        <soap:body use="encoded" namespace="urn:Easyservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="exportOffreResponse">
+        <soap:body use="encoded" namespace="urn:Easyservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="exportCandid">
+      <soap:operation soapAction="exportCandidAction" />
+      <wsdl:input name="exportCandidRequest">
+        <soap:body use="encoded" namespace="urn:Easyservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="exportCandidResponse">
+        <soap:body use="encoded" namespace="urn:Easyservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="sioserviceSvc">
+    <documentation>Test Cours SLAM3</documentation>
+    <wsdl:port name="sioservicePort" binding="typens:sioserviceBinding">
+      <soap:address location="http://localhost/soap/sioservice.php" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

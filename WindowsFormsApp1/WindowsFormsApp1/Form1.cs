@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
+using WindowsFormsApp1.ServiceReference1;
+using System.Xml;
 
 namespace WindowsFormsApp1
 {
@@ -31,6 +33,55 @@ namespace WindowsFormsApp1
 
             //Connexion bdd
             conn = Connexion.Connect();
+
+
+            //Synchroniser
+            sioservicePortClient webClient = new sioservicePortClient();
+            int resul = 0;
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT id_offre_emplois FROM OFFRE_EMPLOIS", conn))
+            using (NpgsqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    resul = reader.GetInt32(0);
+                }
+            }
+
+            string xmlOffre = webClient.exportOffre(resul.ToString());
+            XmlDocument doc1 = new XmlDocument();
+            doc1.LoadXml(xmlOffre);
+
+            XmlNodeList elemID = doc1.GetElementsByTagName("id");
+            XmlNodeList elemIntitule = doc1.GetElementsByTagName("intitule");
+            XmlNodeList elemLieux = doc1.GetElementsByTagName("lieux");
+            XmlNodeList elemSalaire = doc1.GetElementsByTagName("salaire");
+
+            for (int i = 0; i < elemID.Count; i++)
+            {
+                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO OFFRE_EMPLOIS(id_offre_emplois,intitule_offre_emplois,lieux_offre_emplois,salaire_offre_emplois,date_limite_offre_emplois,verrouiller_offre_emplois) VALUES(" + elemID[i].InnerXml + ",'" + elemIntitule[i].InnerXml + "','" + elemLieux[i].InnerXml + "'," + elemSalaire[i].InnerXml + ", NOW(), false);", conn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+
+            string xmlCandid = webClient.exportCandid(resul.ToString());
+            XmlDocument doc2 = new XmlDocument();
+            doc1.LoadXml(xmlCandid);
+
+            XmlNodeList elemIdCandid = doc2.GetElementsByTagName("id_candid");
+            XmlNodeList elemNom = doc2.GetElementsByTagName("nom");
+            XmlNodeList elemPrenom = doc2.GetElementsByTagName("prenom");
+            XmlNodeList elemId_emplois = doc2.GetElementsByTagName("id_emplois");
+
+            for (int i = 0; i < elemID.Count; i++)
+            {
+                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO CANDIDATURE(id_candidature, nom_candidature, prenom_candidature, date_candidature, statut_candidature, id_offre_emplois) VALUES(" + elemId_emplois[i].InnerXml + ", '" + elemNom[i].InnerXml + "', '" + elemPrenom[i].InnerXml + "', NOW(), 'attente', " + elemId_emplois[i].InnerXml + ");", conn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
 
             //Gere les differents modes des onglets
             if (this.drh == true)
